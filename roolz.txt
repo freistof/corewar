@@ -1,7 +1,7 @@
 RULES BEFORE MERGING INTO MASTER
 
 - Norminetted
-- Valgrinded
+- Valground
 - Clear function names
 - Clear variable names
 - File names are clear and functions in file should make sense with the file name
