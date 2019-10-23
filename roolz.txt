@@ -1,0 +1,10 @@
+RULES BEFORE MERGING INTO MASTER
+
+- Norminetted
+- Valgrinded
+- Clear function names
+- Clear variable names
+- File names are clear and functions in file should make sense with the file name
+- Comment every function
+- Put real utilities in libft
+- Review by two people before merging
