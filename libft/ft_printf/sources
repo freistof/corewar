@@ -1,0 +1,11 @@
+SRC = ft_printf.c \
+ft_strnjoin.c \
+ft_itoa_base.c \
+ft_utoa_base.c \
+conversionist.c \
+ft_make_conversion.c \
+csp_conversion.c \
+di_conversion.c \
+oux_conversion.c \
+precision_padding.c \
+ft_f_conversion.c
