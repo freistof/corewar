@@ -15,8 +15,9 @@
 int			main(int argc, char **argv)
 {
 	char	*file_content;
+	t_list	*list;
 
 	file_content = input(argc, argv);
-	save_data(file_content);
+	list = save_data(file_content);
 	return (0);
 }

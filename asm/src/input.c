@@ -57,6 +57,5 @@ char			*input(int argc, char **argv)
 
 	fd = input_file_validation(argc, argv);
 	file_content = read_file(fd);
-	ft_printf("%s\n", file_content);
 	return (file_content);
 }

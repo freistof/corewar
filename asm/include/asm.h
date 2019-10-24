@@ -67,4 +67,6 @@ char	*input(int argc, char **argv);
 ** SAVING THE DATA
 */
 
+t_list *save_data(char *file_content);
+
 #endif
