@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-void		input_file_validation(int argc, char **argv)
+int		input_file_validation(int argc, char **argv)
 {
 	int		fd;
 
@@ -27,4 +27,5 @@ void		input_file_validation(int argc, char **argv)
 		ft_printf("%s %s\n", FILE_ERROR, argv[argc - 1]);
 		exit(1);
 	}
+	return (fd);
 }

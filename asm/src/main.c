@@ -14,6 +14,6 @@
 
 int			main(int argc, char **argv)
 {
-	input_file_validation(argc, argv);
+	input(argc, argv);
 	return (0);
 }

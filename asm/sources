@@ -1,5 +1,4 @@
 SRCS = \
 main.c \
 input.c \
-input_validation.c \
-input_errors.c
+input_validation.c

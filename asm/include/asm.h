@@ -29,6 +29,7 @@
 ** INPUT
 */
 
-void		input_file_validation(int argc, char **argv);
+void	input(int argc, char **argv);
+int		input_file_validation(int argc, char **argv);
 
 #endif
