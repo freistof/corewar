@@ -6,7 +6,7 @@
 #    By: fblom <marvin@codam.nl>                      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/23 18:22:03 by fblom         #+#    #+#                  #
-#    Updated: 2019/10/23 18:22:04 by fblom         ########   odam.nl          #
+#    Updated: 2019/10/24 13:51:34 by lvan-vlo      ########   odam.nl          #
 #                                                                              #
 #******************************************************************************#
 
@@ -22,7 +22,7 @@ ERRFLAGS = -Wall -Wextra -Werror
 CC = gcc
 LIBPATH = ../libft/
 PRINTFPATH = $(LIBPATH)ft_printf/
-LIBS =  $(LIBPATH)libft.a $(LIBPATH)$(PRINTPATH)libftprintf.a
+LIBS =  $(LIBPATH)libft.a $(PRINTFPATH)libftprintf.a
 COLOR = \033[1;34m
 OFF = \033[0m
 
