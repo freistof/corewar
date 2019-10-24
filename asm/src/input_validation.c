@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   asm.h                                              :+:    :+:            */
+/*   input_validation.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/10/23 18:27:21 by fblom         #+#    #+#                 */
-/*   Updated: 2019/10/23 18:27:21 by fblom         ########   odam.nl         */
+/*   Created: 2019/10/24 09:59:27 by fblom         #+#    #+#                 */
+/*   Updated: 2019/10/24 09:59:27 by fblom         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ASM_H
-# define ASM_H
+#include "asm.h"
 
-# include "libft.h"
-# include "ft_printf/ft_printf.h"
+int		input_file_validation(int argc, char **argv)
+{
+	int		fd;
 
-# include <fcntl.h>
-
-/*
-** USAGE AND ERRORS
-*/
-
-# define USAGE "Usage: ./asm <sourcefile.s>"
-# define FILE_ERROR "Can't read source file"
-
-/*
-** INPUT
-*/
-
-void	input(int argc, char **argv);
-int		input_file_validation(int argc, char **argv);
-
-#endif
+	if (argc == 1)
+	{
+		ft_printf("%s\n", USAGE);
+		exit(1);
+	}
+	fd = open(argv[argc - 1], O_RDONLY);
+	if (fd == -1)
+	{
+		ft_printf("%s %s\n", FILE_ERROR, argv[argc - 1]);
+		exit(1);
+	}
+	return (fd);
+}
