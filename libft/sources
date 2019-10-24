@@ -12,4 +12,5 @@ SRCS = ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c \
 		ft_itoa.c ft_strndup.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c \
 		ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_reversestring.c \
 		ft_substringcount.c ft_substringsize.c ft_getdigits.c ft_memrcpy.c \
-		get_next_line.c ft_strchrint.c ft_putnbr_sign.c ft_isspace.c
+		get_next_line.c ft_strchrint.c ft_putnbr_sign.c ft_isspace.c \
+		ft_lstappend.c
