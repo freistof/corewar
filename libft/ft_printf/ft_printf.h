@@ -40,7 +40,7 @@ typedef struct	s_printf
 	int			retnew;
 }				t_printf;
 
-int				ft_printf(const char *restrict format, ...);
+int				ft_printf(const char *format, ...);
 t_printf		*init_conv(void);
 int				ft_add_result(char c, t_printf *conv, int p);
 int				clean_result(t_printf *conv);
