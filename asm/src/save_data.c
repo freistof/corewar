@@ -16,9 +16,9 @@
 **
 */
 
-t_list *save_opcodes(t_list **list, char **file_content)
+void	save_opcodes(t_list **list, char **file_content)
 {
-	return (*list);
+	;
 }
 
 /*
@@ -26,9 +26,9 @@ t_list *save_opcodes(t_list **list, char **file_content)
 ** moves pointer to end of name and comment
 */
 
-t_list *save_name_and_commment(t_list **list, char **file_content)
+void	save_name_and_commment(t_list **list, char **file_content)
 {
-	return (*list);
+	;
 }
 
 /*
@@ -44,8 +44,8 @@ t_list *save_data(char *file_content)
 
 	head = ft_lstnew(NULL, 0);
 	list = head;
-	list = save_name_and_commment(&list, &file_content);
-	list = save_opcodes(&list, &file_content);
+	save_name_and_commment(&list, &file_content);
+	save_opcodes(&list, &file_content);
 	ft_printf("%s\n", file_content);
 	return (list);
 }
