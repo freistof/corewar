@@ -15,8 +15,8 @@ include sources
 BINARY = asm
 HEADER = -I include/ -I ../libft/
 SRC_PATH = src/
-OBJ = $($(SRC_PATH)SRCS:%.c=%.o)
-SRCS :=${addprefix src/, $(SRCS)}
+OBJ = $(SRCS:%.c=%.o)
+SRCS :=${addprefix $(SRC_PATH), $(SRCS)}
 FLAGS = -o $(BINARY)
 ERRFLAGS = -Wall -Wextra -Werror
 CC = gcc
