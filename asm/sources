@@ -1,2 +1,4 @@
 SRCS = \
-main_asm.c
+main_asm.c \
+input_validation.c \
+input_errors.c
