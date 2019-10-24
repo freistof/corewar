@@ -12,7 +12,25 @@
 
 #include "asm.h"
 
-char	*read_file(int fd)
+static int		input_file_validation(int argc, char **argv)
+{
+	int		fd;
+
+	if (argc == 1)
+	{
+		ft_printf("%s\n", USAGE);
+		exit(1);
+	}
+	fd = open(argv[argc - 1], O_RDONLY);
+	if (fd == -1)
+	{
+		ft_printf("%s %s\n", FILE_ERROR, argv[argc - 1]);
+		exit(1);
+	}
+	return (fd);
+}
+
+static char		*read_file(int fd)
 {
 	int		ret;
 	char	buffer[BUFF_SIZE + 1];
@@ -32,7 +50,7 @@ char	*read_file(int fd)
 	return (file_content);
 }
 
-void	input(int argc, char **argv)
+char			*input(int argc, char **argv)
 {
 	int		fd;
 	char	*file_content;
@@ -40,4 +58,5 @@ void	input(int argc, char **argv)
 	fd = input_file_validation(argc, argv);
 	file_content = read_file(fd);
 	ft_printf("%s\n", file_content);
+	return (file_content);
 }

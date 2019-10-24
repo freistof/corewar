@@ -14,6 +14,9 @@
 
 int			main(int argc, char **argv)
 {
-	input(argc, argv);
+	char	*file_content;
+
+	file_content = input(argc, argv);
+	save_data(file_content);
 	return (0);
 }
