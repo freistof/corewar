@@ -6,7 +6,7 @@
 /*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:19:17 by fblom          #+#    #+#                */
-/*   Updated: 2019/10/24 16:22:16 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/10/25 14:15:05 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,6 @@
 */
 
 void	save_opcodes(t_list **list, char **file_content)
-{
-	;
-}
-
-/*
-** function saves name and comment in first two list items
-** moves pointer to end of name and comment
-*/
-
-void	save_name_and_commment(t_list **list, char **file_content)
 {
 	;
 }
@@ -49,5 +39,3 @@ t_list *save_data(char *file_content)
 	ft_printf("%s\n", file_content);
 	return (list);
 }
-
-//test

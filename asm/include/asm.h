@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/10/23 18:27:21 by fblom         #+#    #+#                 */
-/*   Updated: 2019/10/23 18:27:21 by fblom         ########   odam.nl         */
+/*   Created: 2019/10/23 18:27:21 by fblom          #+#    #+#                */
+/*   Updated: 2019/10/25 14:15:03 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@
 
 # define USAGE "Usage: ./asm <sourcefile.s>"
 # define FILE_ERROR "Can't read source file"
+# define SYNTAX_ERROR "Syntax error in .s file"
 
 /*
 ** INPUT
