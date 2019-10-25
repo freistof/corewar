@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   save_data.c                                        :+:    :+:            */
+/*   instruction_arguments.c                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/10/24 14:19:17 by fblom         #+#    #+#                 */
-/*   Updated: 2019/10/24 14:19:17 by fblom         ########   odam.nl         */
+/*   Created: 2019/10/25 15:34:37 by fblom         #+#    #+#                 */
+/*   Updated: 2019/10/25 15:34:37 by fblom         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-/*
-** main function that creates list of name, comment and all opcodes
-** all list items should be appended at the end of the list with ft_lstappend
-** returns list to main
-*/
-
-t_list *save_data(char *file_content)
+void	save_codage_octal(void)
 {
-	t_list *head;
-	t_list *list;
-	int i;
+	return ;
+}
 
-	i = 0;
-	head = ft_lstnew(NULL, 0);
-	list = head;
-	// save_name_and_commment(&list, &file_content);
-	save_instructions(&list, file_content, &i);
-	return (list);
+void	save_argument_types(void)
+{
+	return ;
+}
+
+void	save_label_or_value(void)
+{
+	return ;
+}
+
+void	save_argument_values(void)
+{
+	return ;
 }

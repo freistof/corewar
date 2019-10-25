@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   save_data.c                                        :+:    :+:            */
+/*   label_and_opcode.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/10/24 14:19:17 by fblom         #+#    #+#                 */
-/*   Updated: 2019/10/24 14:19:17 by fblom         ########   odam.nl         */
+/*   Created: 2019/10/25 15:41:23 by fblom         #+#    #+#                 */
+/*   Updated: 2019/10/25 15:41:23 by fblom         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-/*
-** main function that creates list of name, comment and all opcodes
-** all list items should be appended at the end of the list with ft_lstappend
-** returns list to main
-*/
-
-t_list *save_data(char *file_content)
+int		check_if_label(char *file_content, int *i)
 {
-	t_list *head;
-	t_list *list;
-	int i;
+	while (ft_strchr(LABEL_CHARS, file_content[*i]))
+		*i += 1;
+	if (file_content[*i] == LABEL_CHAR)
+		return (1);
+	return (0);
+}
 
-	i = 0;
-	head = ft_lstnew(NULL, 0);
-	list = head;
-	// save_name_and_commment(&list, &file_content);
-	save_instructions(&list, file_content, &i);
-	return (list);
+void	save_label(char *file_content, int *i)
+{
+	if (check_if_label(file_content, i))
+	{
+		;
+	}
+	else
+		return ;
+}
+
+void	save_opcode(void)
+{
+	return ;
 }

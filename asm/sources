@@ -1,4 +1,8 @@
 SRCS = \
 main.c \
 input.c \
-save_data.c
+save_data.c \
+save_instructions.c \
+instruction_arguments.c \
+label_and_opcode.c \
+instruction_size.c
