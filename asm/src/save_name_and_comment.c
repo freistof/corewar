@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/25 14:11:20 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/10/25 15:00:00 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/10/25 15:41:48 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ void    syntax_error(void)
 	ft_printf("%s", SYNTAX_ERROR);
 	exit(1);
 }
+
+/*
+** duplicates the string between quotation marks
+*/
 
 char    *get_quote(int *index, char *str)
 {
