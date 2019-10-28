@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/10/24 14:19:17 by fblom         #+#    #+#                 */
-/*   Updated: 2019/10/24 14:19:17 by fblom         ########   odam.nl         */
+/*   Created: 2019/10/24 14:19:17 by fblom          #+#    #+#                */
+/*   Updated: 2019/10/28 10:23:48 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ t_list *save_data(char *file_content)
 	i = 0;
 	head = ft_lstnew(NULL, 0);
 	list = head;
-	// save_name_and_commment(&list, &file_content);
+	save_name_and_commment(&list, &file_content);
+	save_opcodes(&list, &file_content);
+	ft_printf("%s\n", file_content);
 	save_instructions(&list, file_content, &i);
 	return (list);
 }

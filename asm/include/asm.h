@@ -6,15 +6,16 @@
 /*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/23 18:27:21 by fblom          #+#    #+#                */
-/*   Updated: 2019/10/25 17:58:31 by nde-wild      ########   odam.nl         */
+/*   Updated: 2019/10/28 10:23:30 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
 
-# include "../../libft/libft.h"
-# include "../../libft/ft_printf/ft_printf.h"
+# include "libft.h"
+# include "ft_printf/ft_printf.h"
+# include "op.h"
 
 # include <fcntl.h>
 
@@ -57,6 +58,7 @@
 
 # define USAGE "Usage: ./asm <sourcefile.s>"
 # define FILE_ERROR "Can't read source file"
+# define SYNTAX_ERROR "Syntax error in .s file"
 
 /*
 ** ENUMS FOR ASSAMBLY
@@ -120,6 +122,10 @@ char			*input(int argc, char **argv);
 ** SAVING THE DATA
 */
 
+t_list *save_data(char *file_content);
+void	save_name_and_commment(t_list **list, char **file_content);
+
+void    skip_whitespaces(int *index, char *str);
 t_list	*save_data(char *file_content);
 void	save_instructions(t_list **head, char *file_content, int *i);
 void	save_label(char *file_content, int *i);
