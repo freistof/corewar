@@ -6,7 +6,7 @@
 /*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/23 18:27:21 by fblom          #+#    #+#                */
-/*   Updated: 2019/10/28 10:23:30 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/10/28 13:05:40 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ char			*input(int argc, char **argv);
 */
 
 t_list *save_data(char *file_content);
-void	save_name_and_commment(t_list **list, char **file_content);
+void	save_name_and_commment(t_list **list, char *file_content);
 
 void    skip_whitespaces(int *index, char *str);
 t_list	*save_data(char *file_content);

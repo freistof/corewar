@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/25 14:11:20 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/10/28 10:25:15 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/10/28 13:07:40 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,26 +47,26 @@ char    *get_quote(int *index, char *str)
 ** moves pointer to end of name and comment
 */
 
-void	save_name_and_commment(t_list **list, char **file_content)
+void	save_name_and_commment(t_list **list, char *file_content)
 {
 	int     index;
 	t_list  *iterate;
 
 	index = 5;
 	iterate = *list;
-	if (ft_strnequ(*file_content, ".name", 5) == 0)
+	if (ft_strnequ(file_content, ".name", 5) == 0)
 		syntax_error();
-	skip_whitespaces(&index, *file_content);
-	iterate->content = get_quote(&index, *file_content);
+	skip_whitespaces(&index, file_content);
+	iterate->content = get_quote(&index, file_content);
 	if (ft_strlen(iterate->content) > PROG_NAME_LENGTH)
 		syntax_error();
-	skip_whitespaces(&index, *file_content);
-	if (ft_strnequ(*file_content, ".comment", 8) == 0)
+	skip_whitespaces(&index, file_content);
+	if (ft_strnequ(&file_content[index], ".comment", 8) == 0)
 		syntax_error();
 	index += 8;
-	skip_whitespaces(&index, *file_content);
-	iterate->next = ft_lstnew(get_quote(&index, *file_content), 0);
+	skip_whitespaces(&index, file_content);
+	iterate->next = ft_lstnew(get_quote(&index, file_content), 0);
 	if (ft_strlen(iterate->next->content) > COMMENT_LENGTH)
 		syntax_error();
-	skip_whitespaces(&index, *file_content);
+	skip_whitespaces(&index, file_content);
 }
