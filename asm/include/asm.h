@@ -19,10 +19,11 @@
 
 # include <fcntl.h>
 
-# define T_REG					1
-# define T_DIR					2
-# define T_IND					4
+# define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
+# define LABEL_CHAR				':'
+
+/*
 /*t_op	op_tab[17] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
@@ -49,8 +50,8 @@
 	{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0},
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
-
 */
+
 /*
 ** USAGE AND ERRORS
 */
@@ -60,10 +61,62 @@
 # define SYNTAX_ERROR "Syntax error in .s file"
 
 /*
+** ENUMS FOR ASSAMBLY
+*/
+
+enum	e_instructions
+{
+	live = 1,
+	ld,
+	st,
+	add,
+	sub,
+	and,
+	or,
+	xor,
+	zjmp,
+	ldi,
+	sti,
+	fork,
+	lld,
+	lldi,
+	lfork,
+	aff
+};
+
+enum	e_bool
+{
+	true = 0,
+	false = 1,
+}			t_bool;
+
+enum		e_value_type
+{
+	value = 1,
+	label = 2,
+};
+
+enum			e_arguments
+{
+	T_REG = 1,
+	T_DIR = 2,
+	T_IND = 4,
+};
+
+typedef struct	s_command
+{
+	int			opcode;
+	int			codage_octal;
+	int			arg_type[3];
+	int			type_value;
+	void		*value;
+}				t_command;
+
+/*
 ** INPUT
 */
 
-char	*input(int argc, char **argv);
+char			*input(int argc, char **argv);
 
 /*
 ** SAVING THE DATA
@@ -73,5 +126,14 @@ t_list *save_data(char *file_content);
 void	save_name_and_commment(t_list **list, char **file_content);
 
 void    skip_whitespaces(int *index, char *str);
+t_list	*save_data(char *file_content);
+void	save_instructions(t_list **head, char *file_content, int *i);
+void	save_label(char *file_content, int *i);
+void	save_opcode(void);
+void	save_codage_octal(void);
+void	save_argument_types(void);
+void	save_label_or_value(void);
+void	save_argument_values(void);
+void	save_size(void);
 
 #endif
