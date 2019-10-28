@@ -15,16 +15,16 @@
 
 # include "libft.h"
 # include "ft_printf/ft_printf.h"
-# include "op.h"
 
 # include <fcntl.h>
 
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
-
 # define LABEL_CHAR				':'
+# define PROG_NAME_LENGTH		(128)
+# define COMMENT_LENGTH			(2048)
 
 /*
-/*t_op	op_tab[17] =
+t_op	op_tab[17] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
@@ -77,7 +77,7 @@ enum	e_instructions
 	zjmp,
 	ldi,
 	sti,
-	fork,
+	// fork,
 	lld,
 	lldi,
 	lfork,
@@ -129,7 +129,7 @@ void    skip_whitespaces(int *index, char *str);
 t_list	*save_data(char *file_content);
 void	save_instructions(t_list **head, char *file_content, int *i);
 void	save_label(char *file_content, int *i);
-void	save_opcode(void);
+void	save_opcodes(void);
 void	save_codage_octal(void);
 void	save_argument_types(void);
 void	save_label_or_value(void);

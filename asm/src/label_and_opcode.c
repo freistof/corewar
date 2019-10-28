@@ -31,7 +31,7 @@ void	save_label(char *file_content, int *i)
 		return ;
 }
 
-void	save_opcode(void)
+void	save_opcodes(void)
 {
 	return ;
 }

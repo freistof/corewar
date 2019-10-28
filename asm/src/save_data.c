@@ -28,7 +28,7 @@ t_list *save_data(char *file_content)
 	head = ft_lstnew(NULL, 0);
 	list = head;
 	save_name_and_commment(&list, &file_content);
-	save_opcodes(&list, &file_content);
+	save_opcodes();
 	ft_printf("%s\n", file_content);
 	save_instructions(&list, file_content, &i);
 	return (list);
