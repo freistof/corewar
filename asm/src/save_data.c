@@ -6,7 +6,7 @@
 /*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/24 14:19:17 by fblom          #+#    #+#                */
-/*   Updated: 2019/10/25 14:15:05 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/10/28 10:23:48 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 **
 */
 
-void	save_opcodes(t_list **list, char **file_content)
-{
-	;
-}
+// void	save_opcodes(t_list **list, char **file_content)
+// {
+// 	;
+// }
 
 /*
 ** main function that creates list of name, comment and all opcodes
@@ -35,7 +35,7 @@ t_list *save_data(char *file_content)
 	head = ft_lstnew(NULL, 0);
 	list = head;
 	save_name_and_commment(&list, &file_content);
-	save_opcodes(&list, &file_content);
+	// save_opcodes(&list, &file_content);
 	ft_printf("%s\n", file_content);
 	return (list);
 }

@@ -6,7 +6,7 @@
 /*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/23 18:27:21 by fblom          #+#    #+#                */
-/*   Updated: 2019/10/25 14:15:03 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/10/28 10:23:30 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "ft_printf/ft_printf.h"
+# include "op.h"
 
 # include <fcntl.h>
 
@@ -69,5 +70,8 @@ char	*input(int argc, char **argv);
 */
 
 t_list *save_data(char *file_content);
+void	save_name_and_commment(t_list **list, char **file_content);
+
+void    skip_whitespaces(int *index, char *str);
 
 #endif

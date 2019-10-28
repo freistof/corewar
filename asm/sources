@@ -1,4 +1,6 @@
 SRCS = \
 main.c \
 input.c \
-save_data.c
+save_data.c \
+save_name_and_comment.c \
+skip_whitespaces.c

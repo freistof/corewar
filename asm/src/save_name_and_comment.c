@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/25 14:11:20 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/10/25 15:41:48 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/10/28 10:25:15 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ char    *get_quote(int *index, char *str)
 
 	if (str[*index] != '"')
 		syntax_error();
-	*index++;
+	*index += 1;
 	start = *index;
 	while (str[*index] != '"')
-		*index++;
+		*index += 1;
 	quote = ft_strsub(str, start, *index - start);
-	*index++;
+	*index += 1;
 	return (quote);
 }
 
