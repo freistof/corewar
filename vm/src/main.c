@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/01 12:39:40 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/11/01 13:54:19 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/11/07 13:53:31 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 int		main(int argc, char **argv)
 {
-	validate_input();
+	t_player	player[4];
+
+	init_players(player);
+	read_input(argc, argv, player);
 	init_corewar();
 	corewar();
 	return (0);
