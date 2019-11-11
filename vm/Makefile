@@ -6,7 +6,7 @@
 #    By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/01 13:04:43 by lvan-vlo       #+#    #+#                 #
-#    Updated: 2019/11/01 13:19:32 by lvan-vlo      ########   odam.nl          #
+#    Updated: 2019/11/11 14:35:44 by rcorke        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRC_PATH = src/
 OBJ = $(SRC:%.c=%.o)
 SRCS := ${addprefix $(SRC_PATH), $(SRCS)}
 FLAGS = -o $(BINARY)
-ERRFLAGS = -Wall -Werror -Wextra
+ERRFLAGS = #-Wall -Werror -Wextra
 CC = gcc
 LIBPATH = ../libft/
 PRINTFPATH = $(LIBPATH)ft_printf/
@@ -29,7 +29,7 @@ OFF = \033[0m
 all: $(BINARY)
 
 %.o: %.c
-	@echo "$(COLOR)Building $@ from $< file$(OFF)"
+	# @echo "$(COLOR)Building $@ from $< file$(OFF)"
 	@$(CC) $(HEADER) -c $(ERRFLAGS) -o $@ $<
 
 $(BINARY): $(OBJ)

@@ -1,2 +1,7 @@
 SRCS = \
-main.c
+main.c \
+init_values.c \
+read_input.c \
+parse_player.c \
+print_functions.c \
+check_for_n_flag.c
