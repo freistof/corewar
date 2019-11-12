@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/01 12:39:27 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/11/11 18:14:50 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/11/12 17:21:38 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <fcntl.h>
 # include <limits.h>
-# include "libft.h"
+# include "../../libft/libft.h"
 # include "ft_printf/ft_printf.h"
 
 # define MAX_PLAYERS			4
@@ -79,10 +79,15 @@ void				init_game(t_game *game);
 void				init_players(t_player **players);
 void				read_input(int argc, char **argv, t_player **players, t_game *game);
 int					parse_player(char *file, t_player *player, int player_num);
-void				print_code(t_player *player);
+
+
+
 int			check_for_n(int argc, char **argv, t_player **players, \
 int num_players);
 
+//DEBUG
+void				print_code(t_player *player);
+void				print_players(t_player **players, int num_players);
 
 //ADD TO LIBFT:
 int					ft_is_string_numbers(char *str);

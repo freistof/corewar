@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 12:27:17 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/11 19:05:59 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/11/12 17:09:33 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ static int		is_flag(char **argv, int *x, t_game *game, t_player **players)
 		else if (ft_strequ(argv[*x], "-n"))
 		{
 			if (argv[*x + 1] && ft_is_string_numbers(argv[*x + 1]))
+			{
+				*x += 1;
 				return (1);
+			}
 		}
 	}
 	return (0);
@@ -101,7 +104,7 @@ void	read_input(int argc, char **argv, t_player **players, t_game *game)
 	while (x < argc)
 	{
 		if (is_flag(argv, &x, game, players))
-			x++;
+			;
 		else if (is_player(argv[x], players[player_num], player_num))
 		{
 			game->num_players++;
