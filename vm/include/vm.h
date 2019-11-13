@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/01 12:39:27 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/11/13 14:56:22 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/11/13 15:13:06 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ long				ft_long_atoi(const char *str);
 int					ft_fits_in_long(char *str);
 
 # define USAGE1 "Usage: ./corewar [-dump N -n N] <champion1.cor> <...>\n"
-# define USAGE2 "-dump N\t: Dumps memory after N cycles then exits"
-# define USAGE3 "\n-n N\t: Sets player id"
+# define USAGE2 "-dump N:\tDumps memory after N cycles then exits"
+# define USAGE3 "\n-n N:\tSets player id\n"
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 14:11:10 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/13 14:26:46 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/11/13 15:14:54 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ int			parse_player(char *file, t_player *player, int player_num)
 	if (!check_and_parse_code(file, &i, player))
 		return (0);
 	player->id = player_num + 1;
+	ft_memdel((void **)&file);
 	return (1);
 }
