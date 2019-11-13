@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 12:46:23 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/11 18:02:49 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/11/13 14:31:27 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_players(t_player **players)
 	{
 		players[x] = (t_player *)ft_memalloc(sizeof(t_player));
 		players[x]->name = NULL;
+		players[x]->file_name = NULL;
 		players[x]->comment = NULL;
 		players[x]->code = NULL;
 		players[x]->id = 0;

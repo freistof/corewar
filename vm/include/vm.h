@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/01 12:39:27 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/11/12 17:21:38 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/11/13 14:56:22 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
+# define MIN_LONG_STR "-9223372036854775808"
+# define MAX_LONG_STR "9223372036854775807"
 # define HERE ft_putstr("here\n")
 # define NL ft_putchar('\n')
 
@@ -58,7 +60,7 @@ typedef struct		s_game
 	int				live_counter;
 	int				cycles_to_die;
 	int				check_counter;
-	int				dump;
+	long			dump;
 	int				num_players;
 }					t_game;
 
@@ -77,18 +79,45 @@ typedef struct		s_cursor
 
 void				init_game(t_game *game);
 void				init_players(t_player **players);
-void				read_input(int argc, char **argv, t_player **players, t_game *game);
-int					parse_player(char *file, t_player *player, int player_num);
+void				read_input(int argc, char **argv, t_player **players, \
+t_game *game);
+int					parse_player(char *file, t_player *player, int \
+player_num);
 
+/*
+** INPUT ERROR
+*/
+void				input_error(t_player **players, t_game *game);
+void				usage(void);
 
-
-int			check_for_n(int argc, char **argv, t_player **players, \
+/*
+** LOOKUP PLAYER
+*/
+char				*find_player_name(t_player **players, int id, \
+int num_players);
+int					find_player_id(t_player **players, char *player_name, \
+int num_players);
+int					check_if_player(char *check, t_player **players, \
 int num_players);
 
-//DEBUG
+int					check_for_n(int argc, char **argv, t_player **players, \
+int num_players);
+
+/*
+** DEBUG
+*/
 void				print_code(t_player *player);
 void				print_players(t_player **players, int num_players);
 
-//ADD TO LIBFT:
+/*
+** ADD TO LIBFT
+*/
 int					ft_is_string_numbers(char *str);
+long				ft_long_atoi(const char *str);
+int					ft_fits_in_long(char *str);
+
+# define USAGE1 "Usage: ./corewar [-dump N -n N] <champion1.cor> <...>\n"
+# define USAGE2 "-dump N\t: Dumps memory after N cycles then exits"
+# define USAGE3 "\n-n N\t: Sets player id"
+
 #endif

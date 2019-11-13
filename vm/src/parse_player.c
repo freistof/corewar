@@ -6,14 +6,14 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 14:11:10 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/11 18:52:46 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/11/13 14:26:46 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
 /*
-** Check magic header
+** Checks that player file has correct info then parses it into struct
 */
 
 static int	check_magic(t_player *player, char *str, int *i)
@@ -30,16 +30,12 @@ static int	check_magic(t_player *player, char *str, int *i)
 	return (1);
 }
 
-/*
-** Check name length and read into player struct (value unimportant)
-*/
-
 static int	check_name(char *str, int *i, t_player *player)
 {
 	int x;
 
 	player->name = (char *)ft_memalloc(sizeof(char) * PROG_NAME_LENGTH + 1);
-	ft_strncpy(player->name, &str[*i], PROG_NAME_LENGTH);
+	ft_memcpy(player->name, &str[*i], PROG_NAME_LENGTH);
 	player->name[PROG_NAME_LENGTH] = '\0';
 	*i += PROG_NAME_LENGTH;
 	x = 0;
@@ -52,27 +48,6 @@ static int	check_name(char *str, int *i, t_player *player)
 	*i += 4;
 	return (1);
 }
-
-/*
-** Get executable code's size
-*/
-
-static void	get_code_size(char *str, int *i, t_player *player)
-{
-	int		final_size;
-
-	final_size = 0;
-	final_size += (unsigned char)str[*i] << 24;
-	final_size += (unsigned char)str[*i + 1] << 16;
-	final_size += (unsigned char)str[*i + 2] << 8;
-	final_size += (unsigned char)str[*i + 3];
-	player->code_size = final_size;
-	*i += 4;
-}
-
-/*
-** Check comment length and put into struct
-*/
 
 static int	check_comment(char *str, int *i, t_player *player)
 {
@@ -93,13 +68,8 @@ static int	check_comment(char *str, int *i, t_player *player)
 	return (1);
 }
 
-/*
-** Check code length and put into struct
-*/
-
 static int	check_and_parse_code(char *str, int *i, t_player *player)
 {
-	// ft_printf("FILE SIZE: %d\tI: %d\tCODE SIZE: %d\n", player->file_size, *i, player->code_size);
 	if (player->file_size - *i != player->code_size)
 		return (0);
 	player->code = (unsigned char *)ft_memalloc(sizeof(unsigned char) * \
@@ -109,13 +79,10 @@ static int	check_and_parse_code(char *str, int *i, t_player *player)
 	return (1);
 }
 
-/*
-** Parse player file into player struct
-*/
-
 int			parse_player(char *file, t_player *player, int player_num)
 {
 	int		i;
+	int		code_size;
 
 	if (player->file_size < MIN_PLAYER_FILE_SIZE)
 		return (0);
@@ -123,21 +90,17 @@ int			parse_player(char *file, t_player *player, int player_num)
 	if (!check_magic(player, file, &i))
 		return (0);
 	if (!check_name(file, &i, player))
-	{
-		ft_printf("FAILED ON NAME\n");
 		return (0);
-	}
-	get_code_size(file, &i, player);
+	code_size = (unsigned char)file[i] << 24;
+	code_size += (unsigned char)file[i + 1] << 16;
+	code_size += (unsigned char)file[i + 2] << 8;
+	code_size += (unsigned char)file[i + 3];
+	player->code_size = code_size;
+	i += 4;
 	if (!check_comment(file, &i, player))
-	{
-		ft_printf("FAILED ON COMMENT\n");
 		return (0);
-	}
 	if (!check_and_parse_code(file, &i, player))
-	{
-		ft_printf("FAILED ON CHECK AND PARSE\n");
 		return (0);
-	}
 	player->id = player_num + 1;
 	return (1);
 }
