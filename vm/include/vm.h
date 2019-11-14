@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/01 12:39:27 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/11/13 15:13:06 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/11/14 17:17:09 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
+# define CYCLE_TO_DIE			1536
+# define CYCLE_DELTA			50
+# define NBR_LIVE				21
+# define MAX_CHECKS				10
+# define T_REG					1
+# define T_DIR					2
+# define T_IND					3
+
 # define MIN_LONG_STR "-9223372036854775808"
 # define MAX_LONG_STR "9223372036854775807"
 # define HERE ft_putstr("here\n")
@@ -40,6 +48,16 @@ enum				e_bool
 	false = 0,
 	true = 1,
 }					t_bool;
+
+typedef struct		s_op_args
+{
+	int arg1_type;
+	int arg2_type;
+	int arg3_type;
+	int arg1_value;
+	int arg2_value;
+	int arg3_value;
+}					t_op_args;
 
 typedef struct		s_player
 {
@@ -54,14 +72,18 @@ typedef struct		s_player
 
 typedef struct		s_game
 {
+	t_player		**players;
 	unsigned char	*board;
+	long			dump;
 	int				last_alive;
 	int				cycle_counter;
-	int				live_counter;
 	int				cycles_to_die;
+	int				max_cycles_to_die;
 	int				check_counter;
-	long			dump;
 	int				num_players;
+	int				last_reported_live;
+	int				num_cursors;
+	int				num_lives_reported;
 }					t_game;
 
 typedef struct		s_cursor
@@ -108,6 +130,8 @@ int num_players);
 */
 void				print_code(t_player *player);
 void				print_players(t_player **players, int num_players);
+void				hex_dump(unsigned char *board);
+void				print_cursor(t_cursor *cursor);
 
 /*
 ** ADD TO LIBFT
@@ -115,6 +139,28 @@ void				print_players(t_player **players, int num_players);
 int					ft_is_string_numbers(char *str);
 long				ft_long_atoi(const char *str);
 int					ft_fits_in_long(char *str);
+
+/*
+** INIT BOARD
+*/
+void				init_board(t_game *game, t_player **players);
+
+
+/*
+** RUN GAME
+*/
+void				run_game(t_game *game, t_player **players, t_cursor *cursor);
+
+
+/*
+** BYTE TO INT
+*/
+int					byte_to_int(unsigned char *board, int position);
+
+/*
+** GET OP ARGS
+*/
+t_op_args	*get_op_args(t_cursor *cursor, unsigned char *board);
 
 # define USAGE1 "Usage: ./corewar [-dump N -n N] <champion1.cor> <...>\n"
 # define USAGE2 "-dump N:\tDumps memory after N cycles then exits"

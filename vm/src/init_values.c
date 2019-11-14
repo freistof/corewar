@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 12:46:23 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/13 14:31:27 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/11/14 17:43:55 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_game(t_game *game)
 	game->board = NULL;
 	game->last_alive = 0;
 	game->cycle_counter = 0;
-	game->live_counter = 0;
+	game->num_lives_reported = 0;
 	game->cycles_to_die = 0;
 	game->check_counter = 0;
 	game->dump = 0;

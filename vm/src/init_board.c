@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 17:08:21 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/13 18:41:54 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/11/14 17:43:54 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,37 +19,38 @@ static void		fill_cursor_values(t_cursor **cursor)
 	x = 1;
 	while (x < 16)
 	{
-		(*cursor)->registry[x] = -1;
+		(*cursor)->registry[x] = 0;
 		x++;
 	}
-	(*cursor)->jump = -1;
-	(*cursor)->last_live = -1;
-	(*cursor)->opcode = -1;
-	(*cursor)->wait_cycle = -1;
+	(*cursor)->jump = 0;
+	(*cursor)->last_live = 0;
+	(*cursor)->opcode = 0;
+	(*cursor)->wait_cycle = 0;
+	(*cursor)->carry = false;
 }
 
-static t_cursor	*init_cursors(t_game *game, t_player **players)
+static t_cursor	*init_cursors(t_game *game, t_player **players, int j)
 {
 	int			x;
-	int			j;
 	t_cursor	*head;
 	t_cursor	*cursor;
 
 	x = game->num_players;
 	j = 0;
+	cursor = (t_cursor *)ft_memalloc(sizeof(t_cursor));
 	while (x > 0)
 	{
-		cursor = (t_cursor *)ft_memalloc(sizeof(t_cursor));
 		cursor->id = x;
 		cursor->position = (MEM_SIZE / game->num_players) * j;
-		cursor->carry = false;
-		cursor->registry[0] = x;
+		cursor->registry[0] = x * -1;
 		fill_cursor_values(&cursor);
-		cursor->next = NULL;
 		if (x == game->num_players)
 			head = cursor;
 		if (x > 1)
+		{
+			cursor->next = (t_cursor *)ft_memalloc(sizeof(t_cursor));
 			cursor = cursor->next;
+		}
 		x--;
 		j++;
 	}
@@ -73,11 +74,17 @@ static void		load_players(t_game *game, t_player **players)
 void			init_board(t_game *game, t_player **players)
 {
 	t_cursor *cursor;
-
+	
 	game->board = (unsigned char *)ft_memalloc(sizeof(unsigned char) \
 	* MEM_SIZE);
 	load_players(game, players);
-	cursor = init_cursors(game, players);
+	cursor = init_cursors(game, players, 0);
 	hex_dump(game->board);
-	print_cursor(cursor);
+	for (int i = 0; i < game->num_players; i++)
+	{
+		print_cursor(cursor);
+		cursor = cursor->next;
+	}
+	game->players = players;
+	// run_game(game, players, cursor);
 }
