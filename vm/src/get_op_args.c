@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 16:36:51 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/14 17:22:45 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/11/16 13:51:03 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int			get_arg(int arg_type, unsigned char *board, int *position)
 		rtn += board[(*position % MEM_SIZE)]
 		*position += 1;
 	}
+	return (rtn);
 }
 
 t_op_args	*get_op_args(t_cursor *cursor, unsigned char *board)

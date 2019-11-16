@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 13:38:55 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/14 17:31:32 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/11/16 14:22:24 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ void		load(t_game *game, t_cursor *cursor)
 	int			x;
 
 	op_args = get_op_args(cursor, game->board);
+	if (op_args->arg1_type == T_REG || op_args->arg2_type != T_REG || op_args->arg3_type != 0)
+	{
+		ft_memdel((void **)&op_args);
+		return ;
+	}
 	if (op_args->arg1_type == T_DIR)
 		cursor->registry[op_args->arg2_value] = op_args->arg1_value;
 	else if (op_args->arg1_type == T_IND)
@@ -42,7 +47,7 @@ void		load(t_game *game, t_cursor *cursor)
 		x = 0;
 		while (x < 4)
 		{
-			to_read += game->board[(cursor->position + (op_args->arg1_value % IDX_MOD) % MEM_SIZE)]
+			to_read += game->board[(cursor->position + (op_args->arg1_value % IDX_MOD) % MEM_SIZE)];
 			cursor->position += 1;
 			x++;
 		}
@@ -52,4 +57,58 @@ void		load(t_game *game, t_cursor *cursor)
 		else
 			cursor->carry = false;
 	}
+}
+
+void		store(t_game *game, t_cursor *cursor)
+{
+	t_op_args	*op_args;
+
+	op_args = get_op_args(cursor, game->board);
+	if (op_args->arg1_type != T_REG || op_args->arg2_type == T_DIR || op_args->arg3_type != 0)
+	{
+		ft_memdel((void **)&op_args);
+		return ;
+	}
+	if (op_args->arg2_type == T_REG)
+		cursor->registry[op_args->arg2_value] = cursor->registry[op_args->arg1_value];
+	else
+		game->board[cursor->position + (op_args->arg2_value % IDX_MOD) % MEM_SIZE] = cursor->registry[op_args->arg1_value];
+}
+
+void		add(t_game *game, t_cursor *cursor)
+{
+	t_op_args	*op_args;
+	int			value;
+
+	op_args = get_op_args(cursor, game->board);
+	if (op_args->arg1_type != T_REG || op_args->arg2_type != T_REG || op_args->arg3_type != T_REG)
+	{
+		ft_memdel((void **)&op_args);
+		return ;
+	}
+	value = cursor->registry[op_args->arg1_value] + cursor->registry[op_args->arg2_value];
+	cursor->registry[op_args->arg3_value] = value;
+	if (value == 0)
+		cursor->carry = true;
+	else
+		cursor->carry = false;
+}
+
+void		subtract(t_game *game, t_cursor *cursor)
+{
+	t_op_args	*op_args;
+	int			value;
+
+	op_args = get_op_args(cursor, game->board);
+	if (op_args->arg1_type != T_REG || op_args->arg2_type != T_REG || op_args->arg3_type != T_REG)
+	{
+		ft_memdel((void **)&op_args);
+		return ;
+	}
+	value = cursor->registry[op_args->arg1_value] - cursor->registry[op_args->arg2_value];
+	cursor->registry[op_args->arg3_value] = value;
+	if (value == 0)
+		cursor->carry = true;
+	else
+		cursor->carry = false;
 }
