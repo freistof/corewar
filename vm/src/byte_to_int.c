@@ -6,11 +6,11 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 14:07:05 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/14 17:15:06 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/11/17 14:00:36 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "../include/vm.h"
 
 int		args_to_int(unsigned char arg1, unsigned char arg2, unsigned char arg3)
 {

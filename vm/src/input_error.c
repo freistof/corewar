@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 13:06:30 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/14 15:08:15 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/11/18 16:49:54 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,6 @@ void		usage(void)
 	ft_putstr(USAGE2);
 	ft_putstr(USAGE3);
 	exit(1);
-}
-
-static void	free_player(t_player *player)
-{
-	ft_memdel((void **)&player->name);
-	ft_memdel((void **)&player->file_name);
-	ft_memdel((void **)&player->comment);
-	ft_memdel((void **)&player->code);
-	ft_memdel((void **)&player);
 }
 
 void		input_error(t_player **players, t_game *game)

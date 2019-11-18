@@ -6,13 +6,17 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 13:38:55 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/16 14:22:24 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/11/18 16:00:37 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "../include/vm.h"
 
-void		live(t_game *game, t_cursor *cursor)
+/*
+** LIVE, STORE, ADD, SUBTRACT
+*/
+
+void		op_live(t_game *game, t_cursor *cursor)
 {
 	int arg;
 
@@ -27,88 +31,53 @@ void		live(t_game *game, t_cursor *cursor)
 		game->players[arg - 1]->name);
 }
 
-void		load(t_game *game, t_cursor *cursor)
+void		op_store(t_game *game, t_cursor *cursor)
 {
-	t_op_args	*op_args;
-	int			to_read;
-	int			x;
+	t_op_args	*args;
 
-	op_args = get_op_args(cursor, game->board);
-	if (op_args->arg1_type == T_REG || op_args->arg2_type != T_REG || op_args->arg3_type != 0)
+	args = get_op_args(cursor, game->board);
+	if (check_arg_types(args, ARG_REG, ARG_REG_OR_IND, ARG_NOTHING))
 	{
-		ft_memdel((void **)&op_args);
-		return ;
+		if (args->arg2_type == T_REG)
+			cursor->registry[args->arg2_value - 1] = cursor->registry[args->arg1_value - 1];
+		else
+			game->board[cursor->position + (args->arg2_value % IDX_MOD) % MEM_SIZE] = cursor->registry[args->arg1_value - 1];
 	}
-	if (op_args->arg1_type == T_DIR)
-		cursor->registry[op_args->arg2_value] = op_args->arg1_value;
-	else if (op_args->arg1_type == T_IND)
+	ft_memdel((void **)&args);
+}
+
+void		op_add(t_game *game, t_cursor *cursor)
+{
+	t_op_args	*args;
+	int			value;
+
+	args = get_op_args(cursor, game->board);
+	if (check_arg_types(args, ARG_REG, ARG_REG, ARG_REG))
 	{
-		to_read = 0;
-		x = 0;
-		while (x < 4)
-		{
-			to_read += game->board[(cursor->position + (op_args->arg1_value % IDX_MOD) % MEM_SIZE)];
-			cursor->position += 1;
-			x++;
-		}
-		cursor->registry[op_args->arg2_value] = to_read;
-		if (to_read == 0)
+		value = cursor->registry[args->arg1_value - 1] + cursor->registry[args->arg2_value - 1];
+		cursor->registry[args->arg3_value - 1] = value;
+		if (value == 0)
 			cursor->carry = true;
 		else
 			cursor->carry = false;
 	}
+	ft_memdel((void **)&args);
 }
 
-void		store(t_game *game, t_cursor *cursor)
+void		op_subtract(t_game *game, t_cursor *cursor)
 {
-	t_op_args	*op_args;
-
-	op_args = get_op_args(cursor, game->board);
-	if (op_args->arg1_type != T_REG || op_args->arg2_type == T_DIR || op_args->arg3_type != 0)
-	{
-		ft_memdel((void **)&op_args);
-		return ;
-	}
-	if (op_args->arg2_type == T_REG)
-		cursor->registry[op_args->arg2_value] = cursor->registry[op_args->arg1_value];
-	else
-		game->board[cursor->position + (op_args->arg2_value % IDX_MOD) % MEM_SIZE] = cursor->registry[op_args->arg1_value];
-}
-
-void		add(t_game *game, t_cursor *cursor)
-{
-	t_op_args	*op_args;
+	t_op_args	*args;
 	int			value;
 
-	op_args = get_op_args(cursor, game->board);
-	if (op_args->arg1_type != T_REG || op_args->arg2_type != T_REG || op_args->arg3_type != T_REG)
+	args = get_op_args(cursor, game->board);
+	if (check_arg_types(args, ARG_REG, ARG_REG, ARG_REG))
 	{
-		ft_memdel((void **)&op_args);
-		return ;
+		value = cursor->registry[args->arg1_value - 1] - cursor->registry[args->arg2_value - 1];
+		cursor->registry[args->arg3_value - 1] = value;
+		if (value == 0)
+			cursor->carry = true;
+		else
+			cursor->carry = false;
 	}
-	value = cursor->registry[op_args->arg1_value] + cursor->registry[op_args->arg2_value];
-	cursor->registry[op_args->arg3_value] = value;
-	if (value == 0)
-		cursor->carry = true;
-	else
-		cursor->carry = false;
-}
-
-void		subtract(t_game *game, t_cursor *cursor)
-{
-	t_op_args	*op_args;
-	int			value;
-
-	op_args = get_op_args(cursor, game->board);
-	if (op_args->arg1_type != T_REG || op_args->arg2_type != T_REG || op_args->arg3_type != T_REG)
-	{
-		ft_memdel((void **)&op_args);
-		return ;
-	}
-	value = cursor->registry[op_args->arg1_value] - cursor->registry[op_args->arg2_value];
-	cursor->registry[op_args->arg3_value] = value;
-	if (value == 0)
-		cursor->carry = true;
-	else
-		cursor->carry = false;
+	ft_memdel((void **)&args);
 }

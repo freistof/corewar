@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 12:46:23 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/14 17:43:55 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/11/18 16:36:01 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	init_players(t_player **players)
 		players[x]->code = NULL;
 		players[x]->id = 0;
 		players[x]->code_size = 0;
+		players[x]->alive = true;
+		players[x]->last_reported_live = 0;
 		x++;
 	}
 }

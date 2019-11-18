@@ -6,11 +6,11 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 17:25:21 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/13 18:24:53 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/11/18 14:33:57 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "../include/vm.h"
 
 void	print_code(t_player *player)
 {
@@ -62,4 +62,14 @@ void	print_cursor(t_cursor *cursor)
 	NL;
 	if (cursor->next)
 		ft_printf("NEXT (ID):\t%10d\n", cursor->next->id);
+}
+
+void	print_temp_board(unsigned char *board)
+{
+	for (int i = 0; i < 50; i++)
+	{
+		ft_printf("%02x ", board[i]);
+		if (i != 0 && i % 10 == 0)
+			NL;
+	}
 }

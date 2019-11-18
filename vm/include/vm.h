@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/01 12:39:27 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/11/14 17:17:09 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/11/18 16:54:31 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <fcntl.h>
 # include <limits.h>
 # include "../../libft/libft.h"
-# include "ft_printf/ft_printf.h"
+# include "../../libft/ft_printf/ft_printf.h"
 
 # define MAX_PLAYERS			4
 # define MEM_SIZE				(4*1024)
@@ -29,6 +29,7 @@
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
+# define MAX_REGISTRIES			16
 
 # define CYCLE_TO_DIE			1536
 # define CYCLE_DELTA			50
@@ -42,6 +43,26 @@
 # define MAX_LONG_STR "9223372036854775807"
 # define HERE ft_putstr("here\n")
 # define NL ft_putchar('\n')
+
+# define ARG_NOTHING 0
+# define ARG_REG 1
+# define ARG_DIR 2
+# define ARG_REG_OR_DIR 3
+# define ARG_IND 4
+# define ARG_REG_OR_IND 5
+# define ARG_DIR_OR_IND 6
+# define ARG_ANY 7
+
+/*
+** NOTHING = 0					0
+** REGISTER = 001				1
+** DIRECT = 010					2
+** REG | DIRECT = 011			3
+** INDIRECT = 100				4
+** REG | INDIRECT = 101			5
+** IND | DIRECT = 110			6
+** REG | IND | DIRECT = 111		7
+*/
 
 enum				e_bool
 {
@@ -68,6 +89,8 @@ typedef struct		s_player
 	int				code_size;
 	unsigned char	*code;
 	int				file_size;
+	int				last_reported_live;
+	enum e_bool		alive;
 }					t_player;
 
 typedef struct		s_game
@@ -81,6 +104,7 @@ typedef struct		s_game
 	int				max_cycles_to_die;
 	int				check_counter;
 	int				num_players;
+	int				num_alive_players;
 	int				last_reported_live;
 	int				num_cursors;
 	int				num_lives_reported;
@@ -132,6 +156,7 @@ void				print_code(t_player *player);
 void				print_players(t_player **players, int num_players);
 void				hex_dump(unsigned char *board);
 void				print_cursor(t_cursor *cursor);
+void				print_temp_board(unsigned char *board);
 
 /*
 ** ADD TO LIBFT
@@ -160,7 +185,42 @@ int					byte_to_int(unsigned char *board, int position);
 /*
 ** GET OP ARGS
 */
-t_op_args	*get_op_args(t_cursor *cursor, unsigned char *board);
+t_op_args			*get_op_args(t_cursor *cursor, unsigned char *board);
+int  				get_arg_value(int arg_type, int arg_value, t_cursor *cursor, unsigned char *board);
+int					check_arg_types(t_op_args *args, int type1, int type2, int type3);
+
+
+/*
+** FREE
+*/
+void		free_player(t_player *player);
+void		free_players(t_game *game);
+void		free_game(t_game *game);
+
+/*
+** operations
+*/
+void				op_live(t_game *game, t_cursor *cursor);
+void				op_add(t_game *game, t_cursor *cursor);
+void				op_subtract(t_game *game, t_cursor *cursor);
+void				op_store(t_game *game, t_cursor *cursor);
+void				op_storei(t_game *game, t_cursor *cursor);
+void				op_and(t_game *game, t_cursor *cursor);
+void				op_or(t_game *game, t_cursor *cursor);
+void        		op_xor(t_game *game, t_cursor *cursor);
+void				op_jump(t_game *game, t_cursor *cursor);
+void				op_aff(t_game *game, t_cursor *cursor);
+void				op_fork(t_game *game, t_cursor *cursor);
+void				op_lfork(t_game *game, t_cursor *cursor);
+void				op_load(t_game *game, t_cursor *cursor);
+void				op_loadi(t_game *game, t_cursor *cursor);
+void				op_lload(t_game *game, t_cursor *cursor);
+void				op_lloadi(t_game *game, t_cursor *cursor);
+
+/*
+** SET WAIT CYCLE
+*/
+void				set_wait_cycle(t_cursor *cursor);
 
 # define USAGE1 "Usage: ./corewar [-dump N -n N] <champion1.cor> <...>\n"
 # define USAGE2 "-dump N:\tDumps memory after N cycles then exits"
