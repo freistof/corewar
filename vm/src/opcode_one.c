@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 13:38:55 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/18 16:00:37 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/11/19 16:27:18 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,33 @@ void		op_live(t_game *game, t_cursor *cursor)
 
 	arg = byte_to_int(game->board, cursor->position + 1);
 	cursor->last_live = game->cycle_counter;
-	if (cursor->registry[0] == arg)
-		game->last_reported_live = cursor->registry[0];
 	game->num_lives_reported += 1;
-	arg *= -1;
-	if (arg > 0 && arg < game->num_players)
-		ft_printf("A process shows that player %d (%s) is alive\n", arg, \
-		game->players[arg - 1]->name);
+	// ft_printf("LIVE ARG: %d\tREGISTRY [0]: %d\n", arg, cursor->registry[0]);
+	if ((arg * -1) > 0 && (arg * -1) <= game->num_players)
+	{
+		game->last_reported_live = arg * -1;
+		// game->last_reported_live = cursor->registry[0];
+		// ft_printf("A process shows that player %d (%s) is alive\n", arg * -1, \
+		game->players[(arg * - 1) - 1]->name);
+	}
+	cursor->jump = 5;
 }
 
 void		op_store(t_game *game, t_cursor *cursor)
 {
-	t_op_args	*args;
+	t_op_args		*op_args;
+	int				value;
+	unsigned char	*byte;
 
-	args = get_op_args(cursor, game->board);
-	if (check_arg_types(args, ARG_REG, ARG_REG_OR_IND, ARG_NOTHING))
+	op_args = get_op_args(cursor, game->board, 2);
+	if (check_arg_types(op_args, ARG_REG, ARG_REG_OR_IND, ARG_NOTHING))
 	{
-		if (args->arg2_type == T_REG)
-			cursor->registry[args->arg2_value - 1] = cursor->registry[args->arg1_value - 1];
-		else
-			game->board[cursor->position + (args->arg2_value % IDX_MOD) % MEM_SIZE] = cursor->registry[args->arg1_value - 1];
+		value = get_arg_value(op_args->arg2_type, op_args->arg2_value, cursor, game->board);
+		byte = int_to_byte(cursor->registry[op_args->arg1_value - 1]);
+		write_to_board(game->board, cursor->position + (value % IDX_MOD), byte);
+		free(byte);
 	}
-	ft_memdel((void **)&args);
+	ft_memdel((void **)&op_args);
 }
 
 void		op_add(t_game *game, t_cursor *cursor)
@@ -51,7 +56,7 @@ void		op_add(t_game *game, t_cursor *cursor)
 	t_op_args	*args;
 	int			value;
 
-	args = get_op_args(cursor, game->board);
+	args = get_op_args(cursor, game->board, 4);
 	if (check_arg_types(args, ARG_REG, ARG_REG, ARG_REG))
 	{
 		value = cursor->registry[args->arg1_value - 1] + cursor->registry[args->arg2_value - 1];
@@ -69,7 +74,7 @@ void		op_subtract(t_game *game, t_cursor *cursor)
 	t_op_args	*args;
 	int			value;
 
-	args = get_op_args(cursor, game->board);
+	args = get_op_args(cursor, game->board, 4);
 	if (check_arg_types(args, ARG_REG, ARG_REG, ARG_REG))
 	{
 		value = cursor->registry[args->arg1_value - 1] - cursor->registry[args->arg2_value - 1];

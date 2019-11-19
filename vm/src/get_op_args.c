@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 16:36:51 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/18 15:52:35 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/11/19 15:45:37 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			get_arg_value(int arg_type, int arg_value, t_cursor *cursor, unsigned char
     else if (arg_type == T_REG)
         return (cursor->registry[arg_value - 1]);
     else if (arg_type == T_IND)
-        return (byte_to_int(board, cursor->position + (arg_value % IDX_MOD) % MEM_SIZE));
+        return (byte_to_hex(board, cursor->position + (arg_value % IDX_MOD) % MEM_SIZE));
 	return (0);
 }
 
@@ -82,17 +82,23 @@ unsigned char *board)
 		args->arg3_type = T_REG;
 }
 
-int			get_arg(int arg_type, unsigned char *board, int *position)
+int			get_arg(int arg_type, unsigned char *board, int *position, int dir_size)
 {
 	int rtn;
 	int x;
 
 	x = 0;
 	rtn = 0;
-	if (arg_type == T_IND || arg_type == T_DIR)
+	if (arg_type == T_IND || (arg_type == T_DIR && dir_size == 2))
+	{
+		rtn = (short)byte_to_hex(board, *position);
+		*position += 2;
+	}
+	else if (arg_type == T_DIR)
 	{
 		rtn = byte_to_int(board, *position);
 		*position += 4;
+
 	}
 	else if (arg_type == T_REG)
 	{
@@ -102,7 +108,7 @@ int			get_arg(int arg_type, unsigned char *board, int *position)
 	return (rtn);
 }
 
-t_op_args	*get_op_args(t_cursor *cursor, unsigned char *board)
+t_op_args	*get_op_args(t_cursor *cursor, unsigned char *board, int dir_size)
 {
 	t_op_args	*args;
 	int			args_position;
@@ -113,9 +119,9 @@ t_op_args	*get_op_args(t_cursor *cursor, unsigned char *board)
 	get_encoding_bits(args, args_position, board);
 	args_position += 1;
 	x = 0;
-	args->arg1_value = get_arg(args->arg1_type, board, &args_position);
-	args->arg2_value = get_arg(args->arg2_type, board, &args_position);
-	args->arg3_value = get_arg(args->arg3_type, board, &args_position);
+	args->arg1_value = get_arg(args->arg1_type, board, &args_position, dir_size);
+	args->arg2_value = get_arg(args->arg2_type, board, &args_position, dir_size);
+	args->arg3_value = get_arg(args->arg3_type, board, &args_position, dir_size);
 	cursor->jump = args_position - cursor->position;
 	// cursor->position = args_position;
 	return (args);

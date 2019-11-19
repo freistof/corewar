@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 12:23:05 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/11/18 16:49:27 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/11/19 15:52:33 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		op_load(t_game *game, t_cursor *cursor)
 {
 	t_op_args	*op_args;
 
-	op_args = get_op_args(cursor, game->board);
+	op_args = get_op_args(cursor, game->board, 4);
 	if (check_arg_types(op_args, ARG_DIR_OR_IND, ARG_REG, ARG_NOTHING))
 	{
 		cursor->registry[op_args->arg2_value - 1] = get_arg_value(op_args->arg1_type, op_args->arg1_value, cursor, game->board);
@@ -33,11 +33,10 @@ void		op_loadi(t_game *game, t_cursor *cursor)
 	t_op_args	*op_args;
 	int			address;
 
-	op_args = get_op_args(cursor, game->board);
+	op_args = get_op_args(cursor, game->board, 2);
 	if (check_arg_types(op_args, ARG_ANY, ARG_REG_OR_DIR, ARG_REG))
 	{
 		address = get_arg_value(op_args->arg1_type, op_args->arg1_value, cursor, game->board);
-		ft_printf("ADDRESS1 %d\n", address);
 		address += get_arg_value(op_args->arg2_type, op_args->arg2_value, cursor, game->board);
 		address = get_arg_value(T_IND, address, cursor, game->board);
 		cursor->registry[op_args->arg3_value - 1] = address;
@@ -49,7 +48,7 @@ void		op_lload(t_game *game, t_cursor *cursor)
 {
 	t_op_args	*op_args;
 
-	op_args = get_op_args(cursor, game->board);
+	op_args = get_op_args(cursor, game->board, 4);
 	if (check_arg_types(op_args, ARG_DIR_OR_IND, ARG_REG, ARG_NOTHING))
 	{
 		if (op_args->arg1_type == T_IND)
@@ -69,7 +68,7 @@ void		op_lloadi(t_game *game, t_cursor *cursor)
 	t_op_args	*op_args;
 	int			address;
 
-	op_args = get_op_args(cursor, game->board);
+	op_args = get_op_args(cursor, game->board, 2);
 	// ft_printf("ARG1 TYPE: %d\tVALUE: %d\targ2type: %d\tvalue: %d\targ3type %d\tvalue: %d\n", op_args->arg1_type, op_args->arg1_value, op_args->arg2_type, op_args->arg2_value, op_args->arg3_type, op_args->arg3_value);
 	// print_cursor(cursor);
 	// NL;
@@ -82,6 +81,10 @@ void		op_lloadi(t_game *game, t_cursor *cursor)
 		address += get_arg_value(op_args->arg2_type, op_args->arg2_value, cursor, game->board);
 		address = byte_to_int(game->board, cursor->position + address);
 		cursor->registry[op_args->arg3_value - 1] = address;
+		if (address == 0)
+			cursor->carry = true;
+		else
+			cursor->carry = false;
 	}
 	ft_memdel((void **)&op_args);
 	// print_cursor(cursor);
@@ -89,21 +92,18 @@ void		op_lloadi(t_game *game, t_cursor *cursor)
 
 void		op_storei(t_game *game, t_cursor *cursor)
 {
-	t_op_args	*op_args;
-	int			value;	
+	t_op_args		*op_args;
+	int				value;
+	unsigned char	*byte;
 
-	op_args = get_op_args(cursor, game->board);
-	ft_printf("ARG1 TYPE: %d\tVALUE: %d\targ2type: %d\tvalue: %d\targ3type %d\tvalue: %d\n", op_args->arg1_type, op_args->arg1_value, op_args->arg2_type, op_args->arg2_value, op_args->arg3_type, op_args->arg3_value);
-	print_temp_board(game->board);
-	NL;
-	NL;
+	op_args = get_op_args(cursor, game->board, 2);
 	if (check_arg_types(op_args, ARG_REG, ARG_ANY, ARG_REG_OR_DIR))
 	{
 		value = get_arg_value(op_args->arg2_type, op_args->arg2_value, cursor, game->board);
 		value += get_arg_value(op_args->arg3_type, op_args->arg3_value, cursor, game->board);
-		game->board[(cursor->position + value) % IDX_MOD] = cursor->registry[op_args->arg1_value];
+		byte = int_to_byte(cursor->registry[op_args->arg1_value - 1]);
+		write_to_board(game->board, cursor->position + (value % IDX_MOD), byte);
+		free(byte);
 	}
 	ft_memdel((void **)&op_args);
-	print_temp_board(game->board);
-	NL;
 }

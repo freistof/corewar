@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/01 12:39:27 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/11/18 16:54:31 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/11/19 15:49:34 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,11 +181,13 @@ void				run_game(t_game *game, t_player **players, t_cursor *cursor);
 ** BYTE TO INT
 */
 int					byte_to_int(unsigned char *board, int position);
+int					byte_to_hex(unsigned char *board, int position);
+unsigned char		*int_to_byte(int value);
 
 /*
 ** GET OP ARGS
 */
-t_op_args			*get_op_args(t_cursor *cursor, unsigned char *board);
+t_op_args			*get_op_args(t_cursor *cursor, unsigned char *board, int dir_size);
 int  				get_arg_value(int arg_type, int arg_value, t_cursor *cursor, unsigned char *board);
 int					check_arg_types(t_op_args *args, int type1, int type2, int type3);
 
@@ -216,6 +218,8 @@ void				op_load(t_game *game, t_cursor *cursor);
 void				op_loadi(t_game *game, t_cursor *cursor);
 void				op_lload(t_game *game, t_cursor *cursor);
 void				op_lloadi(t_game *game, t_cursor *cursor);
+
+void				write_to_board(unsigned char *board, int position, unsigned char *byte);
 
 /*
 ** SET WAIT CYCLE

@@ -8,15 +8,14 @@ check_for_n_flag.c \
 input_error.c \
 lookup_player.c \
 libft_functions.c \
-byte_check.c \
 byte_to_int.c \
 free_functions.c \
 get_op_args.c \
 init_board.c \
-init_value.c \
 opcode_one.c \
 opcode_two.c \
 opcode_three.c \
 opcode_four.c \
 run_game.c \
-set_wait_cycle.c
+set_wait_cycle.c \
+write_to_board.c

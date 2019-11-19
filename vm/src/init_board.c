@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 17:08:21 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/14 17:43:54 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/11/19 13:18:27 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,12 @@ void			init_board(t_game *game, t_player **players)
 	* MEM_SIZE);
 	load_players(game, players);
 	cursor = init_cursors(game, players, 0);
-	hex_dump(game->board);
-	for (int i = 0; i < game->num_players; i++)
-	{
-		print_cursor(cursor);
-		cursor = cursor->next;
-	}
+	// hex_dump(game->board);
+	// for (int i = 0; i < game->num_players; i++)
+	// {
+	// 	print_cursor(cursor);
+	// 	cursor = cursor->next;
+	// }
 	game->players = players;
-	// run_game(game, players, cursor);
+	run_game(game, players, cursor);
 }

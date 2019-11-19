@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 14:07:05 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/17 14:00:36 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/11/19 15:03:56 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,3 +32,24 @@ int		byte_to_int(unsigned char *board, int position)
 	rtn += (unsigned char)board[(position + 3) % MEM_SIZE];
 	return (rtn);
 }
+
+unsigned char	*int_to_byte(int value)
+{
+	unsigned char *byte;
+
+	byte = (unsigned char *)ft_memalloc(sizeof(unsigned char) * 4);
+	byte[0] = value >> 24;
+	byte[1] = value >> 16;
+	byte[2] = value >> 8;
+	byte[3] = value;
+	return (byte);
+}
+
+int		byte_to_hex(unsigned char *board, int position)
+{
+	int		rtn;
+
+	rtn = (unsigned char)board[(position) % MEM_SIZE] << 8;
+	rtn += (unsigned char)board[(position + 1) % MEM_SIZE];
+	return (rtn);
+} 
