@@ -20,15 +20,13 @@
 
 t_list *save_data(char *file_content)
 {
-	t_list *head;
 	t_list *list;
 	int i;
 
 	i = 0;
-	head = ft_lstnew(NULL, 0);
-	list = head;
+	list = ft_lstnew(NULL, 0);
 	save_name_and_commment(&list, file_content);
-	save_opcodes();
-	save_instructions(&list, file_content, &i);
+	// save_opcodes();
+	// save_instructions(&list, file_content, &i);
 	return (list);
 }

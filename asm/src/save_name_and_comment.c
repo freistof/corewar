@@ -51,13 +51,17 @@ void	save_name_and_commment(t_list **list, char *file_content)
 {
 	int     index;
 	t_list  *iterate;
+	char	*name;
+	char	*comment;
 
 	index = 5;
 	iterate = *list;
 	if (ft_strnequ(file_content, ".name", 5) == 0)
 		syntax_error();
 	skip_whitespaces(&index, file_content);
-	iterate->content = get_quote(&index, file_content);
+	name = get_quote(&index, file_content);
+	iterate->content = name;
+	iterate->content_size = ft_strlen(name);
 	if (ft_strlen(iterate->content) > PROG_NAME_LENGTH)
 		syntax_error();
 	skip_whitespaces(&index, file_content);
@@ -65,7 +69,8 @@ void	save_name_and_commment(t_list **list, char *file_content)
 		syntax_error();
 	index += 8;
 	skip_whitespaces(&index, file_content);
-	iterate->next = ft_lstnew(get_quote(&index, file_content), 0);
+	comment = get_quote(&index, file_content);
+	iterate->next = ft_lstnew(comment, ft_strlen(comment));
 	if (ft_strlen(iterate->next->content) > COMMENT_LENGTH)
 		syntax_error();
 	skip_whitespaces(&index, file_content);
