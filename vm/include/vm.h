@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/01 12:39:27 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/11/19 15:49:34 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/11/20 14:37:53 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <fcntl.h>
 # include <limits.h>
+# include <stdbool.h>
+# include <ncurses.h>
 # include "../../libft/libft.h"
 # include "../../libft/ft_printf/ft_printf.h"
 
@@ -64,11 +66,11 @@
 ** REG | IND | DIRECT = 111		7
 */
 
-enum				e_bool
-{
-	false = 0,
-	true = 1,
-}					t_bool;
+// enum				e_bool
+// {
+// 	false = 0,
+// 	true = 1,
+// }					t_bool;
 
 typedef struct		s_op_args
 {
@@ -90,12 +92,19 @@ typedef struct		s_player
 	unsigned char	*code;
 	int				file_size;
 	int				last_reported_live;
-	enum e_bool		alive;
+	bool			alive;
 }					t_player;
+
+typedef struct 		s_visual
+{
+	WINDOW			*field;
+	WINDOW			*info;
+}					t_visual;
 
 typedef struct		s_game
 {
 	t_player		**players;
+	t_visual		*visual;
 	unsigned char	*board;
 	long			dump;
 	int				last_alive;
@@ -113,7 +122,7 @@ typedef struct		s_game
 typedef struct		s_cursor
 {
 	int				id;
-	enum e_bool		carry;
+	bool			carry;
 	int				opcode;
 	int				last_live;
 	int				wait_cycle;
@@ -122,6 +131,7 @@ typedef struct		s_cursor
 	int				registry[16];
 	struct s_cursor	*next;
 }					t_cursor;
+
 
 void				init_game(t_game *game);
 void				init_players(t_player **players);
@@ -225,6 +235,11 @@ void				write_to_board(unsigned char *board, int position, unsigned char *byte);
 ** SET WAIT CYCLE
 */
 void				set_wait_cycle(t_cursor *cursor);
+
+/*
+** VISUALIZER
+*/
+void        		init_visualizer(t_game *game, t_cursor *cursor);
 
 # define USAGE1 "Usage: ./corewar [-dump N -n N] <champion1.cor> <...>\n"
 # define USAGE2 "-dump N:\tDumps memory after N cycles then exits"
