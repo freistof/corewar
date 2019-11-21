@@ -27,6 +27,8 @@
 # define T_DIR					2
 # define T_IND					4
 
+# define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
+
 /*
 ** USAGE AND ERRORS
 */
@@ -82,6 +84,7 @@ int								input_file_validation(int argc, char **argv);
 
 t_list							*save_data(int fd);
 void							save_name_and_commment(t_list **list, int fd);
+void						 	save_opcodes(t_list **list, int fd);
 
 /*
 ** PRINT FUNCTIONS FOR DEBUGGING

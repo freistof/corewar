@@ -4,4 +4,5 @@ input.c \
 save_data.c \
 save_name_and_comment.c \
 print_list.c \
-error.c
+error.c \
+opcodes.c

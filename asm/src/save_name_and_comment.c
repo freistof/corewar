@@ -43,20 +43,35 @@ void	 save_name_and_commment(t_list **list, int fd)
 	char 	*content;
 	t_list 	*iterate;
 	int		i;
+	int		name;
+	int		comment;
 
+	name = 0;
+	comment = 0;
 	iterate = *list;
 	while (ret == 1)
 	{
 		i = 0;
 		ret = get_next_line(fd, &content);
-		if (ret == 0)
+		if (ret == 0 || (name == 1 && comment == 1))
 			break ;
+		if (ft_strlen(ft_strtrim((content))) == 0)
+		{
+			free(content);
+			continue ;
+		}
 		while (ft_isspace(content[i]))
 			i++;
 		if (ft_strnequ(&content[i], ".name", 5))
+		{
 			save_quote(&iterate, &content[i], 5);
+			name = 1;
+		}
 		if (ft_strnequ(&content[i], ".comment", 8))
+		{
 			save_quote(&iterate, &content[i], 8);
+			comment = 1;
+		}
 		free(content);
 		iterate->next = ft_lstnew(NULL, 0);
 		iterate = iterate->next;
