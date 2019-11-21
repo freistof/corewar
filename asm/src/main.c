@@ -14,10 +14,12 @@
 
 int			main(int argc, char **argv)
 {
-	char	*file_content;
+	int		fd;
 	t_list	*list;
 
-	file_content = input(argc, argv);
-	list = save_data(file_content);
+	fd = input_file_validation(argc, argv);
+	list = save_data(fd);
+	print_list(&list);
+	while (1);
 	return (0);
 }

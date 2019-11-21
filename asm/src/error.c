@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   skip_whitespaces.c                                 :+:    :+:            */
+/*   error.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
+/*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/10/25 14:17:40 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/10/28 10:25:31 by lvan-vlo      ########   odam.nl         */
+/*   Created: 2019/11/21 15:01:58 by fblom         #+#    #+#                 */
+/*   Updated: 2019/11/21 15:01:58 by fblom         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void    skip_whitespaces(int *index, char *str)
+void		error(char *error_message)
 {
-    while (str[*index] == ' ' || str[*index] == '\t' || str[*index] == '\n')
-        *index += 1;
+	ft_printf("%s\n", error_message);
+	exit(1);
 }

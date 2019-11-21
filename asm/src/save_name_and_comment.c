@@ -12,66 +12,53 @@
 
 #include "asm.h"
 
-/*
-** exits the program when there is a syntax error in .s file 
-*/
-
-void    syntax_error(void)
+void 	save_quote(t_list **list, char *content, int skip)
 {
-	ft_printf("%s", SYNTAX_ERROR);
-	exit(1);
+	t_list *item;
+	int		i;
+	int		len;
+
+	item = *list;
+	i = 0;
+	len = 0;
+	content += skip;
+	while (ft_isspace(content[i]))
+		i++;
+	if (content[i] == '"')
+	{
+		len = ft_strrchr(content, '"') - content;
+		item->content_size = len;
+		item->content = ft_strndup(&content[i], len);
+		return ;
+	}
+	if (skip == 5)
+		error(NO_NAME);
+	else if (skip == 8)
+		error(NO_COMMENT);
 }
 
-/*
-** duplicates the string between quotation marks
-*/
-
-char    *get_quote(int *index, char *str)
+void	 save_name_and_commment(t_list **list, int fd)
 {
-	char	*quote;
-	int		start;
+	int		ret = 1;
+	char 	*content;
+	t_list 	*iterate;
+	int		i;
 
-	if (str[*index] != '"')
-		syntax_error();
-	*index += 1;
-	start = *index;
-	while (str[*index] != '"')
-		*index += 1;
-	quote = ft_strsub(str, start, *index - start);
-	*index += 1;
-	return (quote);
-}
-
-/*
-** function saves name and comment in first two list items
-** moves pointer to end of name and comment
-*/
-
-void	save_name_and_commment(t_list **list, char *file_content)
-{
-	int     index;
-	t_list  *iterate;
-	char	*name;
-	char	*comment;
-
-	index = 5;
 	iterate = *list;
-	if (ft_strnequ(file_content, ".name", 5) == 0)
-		syntax_error();
-	skip_whitespaces(&index, file_content);
-	name = get_quote(&index, file_content);
-	iterate->content = name;
-	iterate->content_size = ft_strlen(name);
-	if (ft_strlen(iterate->content) > PROG_NAME_LENGTH)
-		syntax_error();
-	skip_whitespaces(&index, file_content);
-	if (ft_strnequ(&file_content[index], ".comment", 8) == 0)
-		syntax_error();
-	index += 8;
-	skip_whitespaces(&index, file_content);
-	comment = get_quote(&index, file_content);
-	iterate->next = ft_lstnew(comment, ft_strlen(comment));
-	if (ft_strlen(iterate->next->content) > COMMENT_LENGTH)
-		syntax_error();
-	skip_whitespaces(&index, file_content);
+	while (ret == 1)
+	{
+		i = 0;
+		ret = get_next_line(fd, &content);
+		if (ret == 0)
+			break ;
+		while (ft_isspace(content[i]))
+			i++;
+		if (ft_strnequ(&content[i], ".name", 5))
+			save_quote(&iterate, &content[i], 5);
+		if (ft_strnequ(&content[i], ".comment", 8))
+			save_quote(&iterate, &content[i], 8);
+		free(content);
+		iterate->next = ft_lstnew(NULL, 0);
+		iterate = iterate->next;
+	}
 }
