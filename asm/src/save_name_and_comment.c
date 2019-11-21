@@ -39,8 +39,8 @@ void 	save_quote(t_list **list, char *content, int skip)
 
 void	 save_name_and_commment(t_list **list, int fd)
 {
-	int		ret = 1;
 	char 	*content;
+	char	*trimmed;
 	t_list 	*iterate;
 	int		i;
 	int		name;
@@ -49,17 +49,17 @@ void	 save_name_and_commment(t_list **list, int fd)
 	name = 0;
 	comment = 0;
 	iterate = *list;
-	while (ret == 1)
+	while (get_next_line(fd, &content) == 1 && !(name == 1 && comment == 1))
 	{
 		i = 0;
-		ret = get_next_line(fd, &content);
-		if (ret == 0 || (name == 1 && comment == 1))
-			break ;
-		if (ft_strlen(ft_strtrim((content))) == 0)
+		trimmed = ft_strtrim((content));
+		if (ft_strlen(trimmed) == 0)
 		{
+			free(trimmed);
 			free(content);
 			continue ;
 		}
+		free(trimmed);
 		while (ft_isspace(content[i]))
 			i++;
 		if (ft_strnequ(&content[i], ".name", 5))
