@@ -42,13 +42,13 @@
 typedef struct					s_op
 {
 	char						*name;
-	short						opcode;
+	int							number_of_arguments;
 	int							arguments[3];
-	int							something;
-	int							something_else;
+	int							opcode;
+	int							cycles;
 	char						*meaning;
-	int							something_other;
-	int							something_new;
+	int							codage_octal;
+	int							label_size;
 }								t_op;
 
 enum							e_bool
@@ -82,7 +82,7 @@ int								input_file_validation(int argc, char **argv);
 ** SAVING THE DATA
 */
 
-t_list							*save_data(int fd);
+void							save_data(int fd, t_list **list);
 void							save_name_and_commment(t_list **list, int fd);
 void						 	save_opcodes(t_list **list, int fd);
 

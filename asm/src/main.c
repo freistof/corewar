@@ -18,7 +18,8 @@ int			main(int argc, char **argv)
 	t_list	*list;
 
 	fd = input_file_validation(argc, argv);
-	list = save_data(fd);
+	list = ft_lstnew(NULL, 0);
+	save_data(fd, &list);
 	print_list(&list);
 	while (1);
 	return (0);

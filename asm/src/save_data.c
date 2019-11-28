@@ -18,12 +18,8 @@
 ** returns list to main
 */
 
-t_list *save_data(int fd)
+void	save_data(int fd, t_list **head)
 {
-	t_list *list;
-
-	list = ft_lstnew(NULL, 0);
-	save_name_and_commment(&list, fd);
-	// save_opcodes(&list, fd);
-	return (list);
+	save_name_and_commment(head, fd);
+	save_opcodes(head, fd);
 }
