@@ -6,4 +6,5 @@ save_name_and_comment.c \
 print_list.c \
 error.c \
 save_instructions.c \
-op.c
+op.c \
+arguments.c

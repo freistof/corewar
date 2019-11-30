@@ -21,6 +21,7 @@ static void	save_instruction(t_list **list, char *content, int opcode)
 	item->content = malloc(sizeof(t_op));
 	ft_memcpy((void *)item->content, (void *)&g_op_tab[opcode], sizeof(t_op));
 	item->content_size = sizeof(t_op);
+	check_arguments(content, opcode);
 	char *bla = ft_strdup(content);
 	free(bla);
 }

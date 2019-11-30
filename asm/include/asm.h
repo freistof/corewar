@@ -99,6 +99,7 @@ int								input_file_validation(int argc, char **argv);
 void							save_data(int fd, t_list **list);
 void							save_name_and_commment(t_list **list, int fd);
 void						 	save_opcodes(t_list **list, int fd);
+int								check_arguments(char *content, int opcode);
 
 /*
 ** PRINT FUNCTIONS FOR DEBUGGING
