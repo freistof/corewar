@@ -30,10 +30,13 @@ int			instruction(char *line, int *opcode, int *index)
 	int			correct;
 
 	i = 0;
+	while(ft_isspace(*line))
+		line++;
 	correct = 0;
+	i = 0;
 	while (i < 16)
 	{
-		if (ft_strstr(line, g_op_tab[i].name))
+		if (ft_strnequ(line, g_op_tab[i].name, ft_strlen(g_op_tab[i].name)))
 		{
 			*opcode = g_op_tab[i].opcode;
 			correct = 1;
