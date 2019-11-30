@@ -7,4 +7,5 @@ print_list.c \
 error.c \
 save_instructions.c \
 op.c \
-arguments.c
+arguments.c \
+replace_with_spaces.c

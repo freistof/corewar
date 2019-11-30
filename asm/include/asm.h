@@ -46,18 +46,11 @@ typedef enum						e_argtype
 	T_IND = 4
 }								t_argtype;
 
-typedef struct					s_arg
-{
-	t_argtype					arg1;
-	t_argtype					arg2;
-	t_argtype					arg3;
-}								t_arg;
-
 typedef struct					s_op
 {
 	char						*name;
 	int							number_of_arguments;
-	t_arg						argtypes;
+	int							argtypes[3];
 	int							opcode;
 	int							cycles;
 	char						*meaning;
@@ -99,7 +92,13 @@ int								input_file_validation(int argc, char **argv);
 void							save_data(int fd, t_list **list);
 void							save_name_and_commment(t_list **list, int fd);
 void						 	save_opcodes(t_list **list, int fd);
-int								check_arguments(char *content, int opcode);
+int								check_arguments(t_list *item, char *content);
+
+/*
+** EDITING THE INPUT
+*/
+
+void							replace_with_spaces(char *string);
 
 /*
 ** PRINT FUNCTIONS FOR DEBUGGING

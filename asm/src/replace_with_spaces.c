@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main_asm.c                                         :+:    :+:            */
+/*   replace_with_spaces.c                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/10/23 18:26:40 by fblom         #+#    #+#                 */
-/*   Updated: 2019/10/23 18:26:41 by fblom         ########   odam.nl         */
+/*   Created: 2019/11/30 15:51:49 by fblom         #+#    #+#                 */
+/*   Updated: 2019/11/30 15:51:50 by fblom         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int			main(int argc, char **argv)
+void		replace_with_spaces(char *string)
 {
-	int		fd;
-	t_list	*list;
+	int		i;
 
-	fd = input_file_validation(argc, argv);
-	list = ft_lstnew(NULL, 0);
-	save_data(fd, &list);
-	// print_list(&list);
-	while (1);
-	return (0);
+	i = 0;
+	while (string[i] != '\0')
+	{
+		if (ft_isspace(string[i]) || string[i] == ',')
+			string[i] = ',';
+		i++;
+	}
 }
