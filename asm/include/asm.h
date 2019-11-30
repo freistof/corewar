@@ -38,6 +38,7 @@
 # define SYNTAX_ERROR			"Syntax error in .s file"
 # define NO_NAME				"No name given"
 # define NO_COMMENT				"No comment given"
+# define INCORRECT_ARG_COUNT	"Incorrect argument count"
 
 typedef enum						e_argtype
 {
