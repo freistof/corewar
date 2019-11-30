@@ -25,17 +25,16 @@ void		print_list(t_list **list)
 	{
 		if (item->content_size != 0)
 		{
-			ft_printf("content_size: %i\n", item->content_size);
 			if (i < 2)
 				ft_printf("name/comment: %s\n", item->content);
-			else
-			{
+			else if (item->content_size == 48)
 				ft_printf("content: %s\n", (char *)(((t_op *)(item->content))->name));
-			}
+			else
+				ft_printf("label: %s\n", item->content);
 		}
 		temp = item;
 		item = item->next;
-		// free (temp->content);
+		free (temp->content);
 		free (temp);
 		i++;
 	}

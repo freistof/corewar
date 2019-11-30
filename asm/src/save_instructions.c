@@ -15,14 +15,14 @@ extern t_op g_op_tab[17];
 
 static void	save_instruction(t_list **list, char *content, int opcode)
 {
-	// t_op operation;
 	t_list *item;
 
 	item = *list;
 	item->content = malloc(sizeof(t_op));
 	ft_memcpy((void *)item->content, (void *)&g_op_tab[opcode], sizeof(t_op));
 	item->content_size = sizeof(t_op);
-	ft_strdup(content);
+	char *bla = ft_strdup(content);
+	free(bla);
 }
 
 int			instruction(char *line, int *opcode)
@@ -32,7 +32,7 @@ int			instruction(char *line, int *opcode)
 	i = 0;
 	while (i < 16)
 	{
-		if (ft_strstr(line, g_op_tab[i].name) == line)
+		if (ft_strstr(line, g_op_tab[i].name))
 		{
 			*opcode = i;
 			return (1);
@@ -40,6 +40,22 @@ int			instruction(char *line, int *opcode)
 		i++;
 	}
 	return (0);
+}
+
+void			check_for_label(t_list *item, char *line)
+{
+	int			i;
+
+	i = 0;
+	while (ft_isspace(line[i]))
+		i++;
+	while (ft_strchr(LABEL_CHARS, line[i]))
+		i++;
+	if (line[i] == ':')
+	{
+		item->content_size = i;
+		item->content = ft_strndup(line, i);
+	}
 }
 
 void			save_opcodes(t_list **list, int fd)
@@ -59,19 +75,13 @@ void			save_opcodes(t_list **list, int fd)
 	{
 		i = 0;
 		ret = get_next_line(fd, &content);
-		if (ret == 0)
+		if (ret == 0 || !content)
 			break ;
-		while (ft_isspace(content[i]))
-			i++;
+		check_for_label(iterate, content);
+		iterate->next = ft_lstnew(NULL, 0);
+		iterate = iterate->next;
 		if (instruction(&content[i], &opcode) == 1)
 			save_instruction(&iterate, content, opcode);
-		else
-		{
-			ft_printf("continue\n");
-			free(content);
-			continue;
-		}
-		ft_printf("%s\n", ((t_op *)iterate->content)->name);
 		free(content);
 		iterate->next = ft_lstnew(NULL, 0);
 		iterate = iterate->next;

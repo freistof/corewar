@@ -22,10 +22,10 @@
 # define LABEL_CHAR				':'
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
-
+/*
 # define T_REG					1
 # define T_DIR					2
-# define T_IND					4
+# define T_IND					4*/
 
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
@@ -39,11 +39,25 @@
 # define NO_NAME				"No name given"
 # define NO_COMMENT				"No comment given"
 
+typedef enum						e_argtype
+{
+	T_REG = 1,
+	T_DIR = 2,
+	T_IND = 4
+}								t_argtype;
+
+typedef struct					s_arg
+{
+	t_argtype					arg1;
+	t_argtype					arg2;
+	t_argtype					arg3;
+}								t_arg;
+
 typedef struct					s_op
 {
 	char						*name;
 	int							number_of_arguments;
-	int							arguments[3];
+	t_arg						argtypes;
 	int							opcode;
 	int							cycles;
 	char						*meaning;
