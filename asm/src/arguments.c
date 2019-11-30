@@ -12,9 +12,30 @@
 
 #include "asm.h"
 
-void		valid_argument(void)
+void		valid_argument(char **argsplit, t_list *item)
 {
-	;
+	int 	i;
+	int		skip;
+	int		type;
+
+	i = 0;
+	while (argsplit[i])
+	{
+		skip = 0;
+		while (ft_isspace(argsplit[i][skip]))
+			skip++;
+		if (argsplit[i][0 + skip] == 'r')
+			type = 0;
+		else if (argsplit[i][0 + skip] == '%')
+			type = 1;
+		else
+			type = 2;
+		if (((t_op *)(item->content))->argtypes[i] & (1<<type))
+			ft_printf("correct argument\n");
+		else
+			ft_printf("incorrect argument\n");
+		i++;
+	}
 }
 
 int			valid_argument_count(char **argsplit, int arg_no)
@@ -39,7 +60,7 @@ int			check_arguments(t_list *item, char *content)
 	argsplit = ft_strsplit(content, ',');
 	i = 0;
 	if (valid_argument_count(argsplit, arg_no))
-		;//ft_printf("valid\n");
+		valid_argument(argsplit, item);
 	else
 		error(INCORRECT_ARG_COUNT);
 	i = 0;
