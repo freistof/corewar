@@ -36,11 +36,12 @@ int			instruction(char *line, int *opcode, int *index)
 		if (ft_strstr(line, g_op_tab[i].name))
 		{
 			*opcode = g_op_tab[i].opcode;
-			*index += ft_strlen(g_op_tab[i].name) + 1;
 			correct = 1;
 		}
 		i++;
 	}
+	if (correct)
+		*index += ft_strlen(g_op_tab[*opcode - 1].name) + 1;
 	return (correct);
 }
 
