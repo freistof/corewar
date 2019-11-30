@@ -18,7 +18,7 @@ SRC_PATH = src/
 OBJ = $(SRCS:%.c=%.o)
 SRCS :=${addprefix $(SRC_PATH), $(SRCS)}
 FLAGS = -o $(BINARY)
-ERRFLAGS = -Wall -Wextra -Werror -Wno-missing-field-initializers
+ERRFLAGS = -Wall -Wextra -Werror
 CC = gcc
 LIBPATH = ../libft/
 PRINTFPATH = $(LIBPATH)ft_printf/
