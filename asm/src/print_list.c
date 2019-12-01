@@ -22,7 +22,13 @@ void		print_list(t_list **list)
 	items = 0;
 	while (item != NULL)
 	{
-		ft_printf("content: %s\n", item->content);
+		if (item->content_size == 48)
+		{
+			ft_printf("%s\n", (((t_op *)(item->content))->name));
+			ft_printf("arg1: %i\n", (((t_op *)(item->content))->argtypes[0]));
+			ft_printf("arg2: %i\n", (((t_op *)(item->content))->argtypes[1]));
+			ft_printf("arg2: %i\n", (((t_op *)(item->content))->argtypes[2]));
+		}
 		temp = item;
 		item = item->next;
 		free (temp->content);

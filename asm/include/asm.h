@@ -39,6 +39,7 @@
 # define NO_NAME				"No name given"
 # define NO_COMMENT				"No comment given"
 # define INCORRECT_ARG_COUNT	"Incorrect argument count"
+# define INCORRECT_ARG_TYPE		"Incorrect argument type"
 
 typedef enum						e_argtype
 {

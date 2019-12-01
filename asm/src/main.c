@@ -20,7 +20,7 @@ int			main(int argc, char **argv)
 	fd = input_file_validation(argc, argv);
 	list = ft_lstnew(NULL, 0);
 	save_data(fd, &list);
-	// print_list(&list);
+	print_list(&list);
 	while (1);
 	return (0);
 }

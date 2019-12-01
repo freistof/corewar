@@ -21,7 +21,6 @@ void		valid_argument(char **argsplit, t_list *item)
 	i = 0;
 	while (argsplit[i])
 	{
-		// ft_printf("%s\n", argsplit[i]);
 		skip = 0;
 		while (ft_isspace(argsplit[i][skip]))
 			skip++;
@@ -32,11 +31,9 @@ void		valid_argument(char **argsplit, t_list *item)
 		else
 			type = 2;
 		if (((t_op *)(item->content))->argtypes[i] & (1<<type))
-			;//ft_printf("correct argument\n");
+			((t_op *)(item->content))->argtypes[i] = 1<<type;
 		else
-		{
-			ft_printf("incorrect argument\n");
-		}
+			error(INCORRECT_ARG_TYPE);
 		i++;
 	}
 }
