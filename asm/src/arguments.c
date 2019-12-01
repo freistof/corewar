@@ -12,6 +12,45 @@
 
 #include "asm.h"
 
+int			check_register(char *argument)
+{
+	int		i;
+	char	*trimmed;
+	char	*digit_string;
+
+	remove_comments(argument);
+	trimmed = ft_strtrim(argument);
+	digit_string = ft_strmap(trimmed + 1, (char (*)(char)) &ft_isdigit);
+	i = 0;
+	while (trimmed[i + 1] != '\0')
+	{
+		if (digit_string[i] == '\0')
+		{
+			free(digit_string);
+			free(trimmed);
+			return (0);
+		}
+		i++;
+	}
+	free(digit_string);
+	free(trimmed);
+	return (1);
+}
+
+void		save_argument_value(char *argument, int type, t_list *item)
+{
+	if (type == T_REG)
+	{
+		if (!check_register(argument))
+		{
+			ft_printf("argument: %s\n", argument);
+			error("Wrong register\n");
+		}
+		item->content_size = 48; //bla bla
+	}
+
+}
+
 void		valid_argument(char **argsplit, t_list *item)
 {
 	int 	i;
@@ -31,7 +70,10 @@ void		valid_argument(char **argsplit, t_list *item)
 		else
 			type = 2;
 		if (((t_op *)(item->content))->argtypes[i] & (1<<type))
+		{
 			((t_op *)(item->content))->argtypes[i] = 1<<type;
+			save_argument_value(argsplit[i], 1<<type, item);
+		}
 		else
 			error(INCORRECT_ARG_TYPE);
 		i++;
@@ -64,6 +106,11 @@ int			check_arguments(t_list *item, char *content)
 	else
 		error(INCORRECT_ARG_COUNT);
 	i = 0;
-	content = 0;
+	while (argsplit[i])
+	{
+		free(argsplit[i]);
+		i++;
+	}
+	free(argsplit);
 	return (1);
 }

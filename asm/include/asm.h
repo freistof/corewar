@@ -101,6 +101,7 @@ int								check_arguments(t_list *item, char *content);
 */
 
 void							replace_with_spaces(char *string);
+void							remove_comments(char *string);
 
 /*
 ** PRINT FUNCTIONS FOR DEBUGGING

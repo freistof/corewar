@@ -8,4 +8,5 @@ error.c \
 save_instructions.c \
 op.c \
 arguments.c \
-replace_with_spaces.c
+replace_with_spaces.c \
+remove_comments.c
