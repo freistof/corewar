@@ -22,18 +22,21 @@ void		print_list(t_list **list)
 	items = 0;
 	while (item != NULL)
 	{
-		if (item->content_size == 48)
+		if (item->content_size == 72)
 		{
-			ft_printf("%s\n", (((t_op *)(item->content))->name));
+			ft_printf("instruction: %s\n", (((t_op *)(item->content))->name));
 			ft_printf("arg1: %i\n", (((t_op *)(item->content))->argtypes[0]));
 			ft_printf("arg2: %i\n", (((t_op *)(item->content))->argtypes[1]));
 			ft_printf("arg2: %i\n", (((t_op *)(item->content))->argtypes[2]));
 		}
+		else
+			ft_printf("label: %s\n", (((t_op *)item->content)));
 		temp = item;
 		item = item->next;
 		free (temp->content);
 		free (temp);
 		items++;
+		ft_printf("\n");
 	}
 	ft_printf("items: %i\n", items);
 }

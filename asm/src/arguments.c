@@ -22,62 +22,97 @@ int			check_indirect(char *argument)
 	return (1);
 }
 
-void		save_direct(char *argument, t_list *item)
+*/
+void		save_direct(char *argument, t_list *item, int argno)
 {
-	;
+	if (ft_isdigit(argument[0]) || argument[0] == '-')
+		(((t_op *)(item->content))->argvalues[argno]).value = ft_atoi(argument);
+	else
+		(((t_op *)(item->content))->argvalues[argno]).label = ft_strdup(argument + 1);
 }
 
 int			check_direct(char *argument)
 {
-	return (1);
+	int		i;
+	char	*digit_string;
+
+	digit_string = ft_strmap(argument, (char (*)(char)) &ft_isdigit);
+	i = 1;
+	if (argument[0] == ':')
+	{
+		while (argument[i])
+		{
+			if (!ft_strchr(LABEL_CHARS, argument[i]))
+				return false;
+			i++;
+		}
+	}
+	else
+	{
+		i = 0;
+		if (argument[i] == '-')
+			i++;
+		while (argument[i] != '\0')
+		{
+			if (digit_string[i] == '\0')
+			{
+				free(digit_string);
+				return (false);
+			}
+			i++;
+		}
+	}
+	free(digit_string);
+	return (true);
 }
-*/
+
 
 void		save_register(char *argument, t_list *item, int argno)
 {
 	(((t_op *)(item->content))->argvalues[argno]).value = ft_atoi(argument + 1);
-	ft_printf("%i\n", (((t_op *)(item->content))->argvalues[argno]).value);
-	(((t_op *)(item->content))->argvalues[argno]).label = (char *)malloc(100);
-	if ((((t_op *)(item->content))->argvalues[argno]).label)
-		ft_printf("%s\n", (((t_op *)(item->content))->argvalues[argno]).label);
 }
 
 int			check_register(char *argument)
 {
 	int		i;
-	char	*trimmed;
 	char	*digit_string;
 
-	remove_comments(argument);
-	trimmed = ft_strtrim(argument);
-	digit_string = ft_strmap(trimmed + 1, (char (*)(char)) &ft_isdigit);
+	digit_string = ft_strmap(argument + 1, (char (*)(char)) &ft_isdigit);
 	i = 0;
-	while (trimmed[i + 1] != '\0')
+	while (argument[i + 1] != '\0')
 	{
 		if (digit_string[i] == '\0')
 		{
 			free(digit_string);
-			free(trimmed);
 			return (false);
 		}
 		i++;
 	}
 	free(digit_string);
-	free(trimmed);
 	return (true);
 }
 
 void		save_argument_value(char *argument, int type, t_list *item, int argno)
 {
+	char	*trimmed;
+
+	remove_comments(argument);
+	trimmed = ft_strtrim(argument);
 	if (type == T_REG)
 	{
-		if (!check_register(argument))
+		if (!check_register(trimmed))
 			error("Wrong register\n");
 		else
-			save_register(argument, item, argno);
-		item->content_size = 48;
+			save_register(trimmed, item, argno);
 	}
-
+	if (type == T_DIR)
+	{
+		if (!check_direct(trimmed + 1))
+			error("Wrong direct\n");
+		else
+			save_direct(trimmed + 1, item, argno);
+	}
+	free(trimmed);
 }
 
 void		valid_argument(char **argsplit, t_list *item)
