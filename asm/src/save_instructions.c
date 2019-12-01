@@ -28,10 +28,14 @@ int			instruction(char *line, int *opcode, int *index)
 {
 	int 		i;
 	int			correct;
+	int			spaces;
 
-	i = 0;
+	spaces = 0;
 	while(ft_isspace(*line))
+	{
+		spaces++;
 		line++;
+	}
 	correct = 0;
 	i = 0;
 	while (i < 16)
@@ -44,7 +48,7 @@ int			instruction(char *line, int *opcode, int *index)
 		i++;
 	}
 	if (correct)
-		*index += ft_strlen(g_op_tab[*opcode - 1].name) + 1;
+		*index += ft_strlen(g_op_tab[*opcode - 1].name) + 1 + spaces;
 	return (correct);
 }
 

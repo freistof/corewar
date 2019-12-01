@@ -11,32 +11,23 @@
 /* ************************************************************************** */
 
 #include "asm.h"
-extern t_op g_op_tab[17];
 
 void		print_list(t_list **list)
 {
 	t_list *item;
 	t_list *temp;
-	int i;
-
 	item = *list;
-	i = 0;
+	int	items;
+
+	items = 0;
 	while (item != NULL)
 	{
-		if (item->content_size != 0)
-		{
-			if (i < 2)
-				ft_printf("name/comment: %s\n", item->content);
-			else if (item->content_size == 48)
-				ft_printf("content: %s\n", (char *)(((t_op *)(item->content))->name));
-			else
-				ft_printf("label: %s\n", item->content);
-		}
+		ft_printf("content: %s\n", item->content);
 		temp = item;
 		item = item->next;
 		free (temp->content);
 		free (temp);
-		i++;
+		items++;
 	}
-	ft_printf("list_items: %i\n", i);
+	ft_printf("items: %i\n", items);
 }
