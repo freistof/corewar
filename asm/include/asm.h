@@ -27,6 +27,10 @@
 # define T_DIR					2
 # define T_IND					4
 
+# define REG_CODE				0
+# define DIR_CODE				1
+# define IND_CODE				2
+
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
 /*

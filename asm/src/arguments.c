@@ -37,6 +37,9 @@ void		save_register(char *argument, t_list *item, int argno)
 {
 	(((t_op *)(item->content))->argvalues[argno]).value = ft_atoi(argument + 1);
 	ft_printf("%i\n", (((t_op *)(item->content))->argvalues[argno]).value);
+	(((t_op *)(item->content))->argvalues[argno]).label = (char *)malloc(100);
+	if ((((t_op *)(item->content))->argvalues[argno]).label)
+		ft_printf("%s\n", (((t_op *)(item->content))->argvalues[argno]).label);
 }
 
 int			check_register(char *argument)
@@ -91,11 +94,11 @@ void		valid_argument(char **argsplit, t_list *item)
 			skip++;
 		type = argsplit[i][0 + skip];
 		if (argsplit[i][0 + skip] == 'r')
-			type = 0;
+			type = REG_CODE;
 		else if (argsplit[i][0 + skip] == '%')
-			type = 1;
+			type = DIR_CODE;
 		else
-			type = 2;
+			type = IND_CODE;
 		if (((t_op *)(item->content))->argtypes[i] & (1<<type))
 		{
 			((t_op *)(item->content))->argtypes[i] = 1<<type;
