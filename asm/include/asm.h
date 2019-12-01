@@ -22,10 +22,10 @@
 # define LABEL_CHAR				':'
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
-/*
+
 # define T_REG					1
 # define T_DIR					2
-# define T_IND					4*/
+# define T_IND					4
 
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
@@ -41,18 +41,18 @@
 # define INCORRECT_ARG_COUNT	"Incorrect argument count"
 # define INCORRECT_ARG_TYPE		"Incorrect argument type"
 
-typedef enum						e_argtype
+typedef union					u_argval
 {
-	T_REG = 1,
-	T_DIR = 2,
-	T_IND = 4
-}								t_argtype;
+	int	value;
+	char *label;
+}								t_argval;
 
 typedef struct					s_op
 {
 	char						*name;
 	int							number_of_arguments;
 	int							argtypes[3];
+	t_argval					argvalues[3];
 	int							opcode;
 	int							cycles;
 	char						*meaning;
@@ -62,24 +62,9 @@ typedef struct					s_op
 
 enum							e_bool
 {
-	true = 0,
-	false = 1,
+	true = 1,
+	false = 0,
 }								t_bool;
-
-enum							e_value_type
-{
-	value = 1,
-	label = 2,
-};
-
-typedef struct					s_command
-{
-	int							opcode;
-	int							codage_octal;
-	int							arg_type[3];
-	int							type_value;
-	void						*value;
-}								t_command;
 
 /*
 ** INPUT
