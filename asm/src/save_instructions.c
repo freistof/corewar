@@ -13,7 +13,7 @@
 #include "asm.h"
 extern t_op g_op_tab[17];
 
-static void	save_instruction(t_list **list, char *content, int opcode)
+static void		copy_instruction(t_list **list, char *content, int opcode)
 {
 	t_list *item;
 
@@ -24,7 +24,7 @@ static void	save_instruction(t_list **list, char *content, int opcode)
 	check_arguments(item, content);
 }
 
-int			instruction(char *line, int *opcode, int *index)
+static int		check_instruction(char *line, int *opcode, int *index)
 {
 	int 		i;
 	int			correct;
@@ -52,27 +52,7 @@ int			instruction(char *line, int *opcode, int *index)
 	return (correct);
 }
 
-void			check_for_label(t_list *item, char *line, int *index)
-{
-	int			i;
-
-	i = 0;
-	while (ft_isspace(line[i]))
-		i++;
-	while (ft_strchr(LABEL_CHARS, line[i]))
-		i++;
-	if (line[i] == ':')
-	{
-		item->content_size = i;
-		item->content = ft_strndup(line, i);
-		i++;
-		while (ft_isspace(line[i]))
-			i++;
-		*index = i;
-	}
-}
-
-void			save_opcodes(t_list **list, int fd)
+void			save_instructions(t_list **list, int fd)
 {
 	int			ret;
 	char		*content;
@@ -91,11 +71,11 @@ void			save_opcodes(t_list **list, int fd)
 		ret = get_next_line(fd, &content);
 		if (ret == 0 || !content)
 			break ;
-		check_for_label(iterate, content, &i);
+		save_label(iterate, content, &i);
 		iterate->next = ft_lstnew(NULL, 0);
 		iterate = iterate->next;
-		if (instruction(&content[i], &opcode, &i) == 1)
-			save_instruction(&iterate, &content[i], opcode);
+		if (check_instruction(&content[i], &opcode, &i) == 1)
+			copy_instruction(&iterate, &content[i], opcode);
 		free(content);
 		iterate->next = ft_lstnew(NULL, 0);
 		iterate = iterate->next;

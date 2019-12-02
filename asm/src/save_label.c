@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   save_data.c                                        :+:    :+:            */
+/*   save_label.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/10/24 14:19:17 by fblom          #+#    #+#                */
-/*   Updated: 2019/10/28 13:07:22 by lvan-vlo      ########   odam.nl         */
+/*   Created: 2019/12/02 12:19:17 by fblom         #+#    #+#                 */
+/*   Updated: 2019/12/02 12:19:17 by fblom         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-/*
-** main function that creates list of name, comment and all opcodes
-** all list items should be appended at the end of the list with ft_lstappend
-** returns list to main
-*/
-
-void	save_data(int fd, t_list **head)
+void			save_label(t_list *item, char *line, int *index)
 {
-	save_name_and_commment(head, fd);
-	save_instructions(head, fd);
+	int			i;
+
+	i = 0;
+	while (ft_isspace(line[i]))
+		i++;
+	while (ft_strchr(LABEL_CHARS, line[i]))
+		i++;
+	if (line[i] == ':')
+	{
+		item->content_size = i;
+		item->content = ft_strndup(line, i);
+		i++;
+		while (ft_isspace(line[i]))
+			i++;
+		*index = i;
+	}
 }

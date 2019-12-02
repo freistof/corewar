@@ -12,4 +12,5 @@ replace_with_spaces.c \
 remove_comments.c \
 arg_direct.c \
 arg_indirect.c \
-arg_register.c
+arg_register.c \
+save_label.c
