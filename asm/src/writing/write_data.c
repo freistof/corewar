@@ -22,9 +22,10 @@ void			write_data(t_list *list)
 	ft_printf("fd: %i\n", fd);
 	write_magic(fd);
 	write_name(fd, list);
-	// write_comment();
-	// write_null();
+	write_null(fd);
+	write_null(fd); //placeholder for write size
 	// write_size();
+	write_comment(fd, list);
 	// write_comment();
 	// write_null();
 	// write_exec_code();

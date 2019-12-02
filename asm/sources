@@ -16,4 +16,6 @@ reading/arg_register.c \
 reading/save_label.c \
 writing/write_data.c \
 writing/magic.c \
-writing/name.c
+writing/name.c \
+writing/comment.c \
+writing/null.c

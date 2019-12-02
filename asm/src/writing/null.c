@@ -1,38 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   name.c                                             :+:    :+:            */
+/*   null.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/02 15:58:06 by fblom         #+#    #+#                 */
-/*   Updated: 2019/12/02 15:58:06 by fblom         ########   odam.nl         */
+/*   Created: 2019/12/02 16:36:08 by fblom         #+#    #+#                 */
+/*   Updated: 2019/12/02 16:36:09 by fblom         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void			write_name(int fd, t_list *list)
+void			write_null(int fd)
 {
-	char		name[PROG_NAME_LENGTH];
 	int			i;
 
-	while (list)
+	i = 0;
+	while (i < 4)
 	{
-		if (ft_strnstr(list->content, NAME_CMD_STRING, 5))
-		{
-			list = list->next;
-			break;
-		}
-		list = list->next;
-	}
-	ft_printf("name: %s\n", list->content);
-	ft_strcpy(name, list->content);
-	i = ft_strlen(list->content);
-	while (i < PROG_NAME_LENGTH)
-	{
-		name[i] = '\0';
+		write(fd, "\0", 1);
 		i++;
 	}
-	write(fd, name, PROG_NAME_LENGTH);
 }

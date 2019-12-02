@@ -22,8 +22,8 @@
 # define LABEL_CHAR				':'
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
-# define NAME					".name"
-# define COMMENT				".comment"
+# define NAME_CMD_STRING		".name"
+# define COMMENT_CMD_STRING		".comment"
 
 # define T_REG					1
 # define T_DIR					2
@@ -35,6 +35,8 @@
 
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
+# define PROG_NAME_LENGTH		(128)
+# define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
 /*
@@ -115,6 +117,8 @@ void							remove_comments(char *string);
 void							write_data(t_list *list);
 void							write_magic(int fd);
 void							write_name(int fd, t_list *list);
+void							write_comment(int fd, t_list *list);
+void							write_null(int fd);
 
 /*
 ** PRINT FUNCTIONS FOR DEBUGGING
