@@ -1,16 +1,19 @@
 SRCS = \
 main.c \
-input.c \
-save_data.c \
-save_name_and_comment.c \
-print_list.c \
-error.c \
-save_instructions.c \
-op.c \
-arguments.c \
-replace_with_spaces.c \
-remove_comments.c \
-arg_direct.c \
-arg_indirect.c \
-arg_register.c \
-save_label.c
+reading/input.c \
+reading/save_data.c \
+reading/save_name_and_comment.c \
+reading/print_list.c \
+reading/error.c \
+reading/save_instructions.c \
+reading/op.c \
+reading/arguments.c \
+reading/replace_with_spaces.c \
+reading/remove_comments.c \
+reading/arg_direct.c \
+reading/arg_indirect.c \
+reading/arg_register.c \
+reading/save_label.c \
+writing/write_data.c \
+writing/magic.c \
+writing/name.c
