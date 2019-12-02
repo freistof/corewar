@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main_asm.c                                         :+:    :+:            */
+/*   magic.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/10/23 18:26:40 by fblom         #+#    #+#                 */
-/*   Updated: 2019/10/23 18:26:41 by fblom         ########   odam.nl         */
+/*   Created: 2019/12/02 14:23:13 by fblom         #+#    #+#                 */
+/*   Updated: 2019/12/02 14:23:13 by fblom         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int			main(int argc, char **argv)
+void			write_magic(int fd)
 {
-	int		fd;
-	t_list	*list;
+	int		magic;
 
-	fd = input_file_validation(argc, argv);
-	list = ft_lstnew(NULL, 0);
-	save_data(fd, &list);
-	print_list(list);
-	write_data(list);
-	while (1);
-	return (0);
+	magic = COREWAR_EXEC_MAGIC;
+	magic = ((magic>>24)&0xff) | // move byte 3 to byte 0
+                    ((magic<<8)&0xff0000) | // move byte 1 to byte 2
+                    ((magic>>8)&0xff00) | // move byte 2 to byte 1
+                    ((magic<<24)&0xff000000); // byte 0 to byte 3
+	write(fd, &magic, 4);
 }
