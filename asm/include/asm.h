@@ -83,7 +83,18 @@ int								input_file_validation(int argc, char **argv);
 void							save_data(int fd, t_list **list);
 void							save_name_and_commment(t_list **list, int fd);
 void						 	save_opcodes(t_list **list, int fd);
+void							save_direct(char *argument, t_list *item, int argno);
+void							save_indirect(char *argument, t_list *item, int argno);
+void							save_register(char *argument, t_list *item, int argno);
+
+/*
+** CHECKING THE DATA
+*/
+
 int								check_arguments(t_list *item, char *content);
+int								check_direct(char *argument);
+int								check_indirect(char *argument);
+int								check_register(char *argument);
 
 /*
 ** EDITING THE INPUT

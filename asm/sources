@@ -9,4 +9,7 @@ save_instructions.c \
 op.c \
 arguments.c \
 replace_with_spaces.c \
-remove_comments.c
+remove_comments.c \
+arg_direct.c \
+arg_indirect.c \
+arg_register.c
