@@ -45,7 +45,7 @@
 # define INCORRECT_ARG_COUNT	"Incorrect argument count"
 # define INCORRECT_ARG_TYPE		"Incorrect argument type"
 
-typedef union					u_argval
+typedef struct					s_argval
 {
 	int	value;
 	char *label;

@@ -12,6 +12,16 @@
 
 #include "asm.h"
 
+void		initaliase_values_to_null(t_list *item)
+{
+	(((t_op *)(item->content))->argvalues[0].value) = 0;
+	(((t_op *)(item->content))->argvalues[1].value) = 0;
+	(((t_op *)(item->content))->argvalues[2].value) = 0;
+	(((t_op *)(item->content))->argvalues[0].label) = NULL;
+	(((t_op *)(item->content))->argvalues[1].label) = NULL;
+	(((t_op *)(item->content))->argvalues[2].label) = NULL;
+}
+
 /*void		save_indirect(char *argument, t_list *item)
 {
 	;
@@ -28,7 +38,7 @@ void		save_direct(char *argument, t_list *item, int argno)
 	if (ft_isdigit(argument[0]) || argument[0] == '-')
 		(((t_op *)(item->content))->argvalues[argno]).value = ft_atoi(argument);
 	else
-		(((t_op *)(item->content))->argvalues[argno]).label = argument + 1;
+		(((t_op *)(item->content))->argvalues[argno]).label = ft_strdup(argument + 1);
 }
 
 int			check_direct(char *argument)
