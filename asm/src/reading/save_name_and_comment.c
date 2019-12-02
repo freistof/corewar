@@ -26,10 +26,10 @@ void 	save_quote(t_list **list, char *content, int skip)
 		i++;
 	if (content[i] == '"')
 	{
-		len = ft_strrchr(content, '"') - content - 1;
+		len = ft_strrchr(&content[i + 1], '"') - &content[i] - 1;
 		item->content_size = len;
 		ft_printf("len: %i\n", len);
-		item->content = ft_strndup(&content[i + 1], len - 1);
+		item->content = ft_strndup(&content[i + 1], len);
 		return ;
 	}
 	if (skip == 5)
@@ -57,7 +57,7 @@ void	 save_name_and_commment(t_list **list, int fd)
 			i++;
 		if (ft_strnequ(&content[i], ".name", 5) && name == 0)
 		{
-			iterate->content = ft_strdup(NAME);
+			iterate->content = ft_strdup(NAME_CMD_STRING);
 			iterate->next = ft_lstnew(NULL, 0);
 			iterate = iterate->next;
 			save_quote(&iterate, &content[i], 5);
@@ -65,9 +65,10 @@ void	 save_name_and_commment(t_list **list, int fd)
 		}
 		else if (ft_strnequ(&content[i], ".comment", 8) && comment == 0)
 		{
-			iterate->content = ft_strdup(COMMENT);
+			iterate->content = ft_strdup(COMMENT_CMD_STRING);
 			iterate->next = ft_lstnew(NULL, 0);
 			iterate = iterate->next;
+			save_quote(&iterate, &content[i], 8);
 			comment = 1;
 		}
 		free(content);
