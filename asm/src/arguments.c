@@ -42,6 +42,13 @@ void		save_argument_value(char *argument, int type, t_list *item, int argno)
 		else
 			save_direct(trimmed + 1, item, argno);
 	}
+	if (type == T_IND)
+	{
+		if (!check_indirect(trimmed))
+			error("Wrong indirect\n");
+		else
+			save_indirect(trimmed, item, argno);
+	}
 	free(trimmed);
 }
 
@@ -82,7 +89,8 @@ int			valid_argument_count(char **argsplit, int arg_no)
 	i = 0;
 	while (argsplit[i])
 		i++;
-	if (i == arg_no)
+	ft_printf("i: %i\narg_no: %i\n", i, arg_no);
+	if (i == arg_no || i == 0)
 		return (1);
 	return (0);
 }
@@ -93,6 +101,7 @@ int			check_arguments(t_list *item, char *content)
 	int		i;
 	char	**argsplit;
 
+	ft_printf("content before split: %s\n", content);
 	arg_no = (((t_op *)(item->content))->number_of_arguments);
 	argsplit = ft_strsplit(content, ',');
 	i = 0;
