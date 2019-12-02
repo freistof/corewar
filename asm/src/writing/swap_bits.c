@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   magic.c                                            :+:    :+:            */
+/*   swap_bits.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/02 14:23:13 by fblom         #+#    #+#                 */
-/*   Updated: 2019/12/02 14:23:13 by fblom         ########   odam.nl         */
+/*   Created: 2019/12/02 17:53:23 by fblom         #+#    #+#                 */
+/*   Updated: 2019/12/02 17:53:23 by fblom         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
-
-void			write_magic(int fd)
+int			swap_bits(int number)
 {
-	int		magic;
-
-	magic = COREWAR_EXEC_MAGIC;
-	magic = swap_bits(magic);
-	write(fd, &magic, 4);
+	number = ((number>>24)&0xff) |
+			((number<<8)&0xff0000) |
+			((number>>8)&0xff00) |
+			((number<<24)&0xff000000);
+	return (number);			
 }

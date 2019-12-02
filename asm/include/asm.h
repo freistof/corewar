@@ -119,6 +119,13 @@ void							write_magic(int fd);
 void							write_name(int fd, t_list *list);
 void							write_comment(int fd, t_list *list);
 void							write_null(int fd);
+void							write_exec_code(int fd, t_list *list);
+
+/*
+** BITS
+*/
+
+int								swap_bits(int number);
 
 /*
 ** PRINT FUNCTIONS FOR DEBUGGING

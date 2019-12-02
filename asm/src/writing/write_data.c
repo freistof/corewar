@@ -26,9 +26,8 @@ void			write_data(t_list *list)
 	write_null(fd); //placeholder for write size
 	// write_size();
 	write_comment(fd, list);
-	// write_comment();
-	// write_null();
-	// write_exec_code();
+	write_null(fd);
+	write_exec_code(fd, list);
 	while (list)
 	{
 		if (list->content_size == sizeof(t_op))

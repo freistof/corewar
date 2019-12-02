@@ -18,4 +18,6 @@ writing/write_data.c \
 writing/magic.c \
 writing/name.c \
 writing/comment.c \
-writing/null.c
+writing/null.c \
+writing/exec_code.c \
+writing/swap_bits.c
