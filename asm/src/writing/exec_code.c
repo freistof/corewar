@@ -14,26 +14,21 @@
 
 void			set_encode_byte(int fd, int *encode_byte)
 {
-	int			i;
-	unsigned char		codage;
-	unsigned char		swapped;
+	int	i;
+	unsigned char codage;
+	int	shift;
 
 	i = 0;
 	codage = 0;
+	shift = 6;
 	while (i < 3)
 	{
-		ft_printf("%i ", encode_byte[i]);
 		if (encode_byte[i] != 0)
-			codage |= 1 << (encode_byte[i]);
+			codage |= (encode_byte[i]) << shift;
 		i++;
+		shift -= 2;
 	}
-	ft_printf("\n%i\n", (int)codage);
-	swapped = ((codage>>6)&0x03) |
-			((codage<<2)&0x0f) |
-			((codage>>2)&0x3f) |
-			((codage<<6)&0xff);
-	ft_printf("\n%i\n", (int)swapped);
-	write(fd, &swapped, 1);
+	write(fd, &codage, 1);
 }
 
 void			set_opcode(int fd, int opcode)
