@@ -19,5 +19,7 @@ writing/magic.c \
 writing/name.c \
 writing/comment.c \
 writing/null.c \
+writing/size.c \
 writing/exec_code.c \
-writing/swap_bits.c
+writing/swap_bits.c \
+writing/write_arguments.c

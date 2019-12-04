@@ -12,6 +12,23 @@
 
 #include "asm.h"
 
+void			set_arguments(int fd, t_op *instruction)
+{
+	int			i;
+
+	i = 0;
+	while (i < instruction->number_of_arguments)
+	{
+		if (instruction->argtypes[i] == T_DIR)
+			write_direct(fd, instruction, i);
+		if (instruction->argtypes[i] == T_REG)
+			write_register(fd, instruction, i);
+		if (instruction->argtypes[i] == T_IND)
+			write_indirect(fd, instruction, i);
+		i++;
+	}
+}
+
 void			set_encode_byte(int fd, int *encode_byte)
 {
 	int	i;
@@ -45,6 +62,7 @@ void			write_exec_code(int fd, t_list *list)
 			set_opcode(fd, (((t_op *)list->content))->opcode);
 			if ((((t_op *)list->content))->codage_octal)
 				set_encode_byte(fd, (((t_op *)list->content))->argtypes);
+			set_arguments(fd, list->content);
 		}
 		list = list->next;
 	}
