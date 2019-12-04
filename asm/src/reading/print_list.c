@@ -23,6 +23,7 @@ void		print_list(t_list *item)
 		if (item->content_size == sizeof(t_op))
 		{
 			ft_printf("instruction: %s\n", (((t_op *)(item->content))->name));
+			ft_printf("opcode: %i\n", (((t_op *)(item->content))->opcode));
 			ft_printf("arg1: %i\n", (((t_op *)(item->content))->argtypes[0]));
 			ft_printf("arg2: %i\n", (((t_op *)(item->content))->argtypes[1]));
 			ft_printf("arg2: %i\n", (((t_op *)(item->content))->argtypes[2]));
@@ -47,6 +48,7 @@ void		print_list(t_list *item)
 			}
 			else
 				ft_printf("value3: %i\n", (((t_op *)(item->content))->argvalues[2].value));
+			ft_printf("instruction size: %i\n", ((t_op *)(item->content))->size);
 
 		}
 		else

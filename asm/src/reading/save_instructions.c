@@ -56,6 +56,7 @@ void			save_instructions(t_list **list, int fd)
 {
 	int			ret;
 	char		*content;
+	char		*trimmed;
 	t_list		*iterate;
 	int			opcode;
 	int			i;
@@ -71,6 +72,14 @@ void			save_instructions(t_list **list, int fd)
 		ret = get_next_line(fd, &content);
 		if (ret == 0 || !content)
 			break ;
+		trimmed = ft_strtrim(content);
+		if (!ft_strlen(trimmed))
+		{
+			free(content);
+			continue;
+		}
+		free (trimmed);
+		ft_printf("content: %s\n", content);
 		save_label(iterate, content, &i);
 		iterate->next = ft_lstnew(NULL, 0);
 		iterate = iterate->next;

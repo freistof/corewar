@@ -18,6 +18,11 @@ void		save_direct(char *argument, t_list *item, int argno)
 		(((t_op *)(item->content))->argvalues[argno]).value = ft_atoi(argument);
 	else
 		(((t_op *)(item->content))->argvalues[argno]).label = ft_strdup(argument + 1);
+	if (((t_op *)(item->content))->label_size)
+		((t_op *)(item->content))->size += 2;
+	else
+		((t_op *)(item->content))->size += 4;
+	ft_printf("current size: %i\n", ((t_op *)(item->content))->size);
 }
 
 int			check_direct(char *argument)

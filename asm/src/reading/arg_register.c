@@ -15,6 +15,8 @@
 void		save_register(char *argument, t_list *item, int argno)
 {
 	(((t_op *)(item->content))->argvalues[argno]).value = ft_atoi(argument + 1);
+	((t_op *)(item->content))->size += 1;
+	ft_printf("current size: %i\n", ((t_op *)(item->content))->size);
 }
 
 int			check_register(char *argument)
