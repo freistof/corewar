@@ -24,7 +24,7 @@ void			set_arguments(int fd, t_op *instruction, t_list **head)
 		if (instruction->argtypes[i] == T_REG)
 			write_register(fd, instruction, i);
 		if (instruction->argtypes[i] == T_IND)
-			write_indirect(fd, instruction, i);
+			write_indirect(fd, instruction, i, head);
 		i++;
 	}
 }
@@ -32,7 +32,7 @@ void			set_arguments(int fd, t_op *instruction, t_list **head)
 void			set_encode_byte(int fd, int *encode_byte)
 {
 	int	i;
-	unsigned char codage;
+	char codage;
 	int	shift;
 
 	i = 0;
@@ -41,7 +41,13 @@ void			set_encode_byte(int fd, int *encode_byte)
 	while (i < 3)
 	{
 		if (encode_byte[i] != 0)
-			codage |= (encode_byte[i]) << shift;
+		{
+			if (encode_byte[i] == 4)
+				encode_byte[i] = 3;
+			codage += ((encode_byte[i])) << shift;
+			if (encode_byte[i] == 3)
+				encode_byte[i] = 4;
+		}
 		i++;
 		shift -= 2;
 	}

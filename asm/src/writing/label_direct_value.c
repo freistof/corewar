@@ -19,8 +19,6 @@ int				label_direct_value(char *label, t_list **head, int position)
 	list = *head;
 	while (list)
 	{
-		if (list->content_size != sizeof(t_op))
-			ft_printf("list->content; %s\nlabel: %s\n", list->content, label);
 		if (ft_strequ(list->content, label))
 		{
 			while (list)

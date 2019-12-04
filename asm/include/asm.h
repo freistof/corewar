@@ -125,7 +125,7 @@ void							write_size(int fd, t_list *list);
 void							write_exec_code(int fd, t_list *list);
 
 void							write_direct(int fd, t_op *instruction, int arg, t_list **head);
-void							write_indirect(int fd, t_op *instruction, int arg);
+void							write_indirect(int fd, t_op *instruction, int arg, t_list **head);
 void							write_register(int fd, t_op *instruction, int arg);
 
 int								label_direct_value(char *label, t_list **head, int position);
@@ -135,6 +135,7 @@ int								label_direct_value(char *label, t_list **head, int position);
 */
 
 int								swap_bits(int number);
+int								swap_bits_two_byte(int number);
 
 /*
 ** PRINT FUNCTIONS FOR DEBUGGING
