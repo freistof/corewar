@@ -14,8 +14,8 @@
 
 void		write_direct(int fd, t_op *instruction, int arg, t_list **head)
 {
-	int		argument;
-	short	s_arg;
+	unsigned int		argument;
+	unsigned short	s_arg;
 
 	ft_printf("argument: %s\n", instruction->argvalues[arg].label);
 	ft_printf("argument: %i\n", instruction->argvalues[arg].value);
@@ -23,7 +23,7 @@ void		write_direct(int fd, t_op *instruction, int arg, t_list **head)
 	{
 		if (instruction->argvalues[arg].label)
 		{
-			s_arg = label_direct_value(instruction->argvalues[arg].label, head);	
+			s_arg = label_direct_value(instruction->argvalues[arg].label, head, instruction->position);	
 			write(fd, &s_arg, 2);
 		}
 		else
@@ -36,7 +36,7 @@ void		write_direct(int fd, t_op *instruction, int arg, t_list **head)
 	{
 		if (instruction->argvalues[arg].label)
 		{
-			argument = label_direct_value(instruction->argvalues[arg].label, head);
+			argument = label_direct_value(instruction->argvalues[arg].label, head, instruction->position);
 			argument = swap_bits(argument);
 			write(fd, &argument, 4);
 		}
