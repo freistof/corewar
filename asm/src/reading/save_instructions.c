@@ -60,12 +60,14 @@ void			save_instructions(t_list **list, int fd)
 	t_list		*iterate;
 	int			opcode;
 	int			i;
+	int			position;
 
 	iterate = *list;
 	while (iterate->next)
 		iterate = iterate->next;
 	ret = 1;
 	opcode = 0;
+	position = 0;
 	while (ret == 1)
 	{
 		i = 0;
@@ -84,7 +86,11 @@ void			save_instructions(t_list **list, int fd)
 		iterate->next = ft_lstnew(NULL, 0);
 		iterate = iterate->next;
 		if (check_instruction(&content[i], &opcode, &i) == 1)
+		{
 			copy_instruction(&iterate, &content[i], opcode);
+			(((t_op *)iterate->content))->position = position;
+		}
+		position += (((t_op *)iterate->content))->size;
 		free(content);
 		iterate->next = ft_lstnew(NULL, 0);
 		iterate = iterate->next;

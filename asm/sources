@@ -22,4 +22,5 @@ writing/null.c \
 writing/size.c \
 writing/exec_code.c \
 writing/swap_bits.c \
-writing/write_arguments.c
+writing/write_arguments.c \
+writing/label_direct_value.c

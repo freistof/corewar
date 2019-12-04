@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-void			set_arguments(int fd, t_op *instruction)
+void			set_arguments(int fd, t_op *instruction, t_list **head)
 {
 	int			i;
 
@@ -20,7 +20,7 @@ void			set_arguments(int fd, t_op *instruction)
 	while (i < instruction->number_of_arguments)
 	{
 		if (instruction->argtypes[i] == T_DIR)
-			write_direct(fd, instruction, i);
+			write_direct(fd, instruction, i, head);
 		if (instruction->argtypes[i] == T_REG)
 			write_register(fd, instruction, i);
 		if (instruction->argtypes[i] == T_IND)
@@ -55,6 +55,9 @@ void			set_opcode(int fd, int opcode)
 
 void			write_exec_code(int fd, t_list *list)
 {
+	t_list		*head;
+
+	head = list;
 	while (list)
 	{
 		if (list->content_size == sizeof(t_op))
@@ -62,7 +65,7 @@ void			write_exec_code(int fd, t_list *list)
 			set_opcode(fd, (((t_op *)list->content))->opcode);
 			if ((((t_op *)list->content))->codage_octal)
 				set_encode_byte(fd, (((t_op *)list->content))->argtypes);
-			set_arguments(fd, list->content);
+			set_arguments(fd, list->content, &head);
 		}
 		list = list->next;
 	}

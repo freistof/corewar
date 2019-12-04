@@ -69,6 +69,7 @@ typedef struct					s_op
 	int							codage_octal;
 	int							label_size;
 	int							size;
+	int							position;
 }								t_op;
 
 enum							e_bool
@@ -122,10 +123,12 @@ void							write_comment(int fd, t_list *list);
 void							write_null(int fd);
 void							write_size(int fd, t_list *list);
 void							write_exec_code(int fd, t_list *list);
-void							write_direct(int fd, t_op *instruction, int arg);
+
+void							write_direct(int fd, t_op *instruction, int arg, t_list **head);
 void							write_indirect(int fd, t_op *instruction, int arg);
 void							write_register(int fd, t_op *instruction, int arg);
 
+int								label_direct_value(char *label, t_list **head);
 /*
 ** BITS
 */
