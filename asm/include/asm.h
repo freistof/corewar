@@ -53,8 +53,8 @@
 
 typedef struct					s_argval
 {
-	int	value;
-	char *label;
+	int							value;
+	char						*label;
 }								t_argval;
 
 typedef struct					s_op
@@ -90,11 +90,11 @@ int								input_file_validation(int argc, char **argv);
 
 void							save_data(int fd, t_list **list);
 void							save_name_and_commment(t_list **list, int fd);
-void						 	save_instructions(t_list **list, int fd);
-void							save_label(t_list *item, char *line, int *index);
-void							save_direct(char *argument, t_list *item, int argno);
-void							save_indirect(char *argument, t_list *item, int argno);
-void							save_register(char *argument, t_list *item, int argno);
+void							save_instructions(t_list **list, int fd);
+void							save_label(t_list *item, char *line, int *i);
+void							save_direct(char *arg, t_list *it, int argno);
+void							save_indirect(char *arg, t_list *it, int argno);
+void							save_register(char *arg, t_list *it, int argno);
 
 /*
 ** CHECKING THE DATA
@@ -104,8 +104,8 @@ int								check_arguments(t_list *item, char *content);
 int								check_direct(char *argument);
 int								check_indirect(char *argument);
 int								check_register(char *argument);
-int								label_string(char *argument, char *allowed_chars);
-int								digit_string(char *argument);
+int								label_string(char *arg, char *allowed);
+int								digit_string(char *arg);
 
 /*
 ** EDITING THE INPUT
@@ -126,11 +126,11 @@ void							write_null(int fd);
 void							write_size(int fd, t_list *list);
 void							write_exec_code(int fd, t_list *list);
 
-void							write_direct(int fd, t_op *instruction, int arg, t_list **head);
-void							write_indirect(int fd, t_op *instruction, int arg, t_list **head);
-void							write_register(int fd, t_op *instruction, int arg);
+void							write_direct(int f, t_op *i, int a, t_list **h);
+void							write_ind(int f, t_op *i, int a, t_list **h);
+void							write_register(int f, t_op *i, int arg);
 
-int								label_direct_value(char *label, t_list **head, int position);
+int								label_direct_value(char *l, t_list **h, int p);
 
 /*
 ** BITS

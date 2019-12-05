@@ -24,7 +24,7 @@ void			set_arguments(int fd, t_op *instruction, t_list **head)
 		if (instruction->argtypes[i] == T_REG)
 			write_register(fd, instruction, i);
 		if (instruction->argtypes[i] == T_IND)
-			write_indirect(fd, instruction, i, head);
+			write_ind(fd, instruction, i, head);
 		i++;
 	}
 }

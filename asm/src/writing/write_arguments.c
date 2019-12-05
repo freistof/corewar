@@ -58,7 +58,7 @@ void	write_direct(int fd, t_op *instruction, int arg, t_list **head)
 		write_direct_big(instruction, arg, fd, head);
 }
 
-void	write_indirect(int fd, t_op *instruction, int arg, t_list **head)
+void	write_ind(int fd, t_op *instruction, int arg, t_list **head)
 {
 	write_direct_small(instruction, arg, fd, head);
 }
