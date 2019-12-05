@@ -27,10 +27,4 @@ void			write_data(t_list *list)
 	write_comment(fd, list);
 	write_null(fd);
 	write_exec_code(fd, list);
-	while (list)
-	{
-		if (list->content_size == sizeof(t_op))
-			; //ft_printf("instruction: %i\n", (((t_op *)(list->content))->opcode));
-		list = list->next;
-	}
 }

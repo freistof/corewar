@@ -104,6 +104,8 @@ int								check_arguments(t_list *item, char *content);
 int								check_direct(char *argument);
 int								check_indirect(char *argument);
 int								check_register(char *argument);
+int								label_string(char *argument, char *allowed_chars);
+int								digit_string(char *argument);
 
 /*
 ** EDITING THE INPUT

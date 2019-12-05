@@ -12,9 +12,9 @@
 
 #include "asm.h"
 
-void 	save_quote(t_list **list, char *content, int skip)
+void		save_quote(t_list **list, char *content, int skip)
 {
-	t_list *item;
+	t_list	*item;
 	int		i;
 	int		len;
 
@@ -38,10 +38,10 @@ void 	save_quote(t_list **list, char *content, int skip)
 		error(NO_COMMENT);
 }
 
-void	 save_name_and_commment(t_list **list, int fd)
+void		save_name_and_commment(t_list **list, int fd)
 {
-	char 	*content;
-	t_list 	*iterate;
+	char	*content;
+	t_list	*iterate;
 	int		i;
 	int		name;
 	int		comment;

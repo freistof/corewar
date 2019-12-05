@@ -11,7 +11,33 @@
 /* ************************************************************************** */
 
 #include "asm.h"
-extern t_op g_op_tab[17];
+
+t_op g_op_tab[17] =
+{
+	{"live", 1, {T_DIR, 0, 0}, {0}, 1, 10, "alive", 0, 0, 0, 0},
+	{"ld", 2, {T_DIR | T_IND, T_REG, 0}, {0}, 2, 5, "load", 1, 0, 0, 0},
+	{"st", 2, {T_REG, T_IND | T_REG}, {0}, 3, 5, "store", 1, 0, 0, 0},
+	{"add", 3, {T_REG, T_REG, T_REG}, {0}, 4, 10, "addition", 1, 0, 0, 0},
+	{"sub", 3, {T_REG, T_REG, T_REG}, {0}, 5, 10, "soustraction", 1, 0, 0, 0},
+	{"and", 3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, {0}, 6, 6,
+		"et (and  r1, r2, r3   r1&r2 -> r3", 1, 0, 0, 0},
+	{"or", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, {0}, 7, 6,
+		"ou  (or   r1, r2, r3   r1 | r2 -> r3", 1, 0, 0, 0},
+	{"xor", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, {0}, 8, 6,
+		"ou (xor  r1, r2, r3   r1^r2 -> r3", 1, 0, 0, 0},
+	{"zjmp", 1, {T_DIR, 0, 0}, {0}, 9, 20, "jump if zero", 0, 1, 0, 0},
+	{"ldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, {0}, 10, 25,
+		"load index", 1, 1, 0, 0},
+	{"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, {0}, 11, 25,
+		"store index", 1, 1, 0, 0},
+	{"fork", 1, {T_DIR, 0, 0}, {0}, 12, 800, "fork", 0, 1, 0, 0},
+	{"lld", 2, {T_DIR | T_IND, T_REG, 0}, {0}, 13, 10, "long load", 1, 0, 0, 0},
+	{"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, {0}, 14, 50,
+		"long load index", 1, 1, 0, 0},
+	{"lfork", 1, {T_DIR, 0, 0}, {0}, 15, 1000, "long fork", 0, 1, 0, 0},
+	{"aff", 1, {T_REG, 0, 0}, {0}, 16, 2, "aff", 1, 0, 0, 0},
+	{0, 0, {0}, {0}, 0, 0, 0, 0, 0, 0, 0}
+};
 
 static void		copy_instruction(t_list **list, char *content, int opcode)
 {
@@ -19,19 +45,20 @@ static void		copy_instruction(t_list **list, char *content, int opcode)
 
 	item = *list;
 	item->content = malloc(sizeof(t_op));
-	ft_memcpy((void *)item->content, (void *)&g_op_tab[opcode - 1], sizeof(t_op));
+	ft_memcpy((void *)item->content, (void *)&g_op_tab[opcode - 1],\
+	sizeof(t_op));
 	item->content_size = sizeof(t_op);
 	check_arguments(item, content);
 }
 
 static int		check_instruction(char *line, int *opcode, int *index)
 {
-	int 		i;
+	int			i;
 	int			correct;
 	int			spaces;
 
 	spaces = 0;
-	while(ft_isspace(*line))
+	while (ft_isspace(*line))
 	{
 		spaces++;
 		line++;
@@ -80,7 +107,7 @@ void			save_instructions(t_list **list, int fd)
 			free(content);
 			continue;
 		}
-		free (trimmed);
+		free(trimmed);
 		ft_printf("content: %s\n", content);
 		save_label(iterate, content, &i);
 		iterate->next = ft_lstnew(NULL, 0);

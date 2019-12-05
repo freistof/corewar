@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   comment.c                                          :+:    :+:            */
+/*   label_string.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/02 16:39:40 by fblom         #+#    #+#                 */
-/*   Updated: 2019/12/02 16:39:40 by fblom         ########   odam.nl         */
+/*   Created: 2019/12/05 15:50:22 by fblom         #+#    #+#                 */
+/*   Updated: 2019/12/05 15:50:22 by fblom         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void			write_comment(int fd, t_list *list)
+int				label_string(char *argument, char *allowed_chars)
 {
-	char		name[COMMENT_LENGTH];
 	int			i;
 
-	while (list)
+	i = 0;
+	while (argument[i])
 	{
-		if (ft_strnstr(list->content, COMMENT_CMD_STRING, 8))
-		{
-			list = list->next;
-			break ;
-		}
-		list = list->next;
-	}
-	ft_printf("comment: %s\n", list->content);
-	ft_strcpy(name, list->content);
-	i = ft_strlen(list->content) + 1;
-	while (i < COMMENT_LENGTH)
-	{
-		name[i] = '\0';
+		if (!ft_strchr(allowed_chars, argument[i]))
+			return (false);
 		i++;
 	}
-	write(fd, name, COMMENT_LENGTH);
+	return (true);
 }

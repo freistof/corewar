@@ -22,7 +22,7 @@ void			write_name(int fd, t_list *list)
 		if (ft_strnstr(list->content, NAME_CMD_STRING, 5))
 		{
 			list = list->next;
-			break;
+			break ;
 		}
 		list = list->next;
 	}

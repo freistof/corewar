@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   comment.c                                          :+:    :+:            */
+/*   digit_string.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/02 16:39:40 by fblom         #+#    #+#                 */
-/*   Updated: 2019/12/02 16:39:40 by fblom         ########   odam.nl         */
+/*   Created: 2019/12/05 15:48:14 by fblom         #+#    #+#                 */
+/*   Updated: 2019/12/05 15:48:14 by fblom         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void			write_comment(int fd, t_list *list)
+int				digit_string(char *argument)
 {
-	char		name[COMMENT_LENGTH];
 	int			i;
+	char		*digit_string;
 
-	while (list)
+	digit_string = ft_strmap(argument, (char (*)(char)) &ft_isdigit);
+	i = 0;
+	if (argument[i] == '-')
+		i++;
+	while (argument[i] != '\0')
 	{
-		if (ft_strnstr(list->content, COMMENT_CMD_STRING, 8))
+		if (digit_string[i] == '\0')
 		{
-			list = list->next;
-			break ;
+			free(digit_string);
+			return (false);
 		}
-		list = list->next;
-	}
-	ft_printf("comment: %s\n", list->content);
-	ft_strcpy(name, list->content);
-	i = ft_strlen(list->content) + 1;
-	while (i < COMMENT_LENGTH)
-	{
-		name[i] = '\0';
 		i++;
 	}
-	write(fd, name, COMMENT_LENGTH);
+	free(digit_string);
+	return (true);
 }

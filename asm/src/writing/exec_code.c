@@ -31,9 +31,9 @@ void			set_arguments(int fd, t_op *instruction, t_list **head)
 
 void			set_encode_byte(int fd, int *encode_byte)
 {
-	int	i;
-	char codage;
-	int	shift;
+	int			i;
+	char		codage;
+	int			shift;
 
 	i = 0;
 	codage = 0;

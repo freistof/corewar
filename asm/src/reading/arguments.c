@@ -22,7 +22,7 @@ void		initaliase_values_to_null(t_list *item)
 	(((t_op *)(item->content))->argvalues[2].label) = NULL;
 }
 
-void		save_argument_value(char *argument, int type, t_list *item, int argno)
+void		save_argument_value(char *argument, int type, t_list *item, int i)
 {
 	char	*trimmed;
 
@@ -33,21 +33,21 @@ void		save_argument_value(char *argument, int type, t_list *item, int argno)
 		if (!check_register(trimmed))
 			error("Wrong register\n");
 		else
-			save_register(trimmed, item, argno);
+			save_register(trimmed, item, i);
 	}
 	if (type == T_DIR)
 	{
 		if (!check_direct(trimmed + 1))
 			error("Wrong direct\n");
 		else
-			save_direct(trimmed + 1, item, argno);
+			save_direct(trimmed + 1, item, i);
 	}
 	if (type == T_IND)
 	{
 		if (!check_indirect(trimmed))
 			error("Wrong indirect\n");
 		else
-			save_indirect(trimmed, item, argno);
+			save_indirect(trimmed, item, i);
 	}
 	ft_printf("current size: %i\n", ((t_op *)(item->content))->size);
 	free(trimmed);
@@ -55,10 +55,10 @@ void		save_argument_value(char *argument, int type, t_list *item, int argno)
 
 void		valid_argument(char **argsplit, t_list *item)
 {
-	int 	i;
+	int		i;
 	int		skip;
 	int		type;
- 
+
 	i = 0;
 	((t_op *)(item->content))->size = 1;
 	ft_printf("current size: %i\n", ((t_op *)(item->content))->size);
@@ -76,10 +76,10 @@ void		valid_argument(char **argsplit, t_list *item)
 			type = DIR_CODE;
 		else
 			type = IND_CODE;
-		if (((t_op *)(item->content))->argtypes[i] & (1<<type))
+		if (((t_op *)(item->content))->argtypes[i] & (1 << type))
 		{
-			((t_op *)(item->content))->argtypes[i] = 1<<type;
-			save_argument_value(argsplit[i], 1<<type, item, i);
+			((t_op *)(item->content))->argtypes[i] = 1 << type;
+			save_argument_value(argsplit[i], 1 << type, item, i);
 		}
 		else
 			error(INCORRECT_ARG_TYPE);
