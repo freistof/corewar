@@ -117,6 +117,8 @@ void			save_instructions(t_list **list, int fd)
 			copy_instruction(&iterate, &content[i], opcode);
 			(((t_op *)iterate->content))->position = position;
 		}
+		else
+			error("Syntax error");
 		position += (((t_op *)iterate->content))->size;
 		free(content);
 		iterate->next = ft_lstnew(NULL, 0);

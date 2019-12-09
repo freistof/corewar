@@ -24,7 +24,7 @@ int			main(int argc, char **argv)
 	save_data(fd, &list);
 	// print_list(list);
 	write_data(list, input_file);
-/*	while (1)
-		;*/
+	while (1)
+		;
 	return (0);
 }

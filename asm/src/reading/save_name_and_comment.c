@@ -45,6 +45,7 @@ void		save_name_and_commment(t_list **list, int fd)
 	int		name;
 	int		comment;
 	char	*trimmed;
+	int		ret;
 
 	name = 0;
 	comment = 0;
@@ -52,7 +53,11 @@ void		save_name_and_commment(t_list **list, int fd)
 	while (!(name == 1 && comment == 1))
 	{
 		i = 0;
-		get_next_line(fd, &content);
+		ret = get_next_line(fd, &content);
+		if (ret == 0)
+			break;
+		if (!content)
+			error("Problem\n");
 		remove_comments(content);
 		trimmed = ft_strtrim(content);
 		if (!ft_strlen(trimmed))
@@ -79,8 +84,12 @@ void		save_name_and_commment(t_list **list, int fd)
 			save_quote(&iterate, &content[i], 8);
 			comment = 1;
 		}
-		free(content);
+			free(content);
 		iterate->next = ft_lstnew(NULL, 0);
 		iterate = iterate->next;
 	}
+	if (!name)
+		error(NO_NAME);
+	if (!comment)
+		error(NO_COMMENT);
 }
