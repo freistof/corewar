@@ -44,6 +44,7 @@ void		save_name_and_commment(t_list **list, int fd)
 	int		i;
 	int		name;
 	int		comment;
+	char	*trimmed;
 
 	name = 0;
 	comment = 0;
@@ -53,6 +54,13 @@ void		save_name_and_commment(t_list **list, int fd)
 		i = 0;
 		get_next_line(fd, &content);
 		remove_comments(content);
+		trimmed = ft_strtrim(content);
+		if (!ft_strlen(trimmed))
+		{
+			free(content);
+			continue;
+		}
+		free(trimmed);
 		while (ft_isspace(content[i]))
 			i++;
 		if (ft_strnequ(&content[i], ".name", 5) && name == 0)
