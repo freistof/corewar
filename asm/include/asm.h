@@ -118,7 +118,7 @@ void							remove_comments(char *string);
 ** WRITING
 */
 
-void							write_data(t_list *list);
+void							write_data(t_list *list, char *input_file);
 void							write_magic(int fd);
 void							write_name(int fd, t_list *list);
 void							write_comment(int fd, t_list *list);
