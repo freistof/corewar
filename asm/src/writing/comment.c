@@ -26,7 +26,6 @@ void			write_comment(int fd, t_list *list)
 		}
 		list = list->next;
 	}
-	ft_printf("comment: %s\n", list->content);
 	ft_strcpy(name, list->content);
 	i = ft_strlen(list->content) + 1;
 	while (i < COMMENT_LENGTH)

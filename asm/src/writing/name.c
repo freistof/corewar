@@ -26,7 +26,6 @@ void			write_name(int fd, t_list *list)
 		}
 		list = list->next;
 	}
-	ft_printf("name: %s\n", list->content);
 	ft_strcpy(name, list->content);
 	i = ft_strlen(list->content);
 	while (i < PROG_NAME_LENGTH)

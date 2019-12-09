@@ -109,7 +109,6 @@ void			save_instructions(t_list **list, int fd)
 			continue;
 		}
 		free(trimmed);
-		ft_printf("content: %s\n", content);
 		save_label(iterate, content, &i);
 		iterate->next = ft_lstnew(NULL, 0);
 		iterate = iterate->next;

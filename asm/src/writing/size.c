@@ -24,6 +24,5 @@ void		write_size(int fd, t_list *list)
 		list = list->next;
 	}
 	size = swap_bits(size);
-	ft_printf("size: %i\n", size);
 	write(fd, &size, 4);
 }

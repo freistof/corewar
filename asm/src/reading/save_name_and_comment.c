@@ -28,7 +28,6 @@ void		save_quote(t_list **list, char *content, int skip)
 	{
 		len = ft_strrchr(&content[i + 1], '"') - &content[i] - 1;
 		item->content_size = len;
-		ft_printf("len: %i\n", len);
 		item->content = ft_strndup(&content[i + 1], len);
 		return ;
 	}

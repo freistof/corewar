@@ -49,7 +49,6 @@ void		save_argument_value(char *argument, int type, t_list *item, int i)
 		else
 			save_indirect(trimmed, item, i);
 	}
-	ft_printf("current size: %i\n", ((t_op *)(item->content))->size);
 	free(trimmed);
 }
 
@@ -61,7 +60,6 @@ void		valid_argument(char **argsplit, t_list *item)
 
 	i = 0;
 	((t_op *)(item->content))->size = 1;
-	ft_printf("current size: %i\n", ((t_op *)(item->content))->size);
 	if ((((t_op *)item->content))->codage_octal)
 		(((t_op *)item->content))->size += 1;
 	while (argsplit[i])
@@ -93,10 +91,7 @@ int			valid_argument_count(char **argsplit, int arg_no)
 
 	i = 0;
 	while (argsplit[i])
-	{
-		ft_printf("argsplit[%i]: %i\n", i, argsplit[i]);
 		i++;
-	}
 	if (i == arg_no || i == 0)
 		return (1);
 	return (0);
