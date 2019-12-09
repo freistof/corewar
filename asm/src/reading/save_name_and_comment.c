@@ -53,6 +53,7 @@ void		save_name_and_commment(t_list **list, int fd)
 	{
 		i = 0;
 		get_next_line(fd, &content);
+		remove_comments(content);
 		while (ft_isspace(content[i]))
 			i++;
 		if (ft_strnequ(&content[i], ".name", 5) && name == 0)

@@ -101,6 +101,7 @@ void			save_instructions(t_list **list, int fd)
 		ret = get_next_line(fd, &content);
 		if (ret == 0 || !content)
 			break ;
+		remove_comments(content);
 		trimmed = ft_strtrim(content);
 		if (!ft_strlen(trimmed))
 		{
