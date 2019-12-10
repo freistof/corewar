@@ -12,14 +12,14 @@
 
 #include "asm.h"
 
-void			save_label(t_list *item, char *line, int *index)
+int				save_label(t_list *item, char *line, int *index)
 {
 	int			i;
 
 	i = 0;
 	line = ft_strtrim(line);
 	if (!line || !ft_strlen(line))
-		return ;
+		return (1);
 	while (ft_strchr(LABEL_CHARS, line[i]))
 		i++;
 	if (line[i] == ':')
@@ -30,6 +30,9 @@ void			save_label(t_list *item, char *line, int *index)
 		while (ft_isspace(line[i]))
 			i++;
 		*index = i;
+		free(line);
+		return (1);
 	}
 	free(line);
+	return (0);
 }

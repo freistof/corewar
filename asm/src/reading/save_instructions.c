@@ -111,10 +111,12 @@ void			save_instructions(t_list **list, int fd, int *line, int *pos)
 			break ;
 		remove_comments(content);
 		*line += 1;
-		save_label(item, content, &i);
+		ret = save_label(item, content, &i);
 		item = skip_to_end(&item);
 		if (check_instruction(&content[i], &opcode, &i) == 1)
 			copy_instruction(&item, &content[i], opcode, pos);
+		else if (!ret)
+			error("Syntax error");
 		item = skip_to_end(&item);
 		free(content);
 	}
