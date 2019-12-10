@@ -100,7 +100,6 @@ void			save_name_and_comment(t_list **list, int fd, int *line)
 	t_list		*item;
 
 	item = *list;
-	ret = 1;
 	while (!name || !comment)
 	{
 		ret = get_next_line(fd, &content);
