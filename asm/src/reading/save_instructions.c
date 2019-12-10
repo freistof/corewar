@@ -94,6 +94,21 @@ static t_list	*skip_to_end(t_list **list)
 	return (item);
 }
 
+static int		empty_line(char *content)
+{
+	int			i;
+
+	i = 0;
+	while (content[i] != '\0')
+	{
+		if (ft_isspace(content[i]))
+			i++;
+		else
+			return (0);
+	}
+	return (1);
+}
+
 void			save_instructions(t_list **list, int fd, int *line, int *pos)
 {
 	t_list		*item;
@@ -107,15 +122,16 @@ void			save_instructions(t_list **list, int fd, int *line, int *pos)
 	{
 		i = 0;
 		ret = get_next_line(fd, &content);
+		ft_printf("line: %s\n", content);
 		if (!ret)
 			break ;
 		remove_comments(content);
 		*line += 1;
-		ret = save_label(item, content, &i);
+		save_label(item, content, &i);
 		item = skip_to_end(&item);
 		if (check_instruction(&content[i], &opcode, &i) == 1)
 			copy_instruction(&item, &content[i], opcode, pos);
-		else if (!ret)
+		else if (!empty_line(&content[i]))
 			error("Syntax error");
 		item = skip_to_end(&item);
 		free(content);
