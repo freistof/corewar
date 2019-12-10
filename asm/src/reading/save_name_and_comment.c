@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-void			save_quote(t_list **list, char *content, int skip)
+static void		save_quote(t_list **list, char *content, int skip)
 {
 	t_list		*item;
 	int			i;
@@ -110,6 +110,8 @@ void			save_name_and_comment(t_list **list, int fd, int *line)
 		*line += 1;
 		if (check_content(content, &name, &comment))
 			save_content(&item, content);
+		else if (!empty_line(content))
+			error("Syntax error");
 		free(content);
 		item = skip_to_end(&item);
 	}

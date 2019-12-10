@@ -15,6 +15,7 @@ reading/arg_register.c \
 reading/save_label.c \
 reading/label_string.c \
 reading/digit_string.c \
+reading/empty_line.c \
 writing/write_data.c \
 writing/magic.c \
 writing/name.c \

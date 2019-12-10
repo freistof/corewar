@@ -94,21 +94,6 @@ static t_list	*skip_to_end(t_list **list)
 	return (item);
 }
 
-static int		empty_line(char *content)
-{
-	int			i;
-
-	i = 0;
-	while (content[i] != '\0')
-	{
-		if (ft_isspace(content[i]))
-			i++;
-		else
-			return (0);
-	}
-	return (1);
-}
-
 void			save_instructions(t_list **list, int fd, int *line, int *pos)
 {
 	t_list		*item;

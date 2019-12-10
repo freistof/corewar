@@ -115,6 +115,7 @@ int								digit_string(char *arg);
 
 void							replace_with_spaces(char *string);
 void							remove_comments(char *string);
+int								empty_line(char *content);
 
 /*
 ** WRITING
