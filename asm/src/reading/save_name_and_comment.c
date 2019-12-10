@@ -106,6 +106,7 @@ void			save_name_and_comment(t_list **list, int fd, int *line)
 		ret = get_next_line(fd, &content);
 		if (!ret)
 			break ;
+		remove_comments(content);
 		ft_printf("line %i: %s\n", *line, content);
 		*line += 1;
 		if (check_content(content, &name, &comment))

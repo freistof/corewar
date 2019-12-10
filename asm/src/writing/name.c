@@ -19,7 +19,7 @@ void			write_name(int fd, t_list *list)
 
 	while (list)
 	{
-		if (ft_strnstr(list->content, NAME_CMD_STRING, 5))
+		if (list->content && ft_strnstr(list->content, NAME_CMD_STRING, 5))
 		{
 			list = list->next;
 			break ;

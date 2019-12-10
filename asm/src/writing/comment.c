@@ -19,7 +19,7 @@ void			write_comment(int fd, t_list *list)
 
 	while (list)
 	{
-		if (ft_strnstr(list->content, COMMENT_CMD_STRING, 8))
+		if (list->content && ft_strnstr(list->content, COMMENT_CMD_STRING, 8))
 		{
 			list = list->next;
 			break ;
