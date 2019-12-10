@@ -21,8 +21,10 @@
 void	save_data(int fd, t_list **head)
 {
 	int	line;
+	int	position;
 
 	line = 1;
+	position = 0;
 	save_name_and_comment(head, fd, &line);
-	save_instructions(head, fd, &line);
+	save_instructions(head, fd, &line, &position);
 }

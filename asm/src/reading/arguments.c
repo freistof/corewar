@@ -12,21 +12,10 @@
 
 #include "asm.h"
 
-void		initaliase_values_to_null(t_list *item)
-{
-	(((t_op *)(item->content))->argvalues[0].value) = 0;
-	(((t_op *)(item->content))->argvalues[1].value) = 0;
-	(((t_op *)(item->content))->argvalues[2].value) = 0;
-	(((t_op *)(item->content))->argvalues[0].label) = NULL;
-	(((t_op *)(item->content))->argvalues[1].label) = NULL;
-	(((t_op *)(item->content))->argvalues[2].label) = NULL;
-}
-
-void		save_argument_value(char *argument, int type, t_list *item, int i)
+static void	save_argument_value(char *argument, int type, t_list *item, int i)
 {
 	char	*trimmed;
 
-	remove_comments(argument);
 	trimmed = ft_strtrim(argument);
 	if (type == T_REG)
 	{
@@ -52,10 +41,9 @@ void		save_argument_value(char *argument, int type, t_list *item, int i)
 	free(trimmed);
 }
 
-void		valid_argument(char **argsplit, t_list *item)
+static void	valid_argument(char **argsplit, t_list *item)
 {
 	int		i;
-	int		skip;
 	int		type;
 
 	i = 0;
@@ -64,13 +52,10 @@ void		valid_argument(char **argsplit, t_list *item)
 		(((t_op *)item->content))->size += 1;
 	while (argsplit[i])
 	{
-		skip = 0;
-		while (ft_isspace(argsplit[i][skip]))
-			skip++;
-		type = argsplit[i][0 + skip];
-		if (argsplit[i][0 + skip] == 'r')
+		type = argsplit[i][0];
+		if (argsplit[i][0] == 'r')
 			type = REG_CODE;
-		else if (argsplit[i][0 + skip] == '%')
+		else if (argsplit[i][0] == '%')
 			type = DIR_CODE;
 		else
 			type = IND_CODE;
@@ -85,7 +70,7 @@ void		valid_argument(char **argsplit, t_list *item)
 	}
 }
 
-int			valid_argument_count(char **argsplit, int arg_no)
+static int	valid_argument_count(char **argsplit, int arg_no)
 {
 	int		i;
 
@@ -97,6 +82,22 @@ int			valid_argument_count(char **argsplit, int arg_no)
 	return (0);
 }
 
+static char	**trim_split(char **argsplit)
+{
+	int		i;
+	char	*temp;
+
+	i = 0;
+	while (argsplit[i])
+	{
+		temp = ft_strtrim(argsplit[i]);
+		free(argsplit[i]);
+		argsplit[i] = temp;
+		i++;
+	}
+	return (argsplit);
+}
+
 int			check_arguments(t_list *item, char *content)
 {
 	int		arg_no;
@@ -106,6 +107,7 @@ int			check_arguments(t_list *item, char *content)
 	arg_no = (((t_op *)(item->content))->number_of_arguments);
 	remove_comments(content);
 	argsplit = ft_strsplit(content, ',');
+	argsplit = trim_split(argsplit);
 	i = 0;
 	if (valid_argument_count(argsplit, arg_no))
 		valid_argument(argsplit, item);

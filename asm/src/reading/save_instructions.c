@@ -39,7 +39,8 @@ t_op g_op_tab[17] =
 	{0, 0, {0}, {0}, 0, 0, 0, 0, 0, 0, 0}
 };
 
-static void		copy_instruction(t_list **list, char *content, int opcode)
+static void		copy_instruction(t_list **list, char *content, int opcode,\
+								int *pos)
 {
 	t_list *item;
 
@@ -49,6 +50,8 @@ static void		copy_instruction(t_list **list, char *content, int opcode)
 	sizeof(t_op));
 	item->content_size = sizeof(t_op);
 	check_arguments(item, content);
+	(((t_op *)item->content))->position = *pos;
+	*pos += (((t_op *)item->content))->size;
 }
 
 static int		check_instruction(char *line, int *opcode, int *index)
@@ -91,21 +94,18 @@ static t_list	*skip_to_end(t_list **list)
 	return (item);
 }
 
-void			save_instructions(t_list **list, int fd, int *line)
+void			save_instructions(t_list **list, int fd, int *line, int *pos)
 {
-	t_list 		*item;
+	t_list		*item;
 	char		*content;
 	int			ret;
 	int			i;
-	int			opcode;
-	int			position;
+	static int	opcode;
 
-	position = 0;
 	item = *list;
 	while (1)
 	{
 		i = 0;
-		opcode = 0;
 		ret = get_next_line(fd, &content);
 		if (!ret)
 			break ;
@@ -114,11 +114,7 @@ void			save_instructions(t_list **list, int fd, int *line)
 		save_label(item, content, &i);
 		item = skip_to_end(&item);
 		if (check_instruction(&content[i], &opcode, &i) == 1)
-		{
-			copy_instruction(&item, &content[i], opcode);
-			(((t_op *)item->content))->position = position;
-			position += (((t_op *)item->content))->size;
-		}
+			copy_instruction(&item, &content[i], opcode, pos);
 		item = skip_to_end(&item);
 		free(content);
 	}
