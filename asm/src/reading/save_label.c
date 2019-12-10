@@ -17,8 +17,9 @@ void			save_label(t_list *item, char *line, int *index)
 	int			i;
 
 	i = 0;
-	while (ft_isspace(line[i]))
-		i++;
+	line = ft_strtrim(line);
+	if (!line || !ft_strlen(line))
+		return ;
 	while (ft_strchr(LABEL_CHARS, line[i]))
 		i++;
 	if (line[i] == ':')
@@ -30,4 +31,5 @@ void			save_label(t_list *item, char *line, int *index)
 			i++;
 		*index = i;
 	}
+	free(line);
 }

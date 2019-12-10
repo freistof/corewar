@@ -79,51 +79,47 @@ static int		check_instruction(char *line, int *opcode, int *index)
 	return (correct);
 }
 
+static t_list	*skip_to_end(t_list **list)
+{
+	t_list		*item;
+
+	item = *list;
+	while (item->next)
+		item = item->next;
+	item->next = ft_lstnew(NULL, 0);
+	item = item->next;
+	return (item);
+}
+
 void			save_instructions(t_list **list, int fd, int *line)
 {
-	int			ret;
+	t_list 		*item;
 	char		*content;
-	char		*trimmed;
-	t_list		*iterate;
-	int			opcode;
+	int			ret;
 	int			i;
+	int			opcode;
 	int			position;
 
-	iterate = *list;
-	while (iterate->next)
-		iterate = iterate->next;
-	ret = 1;
-	opcode = 0;
 	position = 0;
-	while (ret == 1)
+	item = *list;
+	while (1)
 	{
 		i = 0;
+		opcode = 0;
 		ret = get_next_line(fd, &content);
-		ft_printf("line %i: %s\n", *line, content);
-		*line += 1;
-		if (ret == 0 || !content)
+		if (!ret)
 			break ;
 		remove_comments(content);
-		trimmed = ft_strtrim(content);
-		if (!ft_strlen(trimmed))
-		{
-			free(content);
-			continue;
-		}
-		free(trimmed);
-		save_label(iterate, content, &i);
-		iterate->next = ft_lstnew(NULL, 0);
-		iterate = iterate->next;
+		*line += 1;
+		save_label(item, content, &i);
+		item = skip_to_end(&item);
 		if (check_instruction(&content[i], &opcode, &i) == 1)
 		{
-			copy_instruction(&iterate, &content[i], opcode);
-			(((t_op *)iterate->content))->position = position;
+			copy_instruction(&item, &content[i], opcode);
+			(((t_op *)item->content))->position = position;
+			position += (((t_op *)item->content))->size;
 		}
-		else
-			error("Syntax error");
-		position += (((t_op *)iterate->content))->size;
+		item = skip_to_end(&item);
 		free(content);
-		iterate->next = ft_lstnew(NULL, 0);
-		iterate = iterate->next;
 	}
 }
