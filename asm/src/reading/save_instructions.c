@@ -79,7 +79,7 @@ static int		check_instruction(char *line, int *opcode, int *index)
 	return (correct);
 }
 
-void			save_instructions(t_list **list, int fd)
+void			save_instructions(t_list **list, int fd, int *line)
 {
 	int			ret;
 	char		*content;
@@ -99,6 +99,8 @@ void			save_instructions(t_list **list, int fd)
 	{
 		i = 0;
 		ret = get_next_line(fd, &content);
+		ft_printf("line %i: %s\n", *line, content);
+		*line += 1;
 		if (ret == 0 || !content)
 			break ;
 		remove_comments(content);

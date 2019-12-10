@@ -12,11 +12,11 @@
 
 #include "asm.h"
 
-void		save_quote(t_list **list, char *content, int skip)
+void			save_quote(t_list **list, char *content, int skip)
 {
-	t_list	*item;
-	int		i;
-	int		len;
+	t_list		*item;
+	int			i;
+	int			len;
 
 	item = *list;
 	i = 0;
@@ -37,56 +37,81 @@ void		save_quote(t_list **list, char *content, int skip)
 		error(NO_COMMENT);
 }
 
-void		save_name_and_commment(t_list **list, int fd)
+static void		save_content(t_list **list, char *content)
 {
-	char	*content;
-	t_list	*iterate;
-	int		i;
-	int		name;
-	int		comment;
-	char	*trimmed;
-	int		ret;
+	t_list		*item;
 
-	name = 0;
-	comment = 0;
-	iterate = *list;
-	while (!(name == 1 && comment == 1))
+	item = *list;
+	if (ft_strnequ(content, ".name", 5))
 	{
-		i = 0;
+		item->content = ft_strdup(NAME_CMD_STRING);
+		item->next = ft_lstnew(NULL, 0);
+		item = item->next;
+		save_quote(&item, content, 5);
+	}
+	if (ft_strnequ(content, ".comment", 8))
+	{
+		item->content = ft_strdup(COMMENT_CMD_STRING);
+		item->next = ft_lstnew(NULL, 0);
+		item = item->next;
+		save_quote(&item, content, 8);
+	}
+}
+
+static int		check_content(char *content, int *name, int *comment)
+{
+	content = ft_strtrim(content);
+	if (!content || !ft_strlen(content))
+		return (0);
+	if (ft_strnequ(content, ".name", 5) && *name == 0)
+	{
+		*name = 1;
+		free(content);
+		return (1);
+	}
+	if (ft_strnequ(content, ".comment", 8) && *comment == 0)
+	{
+		*comment = 1;
+		free(content);
+		return (1);
+	}
+	free(content);
+	return (0);
+}
+
+static t_list	*skip_to_end(t_list **list)
+{
+	t_list		*item;
+
+	item = *list;
+	while (item->next)
+		item = item->next;
+	item->next = ft_lstnew(NULL, 0);
+	item = item->next;
+	return (item);
+}
+
+void			save_name_and_comment(t_list **list, int fd, int *line)
+{
+	static int	name;
+	static int	comment;
+	char		*content;
+	int			ret;
+	t_list		*item;
+
+	item = *list;
+	ret = 1;
+	while (!name || !comment)
+	{
 		ret = get_next_line(fd, &content);
-		if (ret == 0)
-			break;
-		if (!content)
-			error("Problem\n");
-		remove_comments(content);
-		trimmed = ft_strtrim(content);
-		if (!ft_strlen(trimmed))
-		{
-			free(content);
-			continue;
-		}
-		free(trimmed);
-		while (ft_isspace(content[i]))
-			i++;
-		if (ft_strnequ(&content[i], ".name", 5) && name == 0)
-		{
-			iterate->content = ft_strdup(NAME_CMD_STRING);
-			iterate->next = ft_lstnew(NULL, 0);
-			iterate = iterate->next;
-			save_quote(&iterate, &content[i], 5);
-			name = 1;
-		}
-		else if (ft_strnequ(&content[i], ".comment", 8) && comment == 0)
-		{
-			iterate->content = ft_strdup(COMMENT_CMD_STRING);
-			iterate->next = ft_lstnew(NULL, 0);
-			iterate = iterate->next;
-			save_quote(&iterate, &content[i], 8);
-			comment = 1;
-		}
-			free(content);
-		iterate->next = ft_lstnew(NULL, 0);
-		iterate = iterate->next;
+		if (!ret)
+			break ;
+		ft_printf("line %i: %s\n", *line, content);
+		*line += 1;
+		if (check_content(content, &name, &comment))
+			save_content(&item, content);
+		free(content);
+		item = skip_to_end(&item);
 	}
 	if (!name)
 		error(NO_NAME);

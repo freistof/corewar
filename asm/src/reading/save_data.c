@@ -20,6 +20,9 @@
 
 void	save_data(int fd, t_list **head)
 {
-	save_name_and_commment(head, fd);
-	save_instructions(head, fd);
+	int	line;
+
+	line = 1;
+	save_name_and_comment(head, fd, &line);
+	save_instructions(head, fd, &line);
 }

@@ -89,8 +89,8 @@ int								input_file_validation(int argc, char **argv);
 */
 
 void							save_data(int fd, t_list **list);
-void							save_name_and_commment(t_list **list, int fd);
-void							save_instructions(t_list **list, int fd);
+void							save_name_and_comment(t_list **list, int fd, int *line);
+void							save_instructions(t_list **list, int fd, int *line);
 void							save_label(t_list *item, char *line, int *i);
 void							save_direct(char *arg, t_list *it, int argno);
 void							save_indirect(char *arg, t_list *it, int argno);
