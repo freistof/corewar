@@ -20,21 +20,21 @@ static void	save_argument_value(char *argument, int type, t_list *item, int i)
 	if (type == T_REG)
 	{
 		if (!check_register(trimmed))
-			error("Wrong register\n");
+			error("Wrong register");
 		else
 			save_register(trimmed, item, i);
 	}
 	if (type == T_DIR)
 	{
 		if (!check_direct(trimmed + 1))
-			error("Wrong direct\n");
+			error("Wrong direct");
 		else
 			save_direct(trimmed + 1, item, i);
 	}
 	if (type == T_IND)
 	{
 		if (!check_indirect(trimmed))
-			error("Wrong indirect\n");
+			error("Wrong indirect");
 		else
 			save_indirect(trimmed, item, i);
 	}
