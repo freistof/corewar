@@ -107,7 +107,6 @@ void			save_instructions(t_list **list, int fd, int *line, int *pos)
 	{
 		i = 0;
 		ret = get_next_line(fd, &content);
-		ft_printf("line: %s\n", content);
 		if (!ret)
 			break ;
 		remove_comments(content);
