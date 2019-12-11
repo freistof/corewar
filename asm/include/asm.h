@@ -46,10 +46,10 @@
 # define USAGE					"Usage: ./asm <sourcefile.s>"
 # define FILE_ERROR				"Can't read source file"
 # define SYNTAX_ERROR			"Syntax error in .s file"
-# define NO_NAME				"No name given"
-# define NO_COMMENT				"No comment given"
-# define INCORRECT_ARG_COUNT	"Incorrect argument count"
-# define INCORRECT_ARG_TYPE		"Incorrect argument type"
+# define NO_NAME				"No name given: error"
+# define NO_COMMENT				"No comment given: error"
+# define INCORRECT_ARG_COUNT	"Incorrect argument count: error"
+# define INCORRECT_ARG_TYPE		"Incorrect argument type: error"
 
 typedef struct					s_argval
 {
