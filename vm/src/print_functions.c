@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 17:25:21 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/18 14:33:57 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/12/11 12:13:27 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	hex_dump(unsigned char *board)
 	x = 0;
 	while (x < MEM_SIZE)
 	{
-		if (x % (MEM_SIZE / 64) == 0 && x != 0)
+		if (x % (MEM_SIZE / 32) == 0 && x != 0)
 			NL;
 		if (board[x] != 0)
 			ft_printf("\033[0;31m");
@@ -57,7 +57,7 @@ void	print_cursor(t_cursor *cursor)
 		ft_printf("CARRY:\t%10d\n", 1);
 	ft_printf("OPCODE:\t\t%10d\nLAST LIVE:\t%10d\n", cursor->opcode, cursor->last_live);
 	ft_printf("WAIT CYCLE:\t%10d\nPOSITION:\t%10d\nJUMP:\t\t%10d\nREGISTRY: ", cursor->wait_cycle, cursor->position, cursor->jump);
-	for (int i = 0; i < 16; i++)
+	for (int i = 0; i < MAX_REGISTRIES; i++)
 		ft_printf("[%d]%d   ", i, cursor->registry[i]);
 	NL;
 	if (cursor->next)
@@ -72,4 +72,32 @@ void	print_temp_board(unsigned char *board)
 		if (i != 0 && i % 10 == 0)
 			NL;
 	}
+}
+
+void	print_registries(t_game *game, t_cursor *cursor)
+{
+	for (int i = 0; i < game->num_cursors; i++)
+	{
+		for (int x = 0; x < 16; x++)
+			ft_printf("[%d]: %d\n", i, cursor->registry[x]);
+		cursor = cursor->next;
+	}
+}
+
+void	print_winner(t_game *game)
+{
+	// int x;
+	// int	last_alive;
+
+	// x = 0;
+	// last_alive = -1;
+	ft_printf("WINNER IS %s\n", game->players[game->last_reported_live - 1]->name);
+	game->players[game->last_reported_live - 1]->last_reported_live = -1;
+
+	// while (x < game->num_players)
+	// {
+	// 	if (game-)
+	// 		ft_printf("WINNER IS %s\n", game->players[x]->name);
+	// 	x++;
+	// }
 }

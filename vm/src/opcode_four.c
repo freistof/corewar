@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 12:23:05 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/11/19 15:52:33 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/12/11 13:22:40 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void		op_storei(t_game *game, t_cursor *cursor)
 		value += get_arg_value(op_args->arg3_type, op_args->arg3_value, cursor, game->board);
 		byte = int_to_byte(cursor->registry[op_args->arg1_value - 1]);
 		write_to_board(game->board, cursor->position + (value % IDX_MOD), byte);
+		if (game->vis)
+			update_visual_field(game, cursor->position + (value % IDX_MOD), cursor->id);
 		free(byte);
 	}
 	ft_memdel((void **)&op_args);

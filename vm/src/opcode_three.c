@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/17 15:33:30 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/11/19 14:25:37 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/12/05 13:32:51 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@
 void			op_jump(t_game *game, t_cursor *cursor)
 {
 	if (cursor->carry == true)
+	{
 		cursor->jump = (short)byte_to_hex(game->board, cursor->position + 1);
+	}
+	else
+		cursor->jump = 3;
 }
 
 void			op_aff(t_game *game, t_cursor *cursor)
@@ -41,14 +45,24 @@ static t_cursor	*copy_cursor(t_cursor *original)
 	t_cursor	*new;
 	int			x;
 
-	x = 0;
+	if (!original)
+	{
+		ft_printf("ORIGINAL FUCKED\n");
+		exit(0);
+	}
 	new = (t_cursor *)ft_memalloc(sizeof(t_cursor));
+	if (!new)
+	{
+		ft_printf("malloc error!\n");
+		exit(1);
+	}
 	new->id = original->id;
 	new->carry = original->carry;
-	new->opcode = original->opcode;
+	new->opcode = 0 ;
 	new->last_live = original->last_live;
 	new->wait_cycle = original->wait_cycle;
-	new->jump = original->position;
+	new->jump = 0;
+	x = 0;
 	while (x < MAX_REGISTRIES)
 	{
 		new->registry[x] = original->registry[x];
@@ -63,11 +77,12 @@ void			op_fork(t_game *game, t_cursor *cursor)
 	t_cursor	*next;
 
 	new = copy_cursor(cursor);
-	new->position = (short)byte_to_hex(game->board, cursor->position + 1) % IDX_MOD;
+	new->position = (cursor->position + ((short)byte_to_hex(game->board, cursor->position + 1) % IDX_MOD) % MEM_SIZE);
 	next = cursor->next;
 	cursor->next = new;
 	new->next = next;
 	cursor->jump = 3;
+	game->num_cursors += 1;
 }
 
 void			op_lfork(t_game *game, t_cursor *cursor)
@@ -76,9 +91,10 @@ void			op_lfork(t_game *game, t_cursor *cursor)
 	t_cursor	*next;
 
 	new = copy_cursor(cursor);
-	new->position = (short)byte_to_hex(game->board, cursor->position + 1) % MEM_SIZE;
+	new->position = (cursor->position + (short)byte_to_hex(game->board, cursor->position + 1)) % MEM_SIZE;
 	next = cursor->next;
 	cursor->next = new;
 	new->next = next;
 	cursor->jump = 3;
+	game->num_cursors += 1;
 }

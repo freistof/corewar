@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 17:08:21 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/19 13:18:27 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/11/29 12:56:16 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void		fill_cursor_values(t_cursor **cursor)
 	int x;
 
 	x = 1;
-	while (x < 16)
+	while (x < MAX_REGISTRIES)
 	{
 		(*cursor)->registry[x] = 0;
 		x++;
@@ -29,19 +29,18 @@ static void		fill_cursor_values(t_cursor **cursor)
 	(*cursor)->carry = false;
 }
 
-static t_cursor	*init_cursors(t_game *game, t_player **players, int j)
+static t_cursor	*init_cursors(t_game *game, t_player **players)
 {
 	int			x;
 	t_cursor	*head;
 	t_cursor	*cursor;
 
 	x = game->num_players;
-	j = 0;
 	cursor = (t_cursor *)ft_memalloc(sizeof(t_cursor));
 	while (x > 0)
 	{
 		cursor->id = x;
-		cursor->position = (MEM_SIZE / game->num_players) * j;
+		cursor->position = (MEM_SIZE / game->num_players) * (x - 1);
 		cursor->registry[0] = x * -1;
 		fill_cursor_values(&cursor);
 		if (x == game->num_players)
@@ -52,7 +51,6 @@ static t_cursor	*init_cursors(t_game *game, t_player **players, int j)
 			cursor = cursor->next;
 		}
 		x--;
-		j++;
 	}
 	cursor->next = head;
 	return (head);
@@ -78,7 +76,7 @@ void			init_board(t_game *game, t_player **players)
 	game->board = (unsigned char *)ft_memalloc(sizeof(unsigned char) \
 	* MEM_SIZE);
 	load_players(game, players);
-	cursor = init_cursors(game, players, 0);
+	cursor = init_cursors(game, players);
 	// hex_dump(game->board);
 	// for (int i = 0; i < game->num_players; i++)
 	// {

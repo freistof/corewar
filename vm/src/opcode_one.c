@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 13:38:55 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/19 16:27:18 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/12/11 13:22:40 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** LIVE, STORE, ADD, SUBTRACT
 */
-
 void		op_live(t_game *game, t_cursor *cursor)
 {
 	int arg;
@@ -24,12 +23,15 @@ void		op_live(t_game *game, t_cursor *cursor)
 	cursor->last_live = game->cycle_counter;
 	game->num_lives_reported += 1;
 	// ft_printf("LIVE ARG: %d\tREGISTRY [0]: %d\n", arg, cursor->registry[0]);
-	if ((arg * -1) > 0 && (arg * -1) <= game->num_players)
+	if ((arg * -1) > 0 && (arg * -1) <= game->num_players && game->players[arg * -1 - 1]->alive == true)
 	{
 		game->last_reported_live = arg * -1;
+		game->players[arg * -1 - 1]->last_reported_live = game->cycle_counter;
+		// ft_printf("%d\n", game->players[arg * -1 - 1]->last_reported_live);
 		// game->last_reported_live = cursor->registry[0];
-		// ft_printf("A process shows that player %d (%s) is alive\n", arg * -1, \
-		game->players[(arg * - 1) - 1]->name);
+		// if (!game->vis)
+		// 	ft_printf("A process shows that player %d (%s) is alive\n", arg * -1, \
+		// 	game->players[(arg * - 1) - 1]->name);
 	}
 	cursor->jump = 5;
 }
@@ -37,16 +39,21 @@ void		op_live(t_game *game, t_cursor *cursor)
 void		op_store(t_game *game, t_cursor *cursor)
 {
 	t_op_args		*op_args;
-	int				value;
 	unsigned char	*byte;
 
-	op_args = get_op_args(cursor, game->board, 2);
+	op_args = get_op_args(cursor, game->board, 4);
 	if (check_arg_types(op_args, ARG_REG, ARG_REG_OR_IND, ARG_NOTHING))
 	{
-		value = get_arg_value(op_args->arg2_type, op_args->arg2_value, cursor, game->board);
-		byte = int_to_byte(cursor->registry[op_args->arg1_value - 1]);
-		write_to_board(game->board, cursor->position + (value % IDX_MOD), byte);
-		free(byte);
+		if (op_args->arg2_type == T_REG)
+			cursor->registry[op_args->arg2_value - 1] = get_arg_value(op_args->arg1_type, op_args->arg1_value, cursor, game->board);
+		else
+		{
+			byte = int_to_byte(cursor->registry[op_args->arg1_value - 1]);
+			write_to_board(game->board, cursor->position + (op_args->arg2_value % IDX_MOD), byte);
+			if (game->vis)
+				update_visual_field(game, cursor->position + (op_args->arg2_value % IDX_MOD), cursor->id);
+			free(byte);
+		}
 	}
 	ft_memdel((void **)&op_args);
 }

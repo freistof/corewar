@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/01 12:39:27 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/11/20 14:37:53 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/12/11 19:06:14 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,16 @@
 # include <limits.h>
 # include <stdbool.h>
 # include <ncurses.h>
+# include <time.h>
 # include "../../libft/libft.h"
 # include "../../libft/ft_printf/ft_printf.h"
+
+# define USAGE1 "Usage: ./corewar [-dump N -n N -v -t N] <champion1.cor> <...>\n\n"
+# define USAGE2 "FLAGS:\n-dump N:\tDumps memory after N cycles then exits"
+# define USAGE3 "\n-n N:\t\tSets player id\n"
+# define USAGE4 "-v:\t\tVisualizer\n"
+# define USAGE5 "-t N:\t\tSets delay time (ms) between cycles for visualizer "
+# define USAGE6 "if -v is activated (0 <= N < MAX_INT).\n"
 
 # define MAX_PLAYERS			4
 # define MEM_SIZE				(4*1024)
@@ -54,6 +62,13 @@
 # define ARG_REG_OR_IND 5
 # define ARG_DIR_OR_IND 6
 # define ARG_ANY 7
+
+# define VISUAL_BOX_FIELD_X ((MEM_SIZE / 64) * 3 + 1)
+# define VISUAL_BOX_FIELD_Y ((MEM_SIZE / 64) + 2)
+# define VISUAL_BOX_INFO_X ((MEM_SIZE / 64) + 10)
+# define VISUAL_BOX_INFO_Y ((MEM_SIZE / 64) + 2)
+# define RESET_VISUAL_INFO	"                                        "
+# define INFO_START_Y 33
 
 /*
 ** NOTHING = 0					0
@@ -107,7 +122,8 @@ typedef struct		s_game
 	t_visual		*visual;
 	unsigned char	*board;
 	long			dump;
-	int				last_alive;
+	bool			vis;
+	long			delay;
 	int				cycle_counter;
 	int				cycles_to_die;
 	int				max_cycles_to_die;
@@ -162,11 +178,14 @@ int num_players);
 /*
 ** DEBUG
 */
-void				print_code(t_player *player);
-void				print_players(t_player **players, int num_players);
+void				print_code(t_player *player); //REMOVE
+void				print_players(t_player **players, int num_players); //REMOVE
 void				hex_dump(unsigned char *board);
-void				print_cursor(t_cursor *cursor);
-void				print_temp_board(unsigned char *board);
+void				print_cursor(t_cursor *cursor); //REMOVE
+void				print_temp_board(unsigned char *board);	//REMOVE
+void				print_winner(t_game *game);
+void				print_registries(t_game *game, t_cursor *cursor); //REMOVE
+
 
 /*
 ** ADD TO LIBFT
@@ -174,6 +193,8 @@ void				print_temp_board(unsigned char *board);
 int					ft_is_string_numbers(char *str);
 long				ft_long_atoi(const char *str);
 int					ft_fits_in_long(char *str);
+/*SITTING IN ITS OWN FILE */
+int					ft_fits_in_int(char *str);
 
 /*
 ** INIT BOARD
@@ -237,12 +258,67 @@ void				write_to_board(unsigned char *board, int position, unsigned char *byte);
 void				set_wait_cycle(t_cursor *cursor);
 
 /*
+** KILL CURSOR
+*/
+void				kill_all_cursors(t_game *game, t_cursor *cursor);
+void				kill_cursor(t_game *game, t_cursor *prev, t_cursor **cur, t_cursor *next);
+
+/*
+** EXECUTE OP
+*/
+void				execute_op(t_game *game, t_cursor *cursor);
+
+/*
+** CHECK
+*/
+void				check(t_game *game, t_cursor *keep_cursor);
+
+/*
 ** VISUALIZER
 */
 void        		init_visualizer(t_game *game, t_cursor *cursor);
+// void				update_visualizer(t_game *game, t_cursor *cursor);
+void				update_visual_info(t_game *game, t_cursor *cursor);
+void				update_visual_field(t_game *game, int position, int id);
+void				put_ascii_art(WINDOW *win);
+void				print_winner_vis(t_game *game);
 
-# define USAGE1 "Usage: ./corewar [-dump N -n N] <champion1.cor> <...>\n"
-# define USAGE2 "-dump N:\tDumps memory after N cycles then exits"
-# define USAGE3 "\n-n N:\tSets player id\n"
+/*
+** FINISH GAME
+*/
+void				finish_game(t_game *game, t_cursor *cursor);
+
+
+/*
+** ASCII BONUS
+*/
+# define SIG1 "___.           ___________                                    "
+# define SIG2 "\\_ |__ ___.__. \\_   _____/______  ____                 "
+# define SIG3 " | __ <   |  |  |    __) \\_  __ \\/ __ \\               "
+# define SIG4 " | \\_\\ \\___  |  |     \\   |  | \\|  ___/              "
+# define SIG5 " |___  / ____|  \\___  /   |__|   \\___  > /\\           "
+# define SIG6 "     \\/\\/           \\/               \\/  )/           "
+# define SIG7 "__________.__       .__        ____    .____             "
+# define SIG8 "\\______   \\__| ____ |  |__    /  _ \\   |    |    __ __  ____"
+# define SIG9 " |       _/  |/ ___\\|  |  \\   >  _ </\\ |    |   |  |  \\/ ___\\"
+# define SIG10 " |    |   \\  \\  \\___|   Y  \\ /  <_\\ \\/ |    |___|  |  |  \\___"
+# define SIG11 " |____|_  /__|\\___  >___|  / \\_____\\ \\ |_______ \\____/ \\___  >"
+# define SIG12 "        \\/        \\/     \\/         \\/         \\/          \\/ "
+
+/*
+** FIREWORKS BONUS
+*/
+#include <stddef.h>
+#include <stdint.h>
+#include <math.h>
+typedef struct particle_t {
+    float pos[2];
+    float center[2];
+    float vel[2];
+    float life;
+    uint8_t color;
+    bool exploded;
+}				particle;
+void	fireworks(t_game *game);
 
 #endif

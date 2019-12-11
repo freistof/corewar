@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 16:36:51 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/19 15:45:37 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/12/05 12:56:09 by lvan-vlo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			get_arg_value(int arg_type, int arg_value, t_cursor *cursor, unsigned char
     else if (arg_type == T_REG)
         return (cursor->registry[arg_value - 1]);
     else if (arg_type == T_IND)
-        return (byte_to_hex(board, cursor->position + (arg_value % IDX_MOD) % MEM_SIZE));
+        return (byte_to_int(board, cursor->position + (arg_value % IDX_MOD) % MEM_SIZE));
 	return (0);
 }
 

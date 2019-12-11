@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 12:27:17 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/13 15:59:15 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/11 18:14:00 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@ static int		is_flag(char **argv, int argc, int *x, t_game *game)
 				return (1);
 			}
 		}
+		else if (ft_strequ(argv[*x], "-t") && *x < argc - 1)
+		{
+			if (ft_is_string_numbers(argv[*x + 1]) && \
+			ft_fits_in_int(argv[*x + 1]))
+			{
+				game->delay = ft_long_atoi(argv[*x + 1]);
+				*x += 1;
+				return (1);
+			}
+		}
 		else if (ft_strequ(argv[*x], "-n") && *x < argc - 2)
 		{
 			if (ft_is_string_numbers(argv[*x + 1]))
@@ -37,6 +47,11 @@ static int		is_flag(char **argv, int argc, int *x, t_game *game)
 				*x += 1;
 				return (1);
 			}
+		}
+		else if (ft_strequ(argv[*x], "-v"))
+		{
+			game->vis = true;
+			return (1);
 		}
 	}
 	return (0);
