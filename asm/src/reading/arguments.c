@@ -20,21 +20,21 @@ static void	save_argument_value(char *argument, int type, t_list *item, int i)
 	if (type == T_REG)
 	{
 		if (!check_register(trimmed))
-			error("Wrong register: error");
+			error(ERR_REGISTER);
 		else
 			save_register(trimmed, item, i);
 	}
 	if (type == T_DIR)
 	{
 		if (!check_direct(trimmed + 1))
-			error("Wrong direct: error");
+			error(ERR_DIRECT);
 		else
 			save_direct(trimmed + 1, item, i);
 	}
 	if (type == T_IND)
 	{
 		if (!check_indirect(trimmed))
-			error("Wrong indirect: error");
+			error(ERR_INDIRECT);
 		else
 			save_indirect(trimmed, item, i);
 	}
@@ -53,9 +53,9 @@ static void	valid_argument(char **argsplit, t_list *item)
 	while (argsplit[i])
 	{
 		type = argsplit[i][0];
-		if (argsplit[i][0] == 'r')
+		if (argsplit[i][0] == REGISTER_CHAR)
 			type = REG_CODE;
-		else if (argsplit[i][0] == '%')
+		else if (argsplit[i][0] == DIRECT_CHAR)
 			type = DIR_CODE;
 		else
 			type = IND_CODE;
@@ -106,7 +106,7 @@ int			check_arguments(t_list *item, char *content)
 
 	arg_no = (((t_op *)(item->content))->number_of_arguments);
 	remove_comments(content);
-	argsplit = ft_strsplit(content, ',');
+	argsplit = ft_strsplit(content, ARG_SEPERATOR);
 	argsplit = trim_split(argsplit);
 	i = 0;
 	if (valid_argument_count(argsplit, arg_no))

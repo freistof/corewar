@@ -22,9 +22,6 @@ int			main(int argc, char **argv)
 	input_file = argv[argc - 1];
 	list = ft_lstnew(NULL, 0);
 	save_data(fd, &list);
-	// print_list(list);
 	write_data(list, input_file);
-/*	while (1)
-		;*/
 	return (0);
 }

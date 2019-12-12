@@ -30,6 +30,6 @@ int				label_direct_value(char *label, t_list **head, int position)
 		}
 		list = list->next;
 	}
-	error("Shit\n");
+	error(LABEL_NOT_FOUND);
 	return (0);
 }

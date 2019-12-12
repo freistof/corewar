@@ -22,9 +22,9 @@ static char		*get_output_file(char *input_file)
 	i = len - 1;
 	while (input_file[i] != '.' && i > 0)
 		i--;
-	output_file = ft_strnew(i + 4 + 1);
+	output_file = ft_strnew(i + LEN_EXTENSION + 1);
 	output_file = ft_strncpy(output_file, input_file, i);
-	output_file = ft_strcat(output_file, ".cor");
+	output_file = ft_strcat(output_file, EXTENSION);
 	return (output_file);
 }
 
@@ -36,7 +36,7 @@ void			write_data(t_list *list, char *input_file)
 	output_file = get_output_file(input_file);
 	fd = open(output_file, O_TRUNC | O_CREAT | O_APPEND | O_RDWR, 0644);
 	if (fd == -1)
-		error("Could not create file\n");
+		error(ERR_FILE_CREATE);
 	write_magic(fd);
 	write_name(fd, list);
 	write_null(fd);
@@ -44,6 +44,6 @@ void			write_data(t_list *list, char *input_file)
 	write_comment(fd, list);
 	write_null(fd);
 	write_exec_code(fd, list);
-	ft_printf("Writing output program to %s\n", output_file);
+	ft_printf("%s %s\n", OUTPUT_MESSAGE, output_file);
 	free(output_file);
 }

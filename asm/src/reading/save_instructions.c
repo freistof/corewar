@@ -116,7 +116,7 @@ void			save_instructions(t_list **list, int fd, int *line, int *pos)
 		if (check_instruction(&content[i], &opcode, &i) == 1)
 			copy_instruction(&item, &content[i], opcode, pos);
 		else if (!empty_line(&content[i]))
-			error("Syntax error");
+			error(SYNTAX_ERROR);
 		item = skip_to_end(&item);
 		free(content);
 	}

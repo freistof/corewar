@@ -110,7 +110,7 @@ void			save_name_and_comment(t_list **list, int fd, int *line)
 		if (check_content(content, &name, &comment))
 			save_content(&item, content);
 		else if (!empty_line(content))
-			error("Syntax error");
+			error(SYNTAX_ERROR);
 		free(content);
 		item = skip_to_end(&item);
 	}

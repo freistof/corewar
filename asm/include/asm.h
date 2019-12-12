@@ -20,10 +20,16 @@
 
 # define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 # define LABEL_CHAR				':'
+# define REGISTER_CHAR			'r'
+# define DIRECT_CHAR			'%'
+# define ARG_SEPERATOR			','
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 # define NAME_CMD_STRING		".name"
 # define COMMENT_CMD_STRING		".comment"
+
+# define EXTENSION				".cor"
+# define LEN_EXTENSION			ft_strlen(EXTENSION)
 
 # define T_REG					1
 # define T_DIR					2
@@ -32,8 +38,6 @@
 # define REG_CODE				0
 # define DIR_CODE				1
 # define IND_CODE				2
-
-# define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
 
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
@@ -44,12 +48,20 @@
 */
 
 # define USAGE					"Usage: ./asm <sourcefile.s>"
-# define FILE_ERROR				"Can't read source file"
-# define SYNTAX_ERROR			"Syntax error in .s file"
+# define OUTPUT_MESSAGE			"Writing output program to"
+
+# define FILE_ERROR				"Can't read source file: error"
+# define SYNTAX_ERROR			"Syntax error in input file"
 # define NO_NAME				"No name given: error"
 # define NO_COMMENT				"No comment given: error"
 # define INCORRECT_ARG_COUNT	"Incorrect argument count: error"
 # define INCORRECT_ARG_TYPE		"Incorrect argument type: error"
+# define ERR_FILE_CREATE		"Could not create file"
+# define ERR_REGISTER_VAL		"Incorrect register value: error"
+# define ERR_REGISTER			"Wrong register: error"
+# define ERR_INDIRECT			"Wrong indirect: error"
+# define ERR_DIRECT				"Wrong direct: error"
+# define LABEL_NOT_FOUND		"Label not found: error"
 
 typedef struct					s_argval
 {
