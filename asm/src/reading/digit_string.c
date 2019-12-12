@@ -21,6 +21,11 @@ int				digit_string(char *argument)
 	i = 0;
 	if (argument[i] == '-')
 		i++;
+	if (argument[i] == '\0')
+	{
+		free(digit_string);
+		return (false);
+	}
 	while (argument[i] != '\0')
 	{
 		if (digit_string[i] == '\0')
