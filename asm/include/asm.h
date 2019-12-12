@@ -39,6 +39,8 @@
 # define DIR_CODE				1
 # define IND_CODE				2
 
+# define REG_NUMBER				16
+
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3

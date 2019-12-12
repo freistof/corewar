@@ -15,7 +15,7 @@
 void		save_register(char *argument, t_list *item, int argno)
 {
 	(((t_op *)(item->content))->argvalues[argno]).value = ft_atoi(argument + 1);
-	if ((((t_op *)(item->content))->argvalues[argno]).value > 16 ||
+	if ((((t_op *)(item->content))->argvalues[argno]).value > REG_NUMBER ||
 		(((t_op *)(item->content))->argvalues[argno]).value < 1)
 		error(ERR_REGISTER_VAL);
 	((t_op *)(item->content))->size += 1;
