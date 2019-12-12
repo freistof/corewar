@@ -37,7 +37,7 @@ void	write_direct_big(t_op *instruction, int arg, int fd, t_list **head)
 
 void	write_direct_small(t_op *instruction, int arg, int fd, t_list **head)
 {
-	unsigned short s_arg;
+	unsigned long long s_arg;
 
 	if (instruction->argvalues[arg].label)
 	{
@@ -49,6 +49,8 @@ void	write_direct_small(t_op *instruction, int arg, int fd, t_list **head)
 	else
 	{
 		s_arg = (short)instruction->argvalues[arg].value;
+		if (s_arg >= 9223372036854775807)
+			s_arg = 0xffffffff;
 		s_arg = swap_bits_two_byte(s_arg);
 		write(fd, &s_arg, 2);
 	}
