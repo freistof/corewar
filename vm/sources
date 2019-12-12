@@ -18,4 +18,16 @@ opcode_three.c \
 opcode_four.c \
 run_game.c \
 set_wait_cycle.c \
-write_to_board.c
+write_to_board.c \
+kill_cursor.c \
+execute_op.c \
+finish_game.c \
+check.c \
+ft_fits_in_int.c \
+../visualizer/init_vis.c \
+../visualizer/init_visualizer.c \
+../visualizer/update_visual_info.c \
+../visualizer/update_visual_field.c \
+../visualizer/ascii_awesomeness.c \
+../visualizer/print_winner_vis.c \
+../visualizer/fireworks.c

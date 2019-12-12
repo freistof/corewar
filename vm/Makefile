@@ -6,7 +6,7 @@
 #    By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/01 13:04:43 by lvan-vlo       #+#    #+#                 #
-#    Updated: 2019/11/11 14:35:44 by rcorke        ########   odam.nl          #
+#    Updated: 2019/11/26 14:03:33 by rcorke        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ SRC_PATH = src/
 OBJ = $(SRC:%.c=%.o)
 SRCS := ${addprefix $(SRC_PATH), $(SRCS)}
 FLAGS = -o $(BINARY)
-ERRFLAGS = #-Wall -Werror -Wextra
+ERRFLAGS = -g #-Wall -Werror -Wextra
+VISFLAGS = -lncurses
 CC = gcc
 LIBPATH = ../libft/
 PRINTFPATH = $(LIBPATH)ft_printf/
@@ -37,7 +38,7 @@ $(BINARY): $(OBJ)
 	@make -C $(LIBPATH)
 	@echo "$(COLOR)Make printf library$(OFF)"
 	@make -C $(PRINTFPATH)
-	@$(CC) $(HEADER) $(SRCS) $(ERRFLAGS) $(FLAGS) $(LIBS)
+	@$(CC) $(VISFLAGS) $(HEADER) $(SRCS) $(ERRFLAGS) $(FLAGS) $(LIBS)
 
 clean:
 	@echo "$(COLOR)Removing object files$(OFF)"
