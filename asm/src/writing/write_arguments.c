@@ -12,9 +12,11 @@
 
 #include "asm.h"
 
+#include <limits.h>
+
 void	write_direct_big(t_op *instruction, int arg, int fd, t_list **head)
 {
-	unsigned int argument;
+	unsigned long long argument;
 
 	if (instruction->argvalues[arg].label)
 	{
@@ -26,6 +28,8 @@ void	write_direct_big(t_op *instruction, int arg, int fd, t_list **head)
 	else
 	{
 		argument = instruction->argvalues[arg].value;
+		if (argument >= 9223372036854775807)
+			argument = 0xffffffff;
 		argument = swap_bits(argument);
 		write(fd, &argument, 4);
 	}
@@ -44,7 +48,7 @@ void	write_direct_small(t_op *instruction, int arg, int fd, t_list **head)
 	}
 	else
 	{
-		s_arg = instruction->argvalues[arg].value;
+		s_arg = (short)instruction->argvalues[arg].value;
 		s_arg = swap_bits_two_byte(s_arg);
 		write(fd, &s_arg, 2);
 	}
