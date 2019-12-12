@@ -17,7 +17,7 @@ void			remove_comments(char *string)
 	i = 0;
 	while (string[i] != '\0')
 	{
-		if (string[i] == '#')
+		if (string[i] == '#' || string[i] == ';')
 		{
 			while (string[i] != '\0')
 			{
