@@ -14,12 +14,16 @@
 
 static char		*get_output_file(char *input_file)
 {
+	int			i;
 	int			len;
 	char		*output_file;
 
-	len = ft_strstr(input_file, ".") - input_file;
-	output_file = ft_strnew(len + 4 + 1);
-	output_file = ft_strncpy(output_file, input_file, len);
+	len = ft_strlen(input_file);
+	i = len - 1;
+	while (input_file[i] != '.' && i > 0)
+		i--;
+	output_file = ft_strnew(i + 4 + 1);
+	output_file = ft_strncpy(output_file, input_file, i);
 	output_file = ft_strcat(output_file, ".cor");
 	return (output_file);
 }
