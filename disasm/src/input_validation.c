@@ -12,13 +12,12 @@
 
 #include "disasm.h"
 
-int				input_validation(int argc, char **argv)
+int				input_validation(int argc)
 {
 	if (argc != 2)
 	{
 		ft_printf("%s\n", USAGE);
 		return (0);
 	}
-	argv = NULL; // remove this
 	return (1);
 }

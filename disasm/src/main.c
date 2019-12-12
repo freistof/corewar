@@ -14,7 +14,7 @@
 
 int			main(int argc, char **argv)
 {
-	if (!input_validation(argc, argv))
+	if (!input_validation(argc))
 		return (0);
-	disassembler(argv[1]);	
+	disassembler(argv[1]);
 }

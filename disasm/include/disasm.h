@@ -32,6 +32,13 @@
 # define T_DIR					2
 # define T_IND					4
 
+typedef struct					s_data
+{
+	int							opcode;
+	int							codage;
+	int							i;
+}								t_data;
+
 typedef struct					s_argval
 {
 	int							value;
@@ -53,7 +60,7 @@ typedef struct					s_op
 	int							position;
 }								t_op;
 
-int				input_validation(int argc, char **argv);
+int				input_validation(int argc);
 
 void			error(char *message);
 
@@ -65,7 +72,7 @@ void			null(int fd_in);
 int				size(int fd_in);
 void			comment(int fd_in, int fd_out);
 void			exec_code(int fd_in, int fd_out, int size);
-void			arguments(int fd_in, int fd_out, int codage, int arg_count, int opcode);
+void			arguments(int fd_in, int fd_out, t_data *data);
 
 int				swap_bits(int number);
 int				swap_bits_two_byte(int number);

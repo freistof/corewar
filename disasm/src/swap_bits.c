@@ -25,4 +25,3 @@ int			swap_bits_two_byte(int number)
 			((number << 8) & 0xff00);
 	return (number);
 }
-
