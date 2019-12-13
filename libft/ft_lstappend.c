@@ -14,8 +14,9 @@
 
 void	ft_lstappend(t_list **alst, t_list *new)
 {
-	t_list *list = *alst;
+	t_list *list;
 
+	list = *alst;
 	while (list->next)
 		list = list->next;
 	list->next = new;
