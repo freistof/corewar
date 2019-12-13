@@ -68,7 +68,7 @@
 
 typedef struct					s_argval
 {
-	unsigned long long						value;
+	unsigned long long			value;
 	char						*label;
 }								t_argval;
 
