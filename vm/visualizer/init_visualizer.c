@@ -6,13 +6,14 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/09 15:22:44 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/12/11 18:00:47 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/13 14:10:39 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/vm.h"
 
-static void		init_player_info(t_game *game, t_cursor *cursor, t_visual *visual)
+static void		init_player_info(t_game *game, t_cursor *cursor, \
+t_visual *visual)
 {
 	int		player;
 
@@ -21,9 +22,13 @@ static void		init_player_info(t_game *game, t_cursor *cursor, t_visual *visual)
 	while (player < game->num_players)
 	{
 		wattron(visual->info, COLOR_PAIR(player + 1));
-		mvwprintw(visual->info, player * (32 / game->num_players) + 2, 5, "Player [%d]:\t%s", player + 1, game->players[player]->name, game->players[player]->comment);
-		mvwprintw(visual->info, player * (32 / game->num_players) + 3, 5, "Comment:\t\t%s", game->players[player]->comment);
-		mvwprintw(visual->info, player * (32 / game->num_players) + 5, 5, "Last Live:");
+		mvwprintw(visual->info, player * (32 / game->num_players) + 2, 5, \
+		"Player [%d]:\t%s", player + 1, game->players[player]->name, \
+		game->players[player]->comment);
+		mvwprintw(visual->info, player * (32 / game->num_players) + 3, 5, \
+		"Comment:\t\t%s", game->players[player]->comment);
+		mvwprintw(visual->info, player * (32 / game->num_players) + 5, 5, \
+		"Last Live:");
 		wattroff(visual->info, COLOR_PAIR(player + 1));
 		player++;
 	}
@@ -39,9 +44,11 @@ static void		draw_info(t_game *game, t_cursor *cursor, t_visual *visual)
 	mvwprintw(visual->info, INFO_START_Y + 8, 5, "Check counter:");
 	mvwprintw(visual->info, INFO_START_Y + 10, 5, "Last player alive:");
 	mvwprintw(visual->info, INFO_START_Y + 12, 5, "Number of cursors alive:");
-	mvwprintw(visual->info, INFO_START_Y + 14, 5, "Number of lives reported this cycle:");
+	mvwprintw(visual->info, INFO_START_Y + 14, 5, "Number of lives reported \
+this cycle:");
 	wattron(visual->info, A_BOLD);
-	mvwprintw(visual->info, INFO_START_Y + 16, 5, "USE +/- TO INCREASE/DECREASE DELAY BETWEEN CYCLES");
+	mvwprintw(visual->info, INFO_START_Y + 16, 5, "USE +/- TO \
+	INCREASE/DECREASE DELAY BETWEEN CYCLES");
 	mvwprintw(visual->info, INFO_START_Y + 25, 5, "PRESS SPACE TO START");
 	wattroff(visual->info, A_BOLD);
 	wrefresh(visual->info);
@@ -64,9 +71,12 @@ static void		draw_field(t_game *game, t_cursor *cursor, t_visual *visual)
 		else
 			wprintw(visual->field, " ");
 		if (x % (MEM_SIZE / game->num_players) == 0)
-			wattron(visual->field, COLOR_PAIR(x / (MEM_SIZE / game->num_players) + 1));
-		if (x % (MEM_SIZE / game->num_players) == game->players[x / (MEM_SIZE / game->num_players)]->code_size)
-			wattroff(visual->field, COLOR_PAIR(x / (MEM_SIZE / game->num_players) + 1));
+			wattron(visual->field, COLOR_PAIR(x / (MEM_SIZE / \
+			game->num_players) + 1));
+		if (x % (MEM_SIZE / game->num_players) == game->players[x / \
+		(MEM_SIZE / game->num_players)]->code_size)
+			wattroff(visual->field, COLOR_PAIR(x / (MEM_SIZE / \
+			game->num_players) + 1));
 		wprintw(visual->field, "%02x", game->board[x]);
 		x++;
 	}
@@ -84,7 +94,7 @@ static void		init_colors(void)
 
 void			init_visualizer(t_game *game, t_cursor *cursor)
 {
-	t_visual    *visual;
+	t_visual	*visual;
 	int			ch;
 
 	initscr();
@@ -94,7 +104,8 @@ void			init_visualizer(t_game *game, t_cursor *cursor)
 	cbreak();
 	visual = (t_visual *)ft_memalloc(sizeof(t_visual));
 	visual->field = newwin(VISUAL_BOX_FIELD_Y, VISUAL_BOX_FIELD_X, 0, 0);
-	visual->info = newwin(VISUAL_BOX_INFO_Y, VISUAL_BOX_INFO_X, 0, (MEM_SIZE / 64) * 3 + 2);
+	visual->info = newwin(VISUAL_BOX_INFO_Y, VISUAL_BOX_INFO_X, 0, \
+	(MEM_SIZE / 64) * 3 + 2);
 	box(visual->field, 0, 0);
 	box(visual->info, 0, 0);
 	init_colors();

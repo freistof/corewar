@@ -6,13 +6,14 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 14:07:05 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/04 12:44:20 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/12/12 13:46:41 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/vm.h"
 
-int		args_to_int(unsigned char arg1, unsigned char arg2, unsigned char arg3)
+int				args_to_int(unsigned char arg1, unsigned char arg2, \
+unsigned char arg3)
 {
 	int rtn;
 
@@ -22,10 +23,10 @@ int		args_to_int(unsigned char arg1, unsigned char arg2, unsigned char arg3)
 	return (rtn);
 }
 
-int		byte_to_int(unsigned char *board, int position)
+int				byte_to_int(unsigned char *board, int position)
 {
 	int		rtn;
-	
+
 	rtn = (unsigned char)board[position % MEM_SIZE] << 24;
 	rtn += (unsigned char)board[(position + 1) % MEM_SIZE] << 16;
 	rtn += (unsigned char)board[(position + 2) % MEM_SIZE] << 8;
@@ -45,11 +46,11 @@ unsigned char	*int_to_byte(int value)
 	return (byte);
 }
 
-int		byte_to_hex(unsigned char *board, int position)
+int				byte_to_hex(unsigned char *board, int position)
 {
-	int		rtn;
+	int	rtn;
 
 	rtn = (unsigned char)board[(position) % MEM_SIZE] << 8;
 	rtn += (unsigned char)board[(position + 1) % MEM_SIZE];
 	return (rtn);
-} 
+}

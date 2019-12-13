@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 14:11:10 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/12 12:00:39 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/12 13:55:18 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 /*
 ** Checks that player file has correct info then parses it into struct
 */
-// 1100 0010 0000 1001
-// 1001 0000 0010 1100 == MAGICE HEADER
 
-//
 static int	check_magic(t_player *player, char *str, int *i)
 {
 	if (str[*i] != 0)

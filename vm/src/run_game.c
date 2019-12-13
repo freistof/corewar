@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 19:05:30 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/11 15:35:28 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/12 13:54:48 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,6 @@ void	main_loop(t_game *game, t_cursor *cursor)
 		game->cycles_to_die += 1;
 		if (game->vis)
 			update_visual_info(game, cursor);
-		// usleep(50000);
-		// if (game->cycle_counter == 7201)
-		// 	ft_printf("{209}NUMBER OF CURSORS : %d cycles: %d\n", game->num_cursors, game->cycle_counter);
-		// if (game->cycle_counter == 8132)
-		// 	ft_printf("{413}NUMBER OF CURSORS : %d cycles: %d\n", game->num_cursors, game->cycle_counter);
-		// if (game->cycle_counter == 9391)
-		// 	ft_printf("{941}NUMBER OF CURSORS : %d cycles: %d\n", game->num_cursors, game->cycle_counter);
-		// if (game->cycle_counter == 10998)
-		// 	ft_printf("{2373}NUMBER OF CURSORS : %d cycles: %d\n", game->num_cursors, game->cycle_counter);
 	}
 }
 
@@ -81,6 +72,5 @@ void	run_game(t_game *game, t_player **players, t_cursor *cursor)
 	game->check_counter = 0;
 	if (game->vis)
 		init_visualizer(game, cursor);
-	// hex_dump(game->board);
 	main_loop(game, cursor);
 }

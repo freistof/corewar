@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/17 15:33:30 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/12/05 13:32:51 by lvan-vlo      ########   odam.nl         */
+/*   Updated: 2019/12/12 13:37:26 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void			op_aff(t_game *game, t_cursor *cursor)
 	args = get_op_args(cursor, game->board, 4);
 	if (check_arg_types(args, ARG_REG, ARG_NOTHING, ARG_NOTHING))
 	{
-		value = get_arg_value(args->arg1_type, args->arg1_value, cursor, game->board);
+		value = get_arg_value(args->arg1_type, args->arg1_value, cursor, \
+		game->board);
 		ft_printf("%c", value);
 	}
 	ft_memdel((void **)&args);
@@ -45,11 +46,6 @@ static t_cursor	*copy_cursor(t_cursor *original)
 	t_cursor	*new;
 	int			x;
 
-	if (!original)
-	{
-		ft_printf("ORIGINAL FUCKED\n");
-		exit(0);
-	}
 	new = (t_cursor *)ft_memalloc(sizeof(t_cursor));
 	if (!new)
 	{
@@ -58,7 +54,7 @@ static t_cursor	*copy_cursor(t_cursor *original)
 	}
 	new->id = original->id;
 	new->carry = original->carry;
-	new->opcode = 0 ;
+	new->opcode = 0;
 	new->last_live = original->last_live;
 	new->wait_cycle = original->wait_cycle;
 	new->jump = 0;
@@ -77,7 +73,8 @@ void			op_fork(t_game *game, t_cursor *cursor)
 	t_cursor	*next;
 
 	new = copy_cursor(cursor);
-	new->position = (cursor->position + ((short)byte_to_hex(game->board, cursor->position + 1) % IDX_MOD) % MEM_SIZE);
+	new->position = (cursor->position + ((short)byte_to_hex(game->board, \
+	cursor->position + 1) % IDX_MOD) % MEM_SIZE);
 	next = cursor->next;
 	cursor->next = new;
 	new->next = next;
@@ -91,7 +88,8 @@ void			op_lfork(t_game *game, t_cursor *cursor)
 	t_cursor	*next;
 
 	new = copy_cursor(cursor);
-	new->position = (cursor->position + (short)byte_to_hex(game->board, cursor->position + 1)) % MEM_SIZE;
+	new->position = (cursor->position + (short)byte_to_hex(game->board, \
+	cursor->position + 1)) % MEM_SIZE;
 	next = cursor->next;
 	cursor->next = new;
 	new->next = next;

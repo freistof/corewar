@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/26 10:54:22 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/26 10:54:41 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/12 13:47:10 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	execute_op_2(t_game *game, t_cursor *cursor)
 		op_aff(game, cursor);
 }
 
-void	execute_op(t_game *game, t_cursor *cursor)
+void		execute_op(t_game *game, t_cursor *cursor)
 {
 	if (cursor->opcode == 1)
 		op_live(game, cursor);

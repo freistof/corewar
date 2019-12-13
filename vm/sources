@@ -6,11 +6,13 @@ parse_player.c \
 print_functions.c \
 check_for_n_flag.c \
 input_error.c \
+is_flag.c \
 lookup_player.c \
 libft_functions.c \
 byte_to_int.c \
 free_functions.c \
 get_op_args.c \
+check_arg_types.c \
 init_board.c \
 opcode_one.c \
 opcode_two.c \
@@ -24,10 +26,9 @@ execute_op.c \
 finish_game.c \
 check.c \
 ft_fits_in_int.c \
-../visualizer/init_vis.c \
 ../visualizer/init_visualizer.c \
 ../visualizer/update_visual_info.c \
 ../visualizer/update_visual_field.c \
 ../visualizer/ascii_awesomeness.c \
 ../visualizer/print_winner_vis.c \
-../visualizer/fireworks.c
+../visualizer/fireworks/fireworks.c

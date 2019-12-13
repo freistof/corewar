@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/11 12:43:28 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/12/11 13:22:40 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/13 14:02:11 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void		update_visual_field(t_game *game, int position, int id)
 	wattron(game->visual->field, COLOR_PAIR(id));
 	while (i < 4)
 	{
-		x = (((position + i) % 64) % MEM_SIZE) * 3 + 1;
-		y = (((position + i) / 64) % MEM_SIZE) + 1;
+		x = (((position + i) % MEM_SIZE) % 64) * 3 + 1;
+		y = (((position + i) % MEM_SIZE) / 64) + 1;
 		mvwprintw(game->visual->field, y, x, "%02x", game->board[position + i]);
 		i++;
 	}

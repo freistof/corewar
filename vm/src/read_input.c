@@ -6,56 +6,11 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 12:27:17 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/11 18:14:00 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/12 14:00:36 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-
-/*
-** Checks whether arg is a flag (-n handled on 2nd loop through)
-*/
-
-static int		is_flag(char **argv, int argc, int *x, t_game *game)
-{
-	if (argv[*x])
-	{
-		if (ft_strequ(argv[*x], "-dump") && *x < argc - 1)
-		{
-			if (ft_is_string_numbers(argv[*x + 1]) && \
-			ft_fits_in_long(argv[*x + 1]))
-			{
-				game->dump = ft_long_atoi(argv[*x + 1]);
-				*x += 1;
-				return (1);
-			}
-		}
-		else if (ft_strequ(argv[*x], "-t") && *x < argc - 1)
-		{
-			if (ft_is_string_numbers(argv[*x + 1]) && \
-			ft_fits_in_int(argv[*x + 1]))
-			{
-				game->delay = ft_long_atoi(argv[*x + 1]);
-				*x += 1;
-				return (1);
-			}
-		}
-		else if (ft_strequ(argv[*x], "-n") && *x < argc - 2)
-		{
-			if (ft_is_string_numbers(argv[*x + 1]))
-			{
-				*x += 1;
-				return (1);
-			}
-		}
-		else if (ft_strequ(argv[*x], "-v"))
-		{
-			game->vis = true;
-			return (1);
-		}
-	}
-	return (0);
-}
 
 /*
 ** Read player into file and get size

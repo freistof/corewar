@@ -6,7 +6,7 @@
 #    By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/01 13:04:43 by lvan-vlo       #+#    #+#                 #
-#    Updated: 2019/11/26 14:03:33 by rcorke        ########   odam.nl          #
+#    Updated: 2019/12/12 16:22:04 by rcorke        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ PRINTFPATH = $(LIBPATH)ft_printf/
 LIBS = $(LIBPATH)libft.a $(PRINTFPATH)libftprintf.a
 COLOR = \033[1;34m
 OFF = \033[0m
+MAKEFLAGS += --silent
 
 all: $(BINARY)
 

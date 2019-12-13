@@ -6,35 +6,28 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/26 10:58:25 by rcorke         #+#    #+#                */
-<<<<<<< HEAD
-/*   Updated: 2019/12/11 19:11:59 by rcorke        ########   odam.nl         */
-=======
-/*   Updated: 2019/12/05 17:15:09 by lvan-vlo      ########   odam.nl         */
->>>>>>> dad0c8c767484a2c5f7206b7fad37cf8077ffe85
+/*   Updated: 2019/12/13 13:53:59 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
+void	print_winner(t_game *game)
+{
+	ft_printf("WINNER IS %s\n", game->players[game->last_reported_live - \
+	1]->name);
+	game->players[game->last_reported_live - 1]->last_reported_live = -1;
+}
+
 void	finish_game(t_game *game, t_cursor *cursor)
 {
-<<<<<<< HEAD
 	if (game->vis == false)
 		print_winner(game);
 	else
 	{
 		print_winner_vis(game);
-		fireworks(game);
+		// fireworks(game);
 	}
-=======
-	if (game->num_alive_players > 0)
-	{
-		// HERE;
-		print_winner(game);
-	}
-	else
-		ft_printf("NO WINNERS M8\n");
->>>>>>> dad0c8c767484a2c5f7206b7fad37cf8077ffe85
 	if (game->num_cursors > 0 && cursor)
 	{
 		kill_all_cursors(game, cursor);
@@ -46,6 +39,5 @@ void	finish_game(t_game *game, t_cursor *cursor)
 		getch();
 		endwin();
 	}
-	// while (1);
 	exit(0);
 }

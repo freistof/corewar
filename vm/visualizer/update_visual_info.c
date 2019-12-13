@@ -6,11 +6,27 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/09 15:55:05 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/12/11 18:05:46 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/12 14:37:18 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/vm.h"
+
+static void	update_game_info(t_game *game)
+{
+	mvwprintw(game->visual->info, INFO_START_Y + 4, 40, "%12d", \
+	game->cycle_counter);
+	mvwprintw(game->visual->info, INFO_START_Y + 6, 40, "%4d (CD %4d)", \
+	game->cycles_to_die, game->max_cycles_to_die);
+	mvwprintw(game->visual->info, INFO_START_Y + 8, 40, "%12d", \
+	game->check_counter);
+	mvwprintw(game->visual->info, INFO_START_Y + 10, 40, "%12d", \
+	game->last_reported_live);
+	mvwprintw(game->visual->info, INFO_START_Y + 12, 40, "%12d", \
+	game->num_cursors);
+	mvwprintw(game->visual->info, INFO_START_Y + 14, 48, "%4d", \
+	game->num_lives_reported);
+}
 
 static void	update_player_info(t_game *game, t_cursor *cursor)
 {
@@ -21,15 +37,17 @@ static void	update_player_info(t_game *game, t_cursor *cursor)
 	{
 		wattron(game->visual->info, COLOR_PAIR(player + 1));
 		if (game->players[player]->alive)
-			mvwprintw(game->visual->info, player * (32 / game->num_players) + 5, 25, "%d", game->players[player]->last_reported_live);
+			mvwprintw(game->visual->info, player * (32 / game->num_players) + \
+			5, 25, "%d", game->players[player]->last_reported_live);
 		else
-			mvwprintw(game->visual->info, player * (32 / game->num_players) + 5, 25, "RIP   ");
+			mvwprintw(game->visual->info, player * (32 / game->num_players) + \
+			5, 25, "RIP   ");
 		wattroff(game->visual->info, COLOR_PAIR(player + 1));
 		player++;
 	}
 }
 
-static void undo_cursor_update(t_game *game, t_cursor *cursor)
+static void	undo_cursor_update(t_game *game, t_cursor *cursor)
 {
 	int		cursor_i;
 	int		x;
@@ -92,11 +110,6 @@ void		update_visual_info(t_game *game, t_cursor *cursor)
 		game->delay -= 5;
 	update_cursors(game, cursor);
 	update_player_info(game, cursor);
-	mvwprintw(game->visual->info, INFO_START_Y + 4, 40, "%12d", game->cycle_counter);
-	mvwprintw(game->visual->info, INFO_START_Y + 6, 40, "%4d (CD %4d)", game->cycles_to_die, game->max_cycles_to_die);
-	mvwprintw(game->visual->info, INFO_START_Y + 8, 40, "%12d", game->check_counter);
-	mvwprintw(game->visual->info, INFO_START_Y + 10, 40, "%12d", game->last_reported_live);
-	mvwprintw(game->visual->info, INFO_START_Y + 12, 40, "%12d", game->num_cursors);
-	mvwprintw(game->visual->info, INFO_START_Y + 14, 48, "%4d", game->num_lives_reported);
+	update_game_info(game);
 	wrefresh(game->visual->info);
 }

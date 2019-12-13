@@ -6,16 +6,16 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/26 11:00:03 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/12 12:10:36 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/12 14:59:21 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "vm.h"
 
 /*
 ** See if players reported live in last cycle
 */
+
 static void	check_players(t_game *game, t_cursor *cursor)
 {
 	int x;
@@ -23,9 +23,8 @@ static void	check_players(t_game *game, t_cursor *cursor)
 	x = 0;
 	while (x < game->num_players)
 	{
-		if (game->players[x]->alive == true)
-			// ft_printf("Player %s\tL.R.L: %d\tMust be after %d\n", game->players[x]->name, game->players[x]->last_reported_live, game->cycle_counter - game->cycles_to_die);
-		if (game->players[x]->last_reported_live < game->cycle_counter - game->cycles_to_die)
+		if (game->players[x]->last_reported_live < game->cycle_counter - \
+		game->cycles_to_die)
 		{
 			if (game->players[x]->alive == true)
 			{
@@ -39,14 +38,12 @@ static void	check_players(t_game *game, t_cursor *cursor)
 	}
 }
 
-static void	move_cursors_forward(t_cursor *prev, t_cursor *cursor, t_cursor *next)
+static void	move_cursors_forward(t_cursor *prev, t_cursor *cursor, \
+t_cursor *next)
 {
-	// if ((*cursor) && (*prev) && (*next))
-	// {
-		prev = cursor;
-		cursor = prev->next;
-		next = cursor->next;
-	// }
+	prev = cursor;
+	cursor = prev->next;
+	next = cursor->next;
 }
 
 static void	check_players_and_reset_values(t_game *game, t_cursor *cursor)
@@ -57,13 +54,27 @@ static void	check_players_and_reset_values(t_game *game, t_cursor *cursor)
 	game->cycles_to_die = 0;
 }
 
+void		end_check(t_game *game, t_cursor *cursor)
+{
+	if (game->num_lives_reported > NBR_LIVE || game->check_counter == \
+	MAX_CHECKS)
+	{
+		game->max_cycles_to_die -= CYCLE_DELTA;
+		game->check_counter = -1;
+	}
+	if (game->max_cycles_to_die < 0)
+		game->max_cycles_to_die = 0;
+	check_players_and_reset_values(game, cursor);
+}
+
 /*
 ** Check cycles to die, kill all relevant cursors, modify cycles to die
 */
+
 void		check(t_game *game, t_cursor *keep_cursor)
 {
 	int			x;
-	int temp_cursors;
+	int			temp_cursors;
 	t_cursor	*cursor;
 	t_cursor	*prev;
 	t_cursor	*next;
@@ -75,20 +86,13 @@ void		check(t_game *game, t_cursor *keep_cursor)
 	x = 0;
 	while (x < temp_cursors)
 	{
-		if (cursor && cursor->last_live < game->cycle_counter - game->cycles_to_die)
+		if (cursor && cursor->last_live < game->cycle_counter - \
+		game->cycles_to_die)
 			kill_cursor(game, prev, &cursor, next);
 		prev = cursor;
 		cursor = prev->next;
 		next = cursor->next;
 		x++;
 	}
-	if (game->num_lives_reported > NBR_LIVE || game->check_counter == MAX_CHECKS)
-	{
-		game->max_cycles_to_die -= CYCLE_DELTA;
-		game->check_counter = -1;
-	}
-	if (game->max_cycles_to_die < 0)
-		game->max_cycles_to_die = 0;
-	check_players_and_reset_values(game, cursor);
-	// ft_printf("NUMBER OF CURSORS : %d cycles: %d\n", game->num_cursors, game->cycle_counter);
+	end_check(game, keep_cursor);
 }
