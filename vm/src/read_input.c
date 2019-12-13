@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 12:27:17 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/12 14:00:36 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/13 18:00:29 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,21 @@ static int		read_player(int fd, char **file)
 	return (file_size);
 }
 
+static int		free_sub(char *str)
+{
+	if (str)
+	{
+		free(str);
+		ft_putstr_fd("ERROR: Champions must be .cor files.\n\n", 2);
+	}
+	else
+		ft_putstr_fd("ERROR: Non-existant champion.\n\n", 2);
+	return (0);
+}
+
 /*
 ** Check and parse player
 */
-
-static int		free_sub(char *str)
-{
-	free(str);
-	return (0);
-}
 
 static int		is_player(char *str, t_player *player, int p_num)
 {
@@ -61,7 +67,7 @@ static int		is_player(char *str, t_player *player, int p_num)
 		file = ft_strnew(0);
 		fd = open(str, O_RDONLY);
 		if (fd < 0)
-			return (0);
+			return (free_sub(NULL));
 		else
 		{
 			player->file_size = read_player(fd, &file);
@@ -69,6 +75,8 @@ static int		is_player(char *str, t_player *player, int p_num)
 			return (parse_player(file, player, p_num));
 		}
 	}
+	else if (p_num >= MAX_PLAYERS)
+		ft_putstr_fd("ERROR: Too many players.\n\n", 2);
 	return (0);
 }
 

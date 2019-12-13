@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/26 11:00:03 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/12 14:59:21 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/13 18:58:56 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static void	check_players(t_game *game, t_cursor *cursor)
 			if (game->players[x]->alive == true)
 			{
 				if (game->vis == false)
-					ft_printf("PLAYER %s K.O.ed\n", game->players[x]->name);
+					ft_printf("PLAYER [%d] %s K.O.ed\n", \
+					game->players[x]->id, game->players[x]->name);
 				game->players[x]->alive = false;
 				game->num_alive_players -= 1;
 			}

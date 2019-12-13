@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/12 14:00:13 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/12 14:00:46 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/13 18:00:37 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ int				is_flag(char **argv, int argc, int *x, t_game *game)
 		{
 			game->vis = true;
 			return (1);
+		}
+		else if (argv[*x][0] == '-')
+		{
+			ft_putstr_fd("ERROR: Incorrect flag.\n\n", 2);
+			input_error(game->players, game);
 		}
 	}
 	return (0);

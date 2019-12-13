@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 13:06:30 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/11 18:11:39 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/13 18:09:53 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ void		input_error(t_player **players, t_game *game)
 	int x;
 
 	x = 0;
-	while (x < MAX_PLAYERS)
+	while (x < MAX_PLAYERS && players)
 	{
-		free_player(players[x]);
+		if (players[x])
+			free_player(players[x]);
 		x++;
 	}
 	if (players)
@@ -38,4 +39,11 @@ void		input_error(t_player **players, t_game *game)
 	if (game)
 		free(game);
 	usage();
+}
+
+int			error_and_return_null(char *error)
+{
+	if (error)
+		ft_putstr_fd(error, 2);
+	return (0);
 }

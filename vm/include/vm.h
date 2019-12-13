@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/01 12:39:27 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/12/13 16:22:30 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/13 18:59:12 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define MEM_SIZE				(4*1024)
 # define IDX_MOD				(MEM_SIZE / 8)
 # define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
+# define HEX_DUMP_SIZE			(MEM_SIZE / 128)
 # define MAGIC_BYTE_1			-22
 # define MAGIC_BYTE_2			-125
 # define MAGIC_BYTE_3			-13
@@ -177,6 +178,7 @@ player_num);
 */
 void				input_error(t_player **players, t_game *game);
 void				usage(void);
+int					error_and_return_null(char *error);
 
 /*
 ** LOOKUP PLAYER
@@ -240,7 +242,8 @@ type2, int type3);
 /*
 ** CHECK ARG TYPES
 */
-int					check_arg_types(t_op_args *args, int type1, int type2, int type3);
+int					check_arg_types(t_op_args *args, int type1, \
+int type2, int type3);
 
 /*
 ** FREE
