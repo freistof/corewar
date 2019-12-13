@@ -77,7 +77,7 @@ static int	valid_argument_count(char **argsplit, int arg_no)
 	i = 0;
 	while (argsplit[i])
 		i++;
-	if (i == arg_no || i == 0)
+	if (i == arg_no)
 		return (1);
 	return (0);
 }
