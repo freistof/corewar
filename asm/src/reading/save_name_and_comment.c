@@ -33,7 +33,6 @@ static void		save_quote(t_list **list, char *content, int skip)
 		if (!ft_strchrint(&content[i + 1], '"'))
 			error(NO_QUOTE_END);
 		len = ft_strrchr(&content[i + 1], '"') - &content[i] - 1;
-		if (!len)
 		item->content_size = len;
 		item->content = ft_strndup(&content[i + 1], len);
 		return ;
