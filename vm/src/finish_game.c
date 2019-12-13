@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/26 10:58:25 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/13 13:53:59 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/13 16:23:05 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	finish_game(t_game *game, t_cursor *cursor)
 	else
 	{
 		print_winner_vis(game);
-		// fireworks(game);
 	}
 	if (game->num_cursors > 0 && cursor)
 	{

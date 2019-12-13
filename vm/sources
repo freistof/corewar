@@ -30,5 +30,4 @@ ft_fits_in_int.c \
 ../visualizer/update_visual_info.c \
 ../visualizer/update_visual_field.c \
 ../visualizer/ascii_awesomeness.c \
-../visualizer/print_winner_vis.c \
-../visualizer/fireworks/fireworks.c
+../visualizer/print_winner_vis.c

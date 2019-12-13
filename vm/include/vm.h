@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/01 12:39:27 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/12/13 14:58:24 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/13 16:22:30 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ type2, int type3);
 /*
 ** CHECK ARG TYPES
 */
-int			check_arg_types(t_op_args *args, int type1, int type2, int type3);
+int					check_arg_types(t_op_args *args, int type1, int type2, int type3);
 
 /*
 ** FREE
@@ -333,6 +333,5 @@ void				finish_game(t_game *game, t_cursor *cursor);
 /*
 ** FIREWORKS BONUS
 */
-void				fireworks(t_game *game);
 
 #endif
