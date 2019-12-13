@@ -10,6 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** remove_comments(char *string) takes a string as argument
+** and will replace every character after and including
+** a comment sign (# or ;) with spaces
+*/
+
 void			remove_comments(char *string)
 {
 	int			i;

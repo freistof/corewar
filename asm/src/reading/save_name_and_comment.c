@@ -12,6 +12,10 @@
 
 #include "asm.h"
 
+/*
+** Skips whitespaces, saves what's between quotation marks in the list
+*/
+
 static void		save_quote(t_list **list, char *content, int skip)
 {
 	t_list		*item;
@@ -26,7 +30,10 @@ static void		save_quote(t_list **list, char *content, int skip)
 		i++;
 	if (content[i] == '"')
 	{
+		if (!ft_strchrint(&content[i + 1], '"'))
+			error(NO_QUOTE_END);
 		len = ft_strrchr(&content[i + 1], '"') - &content[i] - 1;
+		if (!len)
 		item->content_size = len;
 		item->content = ft_strndup(&content[i + 1], len);
 		return ;
@@ -41,6 +48,7 @@ static void		save_content(t_list **list, char *content)
 {
 	t_list		*item;
 
+	content = ft_strtrim(content);
 	item = *list;
 	if (ft_strnequ(content, ".name", 5))
 	{
@@ -56,7 +64,13 @@ static void		save_content(t_list **list, char *content)
 		item = item->next;
 		save_quote(&item, content, 8);
 	}
+	free(content);
 }
+
+/*
+** Check if the string contains NAME_CMD_STRING or COMMENT_CMD_STRING
+** If so, set integer to 1
+*/
 
 static int		check_content(char *content, int *name, int *comment)
 {
@@ -78,6 +92,10 @@ static int		check_content(char *content, int *name, int *comment)
 	free(content);
 	return (0);
 }
+
+/*
+** Move pointer to end of list and add a new item
+*/
 
 static t_list	*skip_to_end(t_list **list)
 {
