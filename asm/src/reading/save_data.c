@@ -13,9 +13,9 @@
 #include "asm.h"
 
 /*
-** main function that creates list of name, comment and all opcodes
-** all list items should be appended at the end of the list with ft_lstappend
-** returns list to main
+** Initialises line number and position
+** Calls function that will save name and comment
+** Call function that will save instructions
 */
 
 void	save_data(int fd, t_list **head)

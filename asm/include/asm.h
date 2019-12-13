@@ -64,6 +64,7 @@
 # define ERR_INDIRECT			"Wrong indirect: error"
 # define ERR_DIRECT				"Wrong direct: error"
 # define LABEL_NOT_FOUND		"Label not found: error"
+# define NO_QUOTE_END			"Quote has no ending quotation mark: error"
 
 typedef struct					s_argval
 {
