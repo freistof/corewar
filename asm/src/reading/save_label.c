@@ -15,24 +15,25 @@
 int				save_label(t_list *item, char *line, int *index)
 {
 	int			i;
+	int			start;
 
 	i = 0;
-	line = ft_strtrim(line);
+	while (ft_isspace(line[i]))
+		i++;
 	if (!line || !ft_strlen(line))
 		return (1);
+	start = i;
 	while (ft_strchr(LABEL_CHARS, line[i]))
 		i++;
 	if (line[i] == ':')
 	{
 		item->content_size = i;
-		item->content = ft_strndup(line, i);
+		item->content = ft_strndup(line + start, i - start);
 		i++;
 		while (ft_isspace(line[i]))
 			i++;
 		*index = i;
-		free(line);
 		return (1);
 	}
-	free(line);
 	return (0);
 }
