@@ -109,7 +109,8 @@ int			check_arguments(t_list *item, char *content)
 	argsplit = ft_strsplit(content, ARG_SEPERATOR);
 	argsplit = trim_split(argsplit);
 	i = 0;
-	if (valid_argument_count(argsplit, arg_no))
+	if (valid_argument_count(argsplit, arg_no) &&\
+		valid_seperators(content, arg_no))
 		valid_argument(argsplit, item);
 	else
 		error(INCORRECT_ARG_COUNT);
