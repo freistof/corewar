@@ -3,94 +3,113 @@
 /*                                                        ::::::::            */
 /*   get_next_line.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
+/*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/01/27 11:32:54 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/02/13 15:16:17 by lvan-vlo      ########   odam.nl         */
+/*   Created: 2019/01/30 16:47:16 by fblom         #+#    #+#                 */
+/*   Updated: 2019/01/30 16:47:16 by fblom         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "get_next_line.h"
 
-static int		ft_line_copy(t_list *current, char **line)
+static int			ft_putandclear(t_line *list, char **line, int ret)
 {
-	int		c;
+	size_t		i;
+	size_t		len;
 
-	c = 0;
-	if (ft_strncmp(current->content, "\n", 1) == 0)
+	if (ret == -1)
+		return (ret);
+	if (ret == 0)
 	{
+		*line = NULL;
+		return (ret);
+	}
+	i = ft_substring_size(list->string, '\n');
+	*line = ft_strsub(list->string, 0, i);
+	len = ft_strlen(list->string);
+	if (i == 0)
+	{
+		free(*line);
 		*line = ft_strdup("\0");
-		current->content = ft_memmove(current->content, current->content + 1, \
-		ft_strlen(current->content));
-		return (1);
 	}
-	c = ft_strlchr(current->content, '\n', ft_strlen(current->content));
-	if (c == 0)
-	{
-		*line = ft_strdup(current->content);
-		free(current->content);
-		current->content = ft_strdup("\0");
-		return (1);
-	}
-	*line = ft_strsub(current->content, 0, c);
-	current->content = ft_memmove(current->content, current->content + c + 1, \
-		ft_strlen(current->content));
+	list->string = ft_memmove(list->string, list->string + i + 1, len - i);
+	((char *)list->string)[len - i] = '\0';
+	if (ret == -3)
+		list->string = NULL;
 	return (1);
 }
 
-static int		ft_read_line(t_list *current, const int fd, char **line)
+static int			ft_readlines(t_line *list, char **line, int fd)
 {
+	int		ret;
 	char	buf[BUFF_SIZE + 1];
-	char	*tmp;
-	int		size;
+	char	*temp;
 
-	size = 1;
-	if (ft_strchr(current->content, '\n') == NULL)
+	ret = BUFF_SIZE;
+	if (!list->string)
+		list->string = ft_strdup("\0");
+	while (list->string && ft_strchr(list->string, '\n') == NULL && \
+		ret == BUFF_SIZE)
 	{
-		while (size > 0)
-		{
-			size = read(fd, buf, BUFF_SIZE);
-			buf[size] = '\0';
-			tmp = ft_strjoin(current->content, buf);
-			free(current->content);
-			current->content = ft_strdup(tmp);
-			free(tmp);
-			if (ft_strchr(current->content, '\n'))
-				break ;
-		}
+		ret = read(fd, buf, BUFF_SIZE);
+		if (ret == -1 || (ret == 0 && ft_strlen(list->string) == 0))
+			return (ft_putandclear(list, line, ret));
+		buf[ret] = '\0';
+		if (ret == 0 && list->string)
+			return (ft_putandclear(list, line, -3));
+		temp = ft_strjoin(list->string, buf);
+		free(list->string);
+		list->string = temp;
 	}
-	if (size == 0 && ft_strlen(current->content) == 0)
-		return (0);
-	if (size < 0)
-		return (-1);
-	return (ft_line_copy(current, line));
+	if (list->string)
+		return (ft_putandclear(list, line, 1));
+	*line = NULL;
+	return (0);
 }
 
-static t_list	*ft_check_fd(t_list **head, int fd)
+static t_line		*ft_addfirst(t_line *list, const int fd)
 {
-	t_list *list;
-
-	list = *head;
-	while (list)
-	{
-		if ((int)list->content_size == fd)
-			return (list);
-		list = list->next;
-	}
-	list = ft_lstnew("\0", fd);
-	ft_lstadd(head, list);
-	list = *head;
+	list = (t_line *)malloc(sizeof(t_line));
+	if (!list)
+		return (NULL);
+	list->string = ft_strdup("\0");
+	list->fd = fd;
+	list->next = NULL;
 	return (list);
 }
 
-int				get_next_line(const int fd, char **line)
+static t_line		*ft_searchormake(t_line *list, const int fd)
 {
-	static t_list	*head;
-	t_list			*current;
-	char			test[1];
+	t_line		*temp;
 
-	if (fd < 0 || line == NULL || read(fd, test, 0) < 0)
+	while (list)
+	{
+		if (list->fd == fd)
+			return (list);
+		temp = list;
+		list = list->next;
+	}
+	list = ft_addfirst(list, fd);
+	temp->next = list;
+	return (list);
+}
+
+int					get_next_line(const int fd, char **line)
+{
+	static t_line	*startlist;
+	t_line			*pos;
+
+	if (!startlist)
+	{
+		startlist = ft_addfirst(startlist, fd);
+		pos = startlist;
+	}
+	else
+	{
+		pos = startlist;
+		pos = ft_searchormake(pos, fd);
+	}
+	if (!pos)
 		return (-1);
-	current = ft_check_fd(&head, fd);
-	return (ft_read_line(current, fd, line));
+	return (ft_readlines(pos, line, fd));
 }
