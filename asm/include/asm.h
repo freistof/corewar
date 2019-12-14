@@ -132,6 +132,7 @@ void							replace_with_spaces(char *string);
 void							remove_comments(char *string);
 int								empty_line(char *content);
 int								valid_seperators(char *content, int arg_no);
+int								valid_instruction(char c);
 
 /*
 ** WRITING

@@ -70,7 +70,8 @@ static int		check_instruction(char *line, int *opcode, int *index)
 	i = 0;
 	while (i < 16)
 	{
-		if (ft_strnequ(line, g_op_tab[i].name, ft_strlen(g_op_tab[i].name)))
+		if (ft_strnequ(line, g_op_tab[i].name, ft_strlen(g_op_tab[i].name)) && \
+			valid_instruction(*(line + ft_strlen(g_op_tab[i].name))))
 		{
 			*opcode = g_op_tab[i].opcode;
 			correct = 1;
@@ -78,7 +79,7 @@ static int		check_instruction(char *line, int *opcode, int *index)
 		i++;
 	}
 	if (correct)
-		*index += ft_strlen(g_op_tab[*opcode - 1].name) + 1 + spaces;
+		*index += ft_strlen(g_op_tab[*opcode - 1].name) + spaces;
 	return (correct);
 }
 
