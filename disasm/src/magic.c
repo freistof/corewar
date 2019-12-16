@@ -14,9 +14,12 @@
 
 void			magic(int fd_in)
 {
-	unsigned int read_magic;
+	unsigned int	read_magic;
+	int				ret;
 
-	read(fd_in, &read_magic, 4);
+	ret = read(fd_in, &read_magic, 4);
+	if (ret <= 0)
+		exit(1);
 	if (read_magic == COREWAR_EXEC_MAGIC)
 		return ;
 	else

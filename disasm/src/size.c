@@ -15,8 +15,11 @@
 int			size(int fd_in)
 {
 	int		size;
+	int		ret;
 
-	read(fd_in, &size, 4);
+	ret = read(fd_in, &size, 4);
+	if (ret <= 0)
+		exit(1);
 	size = swap_bits(size);
 	return (size);
 }

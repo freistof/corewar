@@ -17,10 +17,13 @@ extern t_op g_op_tab[17];
 static int		codage(int fd_in, int op)
 {
 	unsigned char		reading;
+	int					ret;
 
 	if (!(g_op_tab[op].codage_octal))
 		return (0);
-	read(fd_in, &reading, 1);
+	ret = read(fd_in, &reading, 1);
+	if (ret <= 0)
+		exit(1);
 	return (reading);
 }
 
@@ -46,6 +49,8 @@ void			exec_code(int fd_in, int fd_out, int size)
 	while (data.i < size)
 	{
 		data.opcode = opcode(fd_in, fd_out);
+		if (data.opcode < 0 || data.opcode > 15)
+			exit(1);
 		data.i++;
 		data.codage = codage(fd_in, data.opcode);
 		if (data.codage)

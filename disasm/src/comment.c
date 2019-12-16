@@ -16,8 +16,11 @@ void			comment(int fd_in, int fd_out)
 {
 	char		buf[2048 + 1];
 	int			i;
+	int			ret;
 
-	read(fd_in, buf, 2048);
+	ret = read(fd_in, buf, 2048);
+	if (ret <= 0)
+		exit(1);
 	buf[2048] = '\0';
 	write(fd_out, ".comment \"", 10);
 	i = 0;

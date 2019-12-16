@@ -75,5 +75,6 @@ void						arguments(int fd_in, int fd_out, t_data *data);
 
 int							swap_bits(int number);
 int							swap_bits_two_byte(int number);
+int							extract_bit(int n, int k, int p);
 
 #endif

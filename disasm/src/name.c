@@ -16,10 +16,13 @@ void			name(int fd_in, int fd_out)
 {
 	char		buf[128 + 1];
 	int			i;
+	int			ret;
 
-	read(fd_in, buf, 128);
-	buf[128] = '\0';
+	ret = read(fd_in, buf, 128);
+	if (ret <= 0)
+		exit(1);
 	write(fd_out, ".name \"", 7);
+	buf[128] = '\0';
 	i = 0;
 	while (buf[i] != '\0')
 	{

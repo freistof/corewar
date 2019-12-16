@@ -15,8 +15,11 @@
 void			null(int fd_in)
 {
 	int			reading;
+	int			ret;
 
-	read(fd_in, &reading, 4);
+	ret = read(fd_in, &reading, 4);
+	if (ret <= 0)
+		exit(1);
 	if (reading != 0)
 		error(MISSING_NULLS);
 }
