@@ -20,7 +20,7 @@ int				save_label(t_list *item, char *line, int *index)
 	i = 0;
 	while (ft_isspace(line[i]))
 		i++;
-	if (!line || !ft_strlen(line))
+	if (!line || !ft_strlen(&line[i]))
 		return (1);
 	start = i;
 	while (ft_strchr(LABEL_CHARS, line[i]))
