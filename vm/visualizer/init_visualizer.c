@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/09 15:22:44 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/12/13 14:10:39 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/16 14:55:17 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void		init_player_info(t_game *game, t_cursor *cursor, \
 t_visual *visual)
 {
 	int		player;
+	char	*temp_comment;
 
 	player = 0;
 	wattron(visual->info, A_BOLD);
@@ -25,12 +26,14 @@ t_visual *visual)
 		mvwprintw(visual->info, player * (32 / game->num_players) + 2, 5, \
 		"Player [%d]:\t%s", player + 1, game->players[player]->name, \
 		game->players[player]->comment);
+		temp_comment = trim_comment(game->players[player]->comment);
 		mvwprintw(visual->info, player * (32 / game->num_players) + 3, 5, \
-		"Comment:\t\t%s", game->players[player]->comment);
+		"Comment:\t\t%s", temp_comment);
 		mvwprintw(visual->info, player * (32 / game->num_players) + 5, 5, \
 		"Last Live:");
 		wattroff(visual->info, COLOR_PAIR(player + 1));
 		player++;
+		free(temp_comment);
 	}
 	wattroff(visual->info, A_BOLD);
 }

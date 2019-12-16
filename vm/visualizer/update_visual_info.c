@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/09 15:55:05 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/12/12 14:37:18 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/16 13:53:11 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ static void	update_game_info(t_game *game)
 	game->num_cursors);
 	mvwprintw(game->visual->info, INFO_START_Y + 14, 48, "%4d", \
 	game->num_lives_reported);
+	mvwprintw(game->visual->info, INFO_START_Y + 16, 5, "\t\t\t\t\t\t\t\t");
+	mvwprintw(game->visual->info, INFO_START_Y + 16, 5, "CURRENT DELAY: \
+%d", game->delay);
 }
 
 static void	update_player_info(t_game *game, t_cursor *cursor)

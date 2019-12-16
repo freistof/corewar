@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/01 12:39:27 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/12/13 18:59:12 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/16 17:52:49 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define MEM_SIZE				(4*1024)
 # define IDX_MOD				(MEM_SIZE / 8)
 # define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
-# define HEX_DUMP_SIZE			(MEM_SIZE / 128)
+# define HEX_DUMP_SIZE			(MEM_SIZE / 64)
 # define MAGIC_BYTE_1			-22
 # define MAGIC_BYTE_2			-125
 # define MAGIC_BYTE_3			-13
@@ -307,6 +307,11 @@ void				put_ascii_art(WINDOW *win);
 void				print_winner_vis(t_game *game);
 
 /*
+** CHECK COMMENT LENGTH
+*/
+char				*trim_comment(char *comment);
+
+/*
 ** FINISH GAME
 */
 void				finish_game(t_game *game, t_cursor *cursor);
@@ -336,5 +341,11 @@ void				finish_game(t_game *game, t_cursor *cursor);
 /*
 ** FIREWORKS BONUS
 */
+void				fireworks(t_game *game);
+void				particle_init(t_particle *p, size_t size);
+void				particle_update(t_particle *p, float dt, size_t size);
+void				particle_draw(t_particle *p, size_t size);
+void				init_values(WINDOW *w, size_t *s, struct timespec *i);
+t_particle			**alloc_and_init_particles(size_t size);
 
 #endif

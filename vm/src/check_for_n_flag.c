@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 17:31:33 by rcorke         #+#    #+#                */
-/*   Updated: 2019/11/13 15:59:12 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/16 15:39:45 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 ** each players's index. Reorders players array with updated IDs.
 */
 
-static void	init_new_ids_and_ctr(int *arr, int num_players, int *i)
+static void	init_new_ids_and_ctr(int *arr, int num_players, int *i, \
+int *player)
 {
 	int x;
 
@@ -28,6 +29,7 @@ static void	init_new_ids_and_ctr(int *arr, int num_players, int *i)
 		x++;
 	}
 	*i = 1;
+	*player = 1;
 }
 
 static int	find_lowest_number_not_used(int num_players, int *new_order)
@@ -92,21 +94,21 @@ int num_players)
 	int		x;
 	int		new_ids[4];
 	int		current_id;
+	int		player;
 
-	init_new_ids_and_ctr(new_ids, num_players, &x);
+	init_new_ids_and_ctr(new_ids, num_players, &x, &player);
 	while (x < argc)
 	{
+		if (check_if_player(argv[x], players, num_players))
+			player++;
 		if (ft_strequ(argv[x], "-n"))
 		{
-			if (argv[x + 1] && ft_is_string_numbers(argv[x + 1]))
-				current_id = ft_atoi(argv[x + 1]);
-			else
-				current_id = -1;
+			current_id = (argv[x + 1] && \
+			ft_is_string_numbers(argv[x + 1])) ? ft_atoi(argv[x + 1]) : -1;
 			if (current_id <= num_players && current_id > 0 && \
 				check_if_player(argv[x + 2], players, num_players) \
 				&& new_ids[current_id - 1] == -1)
-				new_ids[current_id - 1] = find_player_id(players, \
-				argv[x + 2], num_players);
+				new_ids[current_id - 1] = player;
 			else
 				return (0);
 		}

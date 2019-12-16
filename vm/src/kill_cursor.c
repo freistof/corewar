@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/26 10:48:14 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/12 13:47:55 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/16 17:02:25 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ t_cursor *next)
 	free(to_free);
 	to_free = NULL;
 	game->num_cursors -= 1;
-	if (game->num_cursors == 1)
+	if (game->num_cursors == 0)
 		finish_game(game, NULL);
 }

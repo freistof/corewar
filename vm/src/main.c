@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/01 12:39:40 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/12/13 18:58:31 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/16 17:51:31 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	introduction(t_game *game, t_player **players)
 	ft_printf("FIGHT, PEASANTS! FIGHT FOR OUR AMUSEMENT!!!!!\n");
 	while (x < game->num_players)
 	{
-		ft_printf("PLAYER [%i] '%s' - '%s'\n", x + 1, \
+		ft_printf("PLAYER [%i] '%s' (%s)\n", x + 1, \
 		players[x]->name, players[x]->comment);
 		x++;
 	}
