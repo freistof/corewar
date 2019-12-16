@@ -17,6 +17,7 @@ reading/digit_string.c \
 reading/empty_line.c \
 reading/valid_seperators.c \
 reading/valid_instruction.c \
+reading/check_length.c \
 writing/write_data.c \
 writing/magic.c \
 writing/name.c \
