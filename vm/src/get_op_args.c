@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 16:36:51 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/13 14:20:18 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/16 20:20:19 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int dir_size)
 
 	args_position = cursor->position + 1;
 	args = (t_op_args *)ft_memalloc(sizeof(t_op_args));
+	if (!args)
+		exit(1);
 	get_encoding_bits(args, args_position, board);
 	args_position += 1;
 	x = 0;
