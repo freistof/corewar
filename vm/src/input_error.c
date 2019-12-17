@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 13:06:30 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/13 18:09:53 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/17 11:59:34 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ void		input_error(t_player **players, t_game *game)
 int			error_and_return_null(char *error)
 {
 	if (error)
+	{
+		ft_putstr_fd("ERROR: ", 2);
 		ft_putstr_fd(error, 2);
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 13:38:55 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/12 13:41:21 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/17 14:39:20 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void		op_store(t_game *game, t_cursor *cursor)
 		else
 		{
 			byte = int_to_byte(cursor->registry[op_args->arg1_value - 1]);
-			write_to_board(game->board, cursor->position + \
-			(op_args->arg2_value % IDX_MOD), byte);
+			write_to_board(game->board, cursor->position,
+			op_args->arg2_value % IDX_MOD, byte);
 			if (game->vis)
 				update_visual_field(game, cursor->position + \
 				(op_args->arg2_value % IDX_MOD), cursor->id);

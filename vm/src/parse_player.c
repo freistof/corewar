@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 14:11:10 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/13 18:16:17 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/17 12:04:39 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	check_comment(char *str, int *i, t_player *player)
 static int	check_and_parse_code(char *str, int *i, t_player *player)
 {
 	if (player->file_size - *i != player->code_size)
-		return (error_and_return_null("Incorrectly formatted player\n\n"));
+		return (0);
 	player->code = (unsigned char *)ft_memalloc(sizeof(unsigned char) * \
 	player->code_size + 1);
 	ft_memcpy(player->code, &str[*i], player->code_size);
@@ -79,10 +79,24 @@ static int	check_and_parse_code(char *str, int *i, t_player *player)
 	return (1);
 }
 
+int			check_code_size(char *file, t_player *player, int *i)
+{
+	int		code_size;
+
+	code_size = (unsigned char)file[*i] << 24;
+	code_size += (unsigned char)file[*i + 1] << 16;
+	code_size += (unsigned char)file[*i + 2] << 8;
+	code_size += (unsigned char)file[*i + 3];
+	if (code_size > (MEM_SIZE / 6))
+		return (0);
+	*i += 4;
+	player->code_size = code_size;
+	return (1);
+}
+
 int			parse_player(char *file, t_player *player, int player_num)
 {
 	int		i;
-	int		code_size;
 
 	if (player->file_size < MIN_PLAYER_FILE_SIZE)
 		return (error_and_return_null("Player file size too small.\n\n"));
@@ -91,16 +105,12 @@ int			parse_player(char *file, t_player *player, int player_num)
 		return (error_and_return_null("Incorrect magic header.\n\n"));
 	if (!check_name(file, &i, player))
 		return (error_and_return_null("Incorrect name.\n\n"));
-	code_size = (unsigned char)file[i] << 24;
-	code_size += (unsigned char)file[i + 1] << 16;
-	code_size += (unsigned char)file[i + 2] << 8;
-	code_size += (unsigned char)file[i + 3];
-	player->code_size = code_size;
-	i += 4;
+	if (!check_code_size(file, player, &i))
+		return (error_and_return_null("Code too large (max 993 bytes)\n\n"));
 	if (!check_comment(file, &i, player))
 		return (error_and_return_null("Incorrect player comment.\n\n"));
 	if (!check_and_parse_code(file, &i, player))
-		return (0);
+		return (error_and_return_null("Incorrectly formatted player\n\n"));
 	player->id = player_num + 1;
 	ft_memdel((void **)&file);
 	return (1);

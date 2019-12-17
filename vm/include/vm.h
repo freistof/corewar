@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/01 12:39:27 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/12/16 17:52:49 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/17 14:08:52 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,7 +272,11 @@ void				op_loadi(t_game *game, t_cursor *cursor);
 void				op_lload(t_game *game, t_cursor *cursor);
 void				op_lloadi(t_game *game, t_cursor *cursor);
 
-void				write_to_board(unsigned char *board, int position, \
+/*
+** WRITE TO BOARD
+*/
+
+void				write_to_board(unsigned char *board, int c_pos, int position, \
 unsigned char *byte);
 
 /*

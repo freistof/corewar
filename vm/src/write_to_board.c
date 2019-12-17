@@ -6,28 +6,29 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 15:47:03 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/12/11 18:08:09 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/17 14:39:24 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	write_to_board(unsigned char *board, int position, unsigned char *byte)
+static int	new_mod(int value)
 {
-	if (position < 0)
-		board[(unsigned int)position % MEM_SIZE] = byte[0];
-	else
-		board[position % MEM_SIZE] = byte[0];
-	if (position + 1 < 0)
-		board[(unsigned int)(position + 1) % MEM_SIZE] = byte[1];
-	else
-		board[(position + 1) % MEM_SIZE] = byte[1];
-	if (position + 2 < 0)
-		board[(unsigned int)(position + 2) % MEM_SIZE] = byte[2];
-	else
-		board[(position + 2) % MEM_SIZE] = byte[2];
-	if (position + 3 < 0)
-		board[(unsigned int)(position + 3) % MEM_SIZE] = byte[3];
-	else
-		board[(position + 3) % MEM_SIZE] = byte[3];
+	int rtn;
+
+	rtn = value % MEM_SIZE;
+	if (rtn < 0)
+		rtn += MEM_SIZE;
+	return (rtn);
+}
+
+void	write_to_board(unsigned char *board, int cur_pos, int position, \
+unsigned char *byte)
+{
+
+	position += cur_pos;
+	board[new_mod(position)] = byte[0];
+	board[new_mod(position + 1)] = byte[1];
+	board[new_mod(position + 2)] = byte[2];
+	board[new_mod(position + 3)] = byte[3];
 }

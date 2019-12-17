@@ -6,7 +6,7 @@
 #    By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/01 13:04:43 by lvan-vlo       #+#    #+#                 #
-#    Updated: 2019/12/12 16:22:04 by rcorke        ########   odam.nl          #
+#    Updated: 2019/12/17 11:54:33 by rcorke        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ include sources
 BINARY = corewar
 HEADER = -I include/ -I ../libft/
 SRC_PATH = src/
-OBJ = $(SRC:%.c=%.o)
 SRCS := ${addprefix $(SRC_PATH), $(SRCS)}
+OBJ = $(SRCS:%.c=%.o)
 FLAGS = -o $(BINARY)
 ERRFLAGS = -g #-Wall -Werror -Wextra
 VISFLAGS = -lncurses
@@ -31,7 +31,7 @@ MAKEFLAGS += --silent
 all: $(BINARY)
 
 %.o: %.c
-	# @echo "$(COLOR)Building $@ from $< file$(OFF)"
+	@echo "$(COLOR)Building $@ from $< file$(OFF)"
 	@$(CC) $(HEADER) -c $(ERRFLAGS) -o $@ $<
 
 $(BINARY): $(OBJ)
