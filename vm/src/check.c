@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/26 11:00:03 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/16 17:51:19 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/18 17:22:16 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** See if players reported live in last cycle
 */
 
-static void	check_players(t_game *game, t_cursor *cursor)
+static void	check_players(t_game *game)
 {
 	int x;
 
@@ -39,19 +39,11 @@ static void	check_players(t_game *game, t_cursor *cursor)
 	}
 }
 
-static void	move_cursors_forward(t_cursor *prev, t_cursor *cursor, \
-t_cursor *next)
-{
-	prev = cursor;
-	cursor = prev->next;
-	next = cursor->next;
-}
-
-static void	check_players_and_reset_values(t_game *game, t_cursor *cursor)
+static void	check_players_and_reset_values(t_game *game)
 {
 	game->check_counter += 1;
 	game->num_lives_reported = 0;
-	check_players(game, cursor);
+	check_players(game);
 	game->cycles_to_die = 0;
 }
 
@@ -64,8 +56,11 @@ void		end_check(t_game *game, t_cursor *cursor)
 		game->check_counter = -1;
 	}
 	if (game->max_cycles_to_die < 0)
+	{
+		finish_game(game, cursor);
 		game->max_cycles_to_die = 0;
-	check_players_and_reset_values(game, cursor);
+	}
+	check_players_and_reset_values(game);
 }
 
 /*
@@ -75,7 +70,6 @@ void		end_check(t_game *game, t_cursor *cursor)
 void		check(t_game *game, t_cursor *keep_cursor)
 {
 	int			x;
-	int			temp_cursors;
 	t_cursor	*cursor;
 	t_cursor	*prev;
 	t_cursor	*next;
@@ -83,9 +77,8 @@ void		check(t_game *game, t_cursor *keep_cursor)
 	prev = keep_cursor;
 	cursor = prev->next;
 	next = cursor->next;
-	temp_cursors = game->num_cursors;
 	x = 0;
-	while (x < temp_cursors)
+	while (x < game->num_cursors)
 	{
 		if (cursor && cursor->last_live < game->cycle_counter - \
 		game->cycles_to_die)

@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/01 12:39:27 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/12/17 14:08:52 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/18 17:21:30 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,8 +170,17 @@ void				init_players(t_player **players);
 void				read_input(int argc, char **argv, t_player **players, \
 t_game *game);
 int					is_flag(char **argv, int argc, int *x, t_game *game);
+
+/*
+** PARSE PLAYER
+*/
 int					parse_player(char *file, t_player *player, int \
 player_num);
+
+/*
+** CHECK CODE SIZE
+*/
+int					check_code_size(char *file, t_player *player, int *i);
 
 /*
 ** INPUT ERROR
@@ -219,8 +228,7 @@ void				init_board(t_game *game, t_player **players);
 /*
 ** RUN GAME
 */
-void				run_game(t_game *game, t_player **players, t_cursor \
-*cursor);
+void				run_game(t_game *game, t_cursor *cursor);
 
 /*
 ** BYTE TO INT
@@ -275,9 +283,8 @@ void				op_lloadi(t_game *game, t_cursor *cursor);
 /*
 ** WRITE TO BOARD
 */
-
-void				write_to_board(unsigned char *board, int c_pos, int position, \
-unsigned char *byte);
+void				write_to_board(unsigned char *board, int c_pos, \
+int position, unsigned char *byte);
 
 /*
 ** SET WAIT CYCLE
@@ -304,7 +311,7 @@ void				check(t_game *game, t_cursor *keep_cursor);
 /*
 ** VISUALIZER
 */
-void				init_visualizer(t_game *game, t_cursor *cursor);
+void				init_visualizer(t_game *game);
 void				update_visual_info(t_game *game, t_cursor *cursor);
 void				update_visual_field(t_game *game, int position, int id);
 void				put_ascii_art(WINDOW *win);

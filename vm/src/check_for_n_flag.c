@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 17:31:33 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/18 12:54:45 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/18 15:13:18 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ int *player)
 	*player = 1;
 }
 
-static int	find_highest_number_not_used(int num_players, int *new_order)
+static int	find_lowest_number_not_used(int num_players, int *new_order)
 {
 	int x;
 	int j;
 
 	x = 0;
-	j = num_players;
+	j = 1;
 	while (x < num_players)
 	{
 		if (new_order[x] == j)
 		{
-			j--;
+			j++;
 			x = -1;
 		}
 		x++;
@@ -70,7 +70,7 @@ int *new_order)
 	while (x < num_players)
 	{
 		if (new_order[x] == -1)
-			new_order[x] = find_highest_number_not_used(num_players, new_order);
+			new_order[x] = find_lowest_number_not_used(num_players, new_order);
 		x++;
 	}
 	x = 0;
@@ -97,9 +97,6 @@ int num_players)
 	int		player;
 
 	init_new_ids_and_ctr(new_ids, num_players, &x, &player);
-	// reverse_players(players, num_players);
-	// give_players_new_id_with_n_flag(&new_ids, players, num_players, argv);
-	// add_rest_of_players(&new_ids, players, num_players);
 	while (x < argc)
 	{
 		if (check_if_player(argv[x], players, num_players))
@@ -118,10 +115,5 @@ int num_players)
 		x++;
 	}
 	reorder_players(players, num_players, new_ids);
-	// for (int i = 0; i < num_players; i++)
-	// 	ft_printf("NEW ID[%d]: %d\n", i, new_ids[i]);
-	// exit(1);
-	// for (int i = 0; i < num_players; i++)
-	// 	ft_printf("Player[%d]: %s\n", i, players[i]->name);
 	return (1);
 }

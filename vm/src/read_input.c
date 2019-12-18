@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 12:27:17 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/16 15:39:45 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/18 17:23:50 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static int		read_player(int fd, char **file)
 	char	*to_free;
 
 	read_value = read(fd, buf, BUFF_SIZE);
+	file_size = 0;
 	while (read_value > 0)
 	{
 		to_free = *file;
@@ -54,7 +55,6 @@ static int		free_sub(char *str)
 static int		is_player(char *str, t_player *player, int p_num)
 {
 	int		fd;
-	char	buf[BUFF_SIZE];
 	char	*file;
 	char	*sub_string;
 

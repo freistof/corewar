@@ -6,14 +6,13 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/09 15:22:44 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/12/16 14:55:17 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/18 17:21:02 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/vm.h"
 
-static void		init_player_info(t_game *game, t_cursor *cursor, \
-t_visual *visual)
+static void		init_player_info(t_game *game, t_visual *visual)
 {
 	int		player;
 	char	*temp_comment;
@@ -38,9 +37,9 @@ t_visual *visual)
 	wattroff(visual->info, A_BOLD);
 }
 
-static void		draw_info(t_game *game, t_cursor *cursor, t_visual *visual)
+static void		draw_info(t_game *game, t_visual *visual)
 {
-	init_player_info(game, cursor, visual);
+	init_player_info(game, visual);
 	mvwprintw(visual->info, INFO_START_Y, 25, "GAME INFO:");
 	mvwprintw(visual->info, INFO_START_Y + 4, 5, "Total cycles:");
 	mvwprintw(visual->info, INFO_START_Y + 6, 5, "Cycles to die:");
@@ -57,7 +56,7 @@ this cycle:");
 	wrefresh(visual->info);
 }
 
-static void		draw_field(t_game *game, t_cursor *cursor, t_visual *visual)
+static void		draw_field(t_game *game, t_visual *visual)
 {
 	int		x;
 	int		y;
@@ -95,7 +94,7 @@ static void		init_colors(void)
 	init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
 }
 
-void			init_visualizer(t_game *game, t_cursor *cursor)
+void			init_visualizer(t_game *game)
 {
 	t_visual	*visual;
 	int			ch;
@@ -113,8 +112,8 @@ void			init_visualizer(t_game *game, t_cursor *cursor)
 	box(visual->info, 0, 0);
 	init_colors();
 	refresh();
-	draw_field(game, cursor, visual);
-	draw_info(game, cursor, visual);
+	draw_field(game, visual);
+	draw_info(game, visual);
 	game->visual = visual;
 	ch = 0;
 	while (ch != ' ')

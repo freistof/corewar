@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 15:47:03 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/12/17 14:39:24 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/18 14:40:01 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ static int	new_mod(int value)
 	return (rtn);
 }
 
-void	write_to_board(unsigned char *board, int cur_pos, int position, \
+void		write_to_board(unsigned char *board, int cur_pos, int position, \
 unsigned char *byte)
 {
-
 	position += cur_pos;
 	board[new_mod(position)] = byte[0];
 	board[new_mod(position + 1)] = byte[1];

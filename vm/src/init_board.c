@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 17:08:21 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/12 13:54:06 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/18 17:21:15 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		fill_cursor_values(t_cursor **cursor)
 	(*cursor)->carry = false;
 }
 
-static t_cursor	*init_cursors(t_game *game, t_player **players)
+static t_cursor	*init_cursors(t_game *game)
 {
 	int			x;
 	t_cursor	*head;
@@ -76,7 +76,7 @@ void			init_board(t_game *game, t_player **players)
 	game->board = (unsigned char *)ft_memalloc(sizeof(unsigned char) \
 	* MEM_SIZE);
 	load_players(game, players);
-	cursor = init_cursors(game, players);
+	cursor = init_cursors(game);
 	game->players = players;
-	run_game(game, players, cursor);
+	run_game(game, cursor);
 }

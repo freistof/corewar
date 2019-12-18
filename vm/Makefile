@@ -6,7 +6,7 @@
 #    By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/01 13:04:43 by lvan-vlo       #+#    #+#                 #
-#    Updated: 2019/12/17 11:54:33 by rcorke        ########   odam.nl          #
+#    Updated: 2019/12/18 17:25:04 by rcorke        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRC_PATH = src/
 SRCS := ${addprefix $(SRC_PATH), $(SRCS)}
 OBJ = $(SRCS:%.c=%.o)
 FLAGS = -o $(BINARY)
-ERRFLAGS = -g #-Wall -Werror -Wextra
+ERRFLAGS = -Wall -Wextra -Werror
 VISFLAGS = -lncurses
 CC = gcc
 LIBPATH = ../libft/

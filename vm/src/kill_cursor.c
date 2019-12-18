@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/26 10:48:14 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/16 17:02:25 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/18 17:02:15 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ t_cursor *next)
 	to_free = *cur;
 	*cur = prev;
 	prev->next = next;
-	free(to_free);
+	if (to_free)
+		free(to_free);
 	to_free = NULL;
 	game->num_cursors -= 1;
 	if (game->num_cursors == 0)

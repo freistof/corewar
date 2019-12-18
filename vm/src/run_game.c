@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 19:05:30 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/18 12:31:43 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/18 17:21:33 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	main_loop(t_game *game, t_cursor *cursor)
 	}
 }
 
-void	run_game(t_game *game, t_player **players, t_cursor *cursor)
+void	run_game(t_game *game, t_cursor *cursor)
 {
 	game->last_reported_live = cursor->id;
 	game->cycle_counter = 0;
@@ -71,6 +71,6 @@ void	run_game(t_game *game, t_player **players, t_cursor *cursor)
 	game->num_lives_reported = 0;
 	game->check_counter = 0;
 	if (game->vis)
-		init_visualizer(game, cursor);
+		init_visualizer(game);
 	main_loop(game, cursor);
 }

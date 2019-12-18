@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 16:36:51 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/16 20:20:19 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/18 17:19:04 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ unsigned char *board)
 static void	get_encoding_bits(t_op_args *args, int position, \
 unsigned char *board)
 {
-	int first_arg;
 	int second_arg;
 	int	third_arg;
 

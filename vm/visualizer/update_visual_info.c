@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/09 15:55:05 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/12/16 13:53:11 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/18 17:18:00 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	update_game_info(t_game *game)
 %d", game->delay);
 }
 
-static void	update_player_info(t_game *game, t_cursor *cursor)
+static void	update_player_info(t_game *game)
 {
 	int		player;
 
@@ -112,7 +112,7 @@ void		update_visual_info(t_game *game, t_cursor *cursor)
 	if (ch == '-' && game->delay > 0)
 		game->delay -= 5;
 	update_cursors(game, cursor);
-	update_player_info(game, cursor);
+	update_player_info(game);
 	update_game_info(game);
 	wrefresh(game->visual->info);
 }
