@@ -1,0 +1,37 @@
+SRCS = \
+main.c \
+init_values.c \
+read_input.c \
+parse_player.c \
+check_code_size.c \
+print_functions.c \
+check_for_n_flag.c \
+input_error.c \
+is_flag.c \
+lookup_player.c \
+libft_functions.c \
+byte_to_int.c \
+free_functions.c \
+get_op_args.c \
+check_arg_types.c \
+init_board.c \
+opcode_one.c \
+opcode_two.c \
+opcode_three.c \
+opcode_four.c \
+run_game.c \
+set_wait_cycle.c \
+write_to_board.c \
+kill_cursor.c \
+execute_op.c \
+finish_game.c \
+check.c \
+ft_fits_in_int.c \
+../visualizer/init_visualizer.c \
+../visualizer/update_visual_info.c \
+../visualizer/update_visual_field.c \
+../visualizer/ascii_awesomeness.c \
+../visualizer/print_winner_vis.c \
+../visualizer/check_comment_length.c \
+../visualizer/fireworks.c \
+../visualizer/fireworks_utils.c
