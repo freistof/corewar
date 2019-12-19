@@ -175,4 +175,7 @@ void							print_list(t_list *list);
 
 void							error(char *error_message);
 
+void							free_list(t_list *list);
+t_list							*list_head(t_list *list);
+
 #endif
