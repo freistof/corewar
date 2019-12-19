@@ -1,4 +1,32 @@
 SRCS = \
 main.c \
-input.c \
-save_data.c
+reading/input.c \
+reading/save_data.c \
+reading/save_name_and_comment.c \
+reading/error.c \
+reading/save_instructions.c \
+reading/arguments.c \
+reading/replace_with_spaces.c \
+reading/remove_comments.c \
+reading/arg_direct.c \
+reading/arg_indirect.c \
+reading/arg_register.c \
+reading/save_label.c \
+reading/label_string.c \
+reading/digit_string.c \
+reading/empty_line.c \
+reading/valid_seperators.c \
+reading/valid_instruction.c \
+reading/check_length.c \
+reading/check_end.c \
+reading/check_name_and_comment.c \
+writing/write_data.c \
+writing/magic.c \
+writing/name.c \
+writing/comment.c \
+writing/null.c \
+writing/size.c \
+writing/exec_code.c \
+writing/swap_bits.c \
+writing/write_arguments.c \
+writing/label_direct_value.c

@@ -29,11 +29,10 @@ char			*ft_strnstr(const char *haystack,
 {
 	size_t	i;
 	size_t	j;
-	int		*save;
+	int		save[1];
 
 	i = 0;
 	j = 0;
-	save = (int *)malloc(sizeof(int) * 1);
 	if (ft_strcmp(needle, "") == 0)
 		return ((char *)haystack);
 	while (i < len && haystack[i] != '\0')

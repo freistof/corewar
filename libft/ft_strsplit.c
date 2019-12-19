@@ -23,17 +23,10 @@ static char		**make_temp(char **string, const char *s, char c)
 
 static char		**put_in_string(char *substring, char **string)
 {
-	char	*newsub;
 	int		i;
 
 	i = 0;
-	newsub = ft_strdup(substring);
-	while (substring[i] != '\0')
-	{
-		i++;
-	}
-	newsub[i] = '\0';
-	*string = newsub;
+	*string = substring;
 	return (string += 1);
 }
 

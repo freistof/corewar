@@ -20,13 +20,6 @@
 
 # define BUFF_SIZE 42
 
-typedef struct		s_line
-{
-	char			*string;
-	int				fd;
-	struct s_line	*next;
-}					t_line;
-
 int					get_next_line(const int fd, char **line);
 
 #endif

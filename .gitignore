@@ -56,3 +56,9 @@ dkms.conf
 
 # Emacs
 *~
+
+# Assembler
+*.cor
+
+# Executables
+asm/asm

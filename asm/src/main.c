@@ -12,12 +12,24 @@
 
 #include "asm.h"
 
+/*
+** Main function
+** Gets file descriptor
+** Creates list start in which all instructions and labels will be saved
+** Calls function that will save the data
+** Calls function that will write the data
+*/
+
 int			main(int argc, char **argv)
 {
-	char	*file_content;
+	int		fd;
 	t_list	*list;
+	char	*input_file;
 
-	file_content = input(argc, argv);
-	list = save_data(file_content);
+	fd = input_file_validation(argc, argv);
+	input_file = argv[argc - 1];
+	list = ft_lstnew(NULL, 0);
+	save_data(fd, &list);
+	write_data(list, input_file);
 	return (0);
 }

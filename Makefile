@@ -5,7 +5,34 @@
 #                                                      +:+                     #
 #    By: fblom <marvin@codam.nl>                      +#+                      #
 #                                                    +#+                       #
-#    Created: 2019/10/23 18:58:45 by fblom         #+#    #+#                  #
-#    Updated: 2019/10/23 18:58:45 by fblom         ########   odam.nl          #
+#    Created: 2019/12/16 09:39:37 by fblom         #+#    #+#                  #
+#    Updated: 2019/12/16 09:39:37 by fblom         ########   odam.nl          #
 #                                                                              #
 #******************************************************************************#
+
+LIBPATH = libft/
+PRINTFPATH = $(LIBPATH)ft_printf/
+ASMPATH = asm/
+VMPATH = vm/
+
+all: make
+
+make:
+	make -C $(LIBPATH)
+	make -C $(PRINTFPATH)
+	make -C $(ASMPATH)
+	make -C $(VMPATH)
+
+clean:
+	@make -C $(LIBPATH) clean
+	@make -C $(PRINTFPATH) clean
+	@make -C $(ASMPATH) clean
+	@make -C $(VMPATH) clean
+
+fclean: clean
+	@make -C $(LIBPATH) fclean
+	@make -C $(PRINTFPATH) fclean
+	@make -C $(ASMPATH) fclean
+	@make -C $(VMPATH) fclean
+
+re: fclean all

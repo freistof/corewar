@@ -6,11 +6,11 @@
 /*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/30 16:47:16 by fblom         #+#    #+#                 */
-/*   Updated: 2019/02/15 17:54:29 by fblom         ########   odam.nl         */
+/*   Updated: 2019/01/30 16:47:16 by fblom         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "get_next_line.h"
 
 static int			ft_putandclear(t_line *list, char **line, int ret)
 {
@@ -28,7 +28,10 @@ static int			ft_putandclear(t_line *list, char **line, int ret)
 	*line = ft_strsub(list->string, 0, i);
 	len = ft_strlen(list->string);
 	if (i == 0)
+	{
+		free(*line);
 		*line = ft_strdup("\0");
+	}
 	list->string = ft_memmove(list->string, list->string + i + 1, len - i);
 	((char *)list->string)[len - i] = '\0';
 	if (ret == -3)

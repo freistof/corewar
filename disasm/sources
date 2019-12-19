@@ -1,0 +1,14 @@
+SRCS = \
+main.c \
+input_validation.c \
+disassembler.c \
+error.c \
+magic.c \
+name.c \
+null.c \
+size.c \
+swap_bits.c \
+comment.c \
+exec_code.c \
+arguments.c \
+op.c

@@ -41,6 +41,7 @@ int					ft_isdigit(int c);
 int					ft_isprint(int c);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
+int					ft_isspace(int c);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strequ(char const *s1, char const *s2);
@@ -105,5 +106,6 @@ void				*ft_memrcpy(void *dst, const void *src, size_t n);
 int					get_next_line(const int fd, char **line);
 int					ft_strchrint(const char *s, int c);
 void				ft_putnbr_sign(int n);
+size_t				ft_strlchr(char *s, char c, size_t len);
 
 #endif
