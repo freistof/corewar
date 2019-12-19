@@ -18,6 +18,8 @@ reading/empty_line.c \
 reading/valid_seperators.c \
 reading/valid_instruction.c \
 reading/check_length.c \
+reading/check_end.c \
+reading/check_name_and_comment.c \
 writing/write_data.c \
 writing/magic.c \
 writing/name.c \

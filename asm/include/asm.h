@@ -134,6 +134,9 @@ int								empty_line(char *content);
 int								valid_seperators(char *content, int arg_no);
 int								valid_instruction(char c);
 void							check_length(int type, char *string);
+void							check_end(char *content, int i, int len);
+void							check_name_and_comment(char *c, t_list *i,\
+										int *name, int *comment);
 
 /*
 ** WRITING
