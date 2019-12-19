@@ -12,6 +12,19 @@
 
 #include "asm.h"
 
+void		free_list(t_list *list)
+{
+	t_list	*temp;
+
+	while (list)
+	{
+		free(list->content);
+		temp = list;
+		list = list->next;
+		free(temp);
+	}
+}
+
 /*
 ** Main function
 ** Gets file descriptor
@@ -31,5 +44,6 @@ int			main(int argc, char **argv)
 	list = ft_lstnew(NULL, 0);
 	save_data(fd, &list);
 	write_data(list, input_file);
+	free_list(list);
 	return (0);
 }
