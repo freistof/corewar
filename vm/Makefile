@@ -12,7 +12,7 @@
 
 include sources
 
-BINARY = corewar
+BINARY = ../corewar
 HEADER = -I include/ -I ../libft/
 SRC_PATH = src/
 SRCS := ${addprefix $(SRC_PATH), $(SRCS)}

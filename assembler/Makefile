@@ -12,7 +12,7 @@
 
 include sources
 
-BINARY = asm
+BINARY = ../asm
 HEADER = -I include/ -I ../libft/ -I ../resources/
 SRC_PATH = src/
 OBJ = $(SRCS:%.c=%.o)
