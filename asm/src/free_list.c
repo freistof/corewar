@@ -24,4 +24,3 @@ void		free_list(t_list *list)
 		free(temp);
 	}
 }
-

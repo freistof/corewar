@@ -18,5 +18,5 @@ t_list			*list_head(t_list *list)
 
 	if (!head)
 		head = list;
-	return (head);	
+	return (head);
 }
