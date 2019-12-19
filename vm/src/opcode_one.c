@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 13:38:55 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/18 17:24:42 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/19 13:28:58 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void		op_live(t_game *game, t_cursor *cursor)
 	{
 		game->last_reported_live = arg * -1;
 		game->players[arg * -1 - 1]->last_reported_live = game->cycle_counter;
-		if (!game->vis)
+		if (!game->vis && game->silent == false)
 			ft_printf("A process shows that player[%d] %s is alive.\n", \
-		game->players[arg * -1 - 1]->id, game->players[arg * -1 - 1]->name);
+			game->players[arg * -1 - 1]->id, game->players[arg * -1 - 1]->name);
 	}
 	cursor->jump = 5;
 }

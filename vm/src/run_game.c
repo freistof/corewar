@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 19:05:30 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/18 17:21:33 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/19 13:21:15 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,10 @@ void	check_cursor(t_game *game, t_cursor *cursor)
 void	main_loop(t_game *game, t_cursor *cursor)
 {
 	int x;
-	int	cursor_c;
 
 	while (1)
 	{
 		x = 0;
-		cursor_c = game->num_cursors;
 		if (game->cycle_counter == game->dump)
 		{
 			hex_dump(game->board);

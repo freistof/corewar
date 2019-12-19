@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 13:06:30 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/17 11:59:34 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/19 13:40:00 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void		usage(void)
 	ft_putstr(USAGE4);
 	ft_putstr(USAGE5);
 	ft_putstr(USAGE6);
+	ft_putstr(USAGE7);
 	exit(1);
 }
 

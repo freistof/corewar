@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/12 14:00:13 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/13 18:00:37 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/19 13:28:25 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,15 @@ static int		check_dump_or_delay(char **argv, int argc, int *x, t_game *game)
 	return (0);
 }
 
+static int		check_v_or_silent(char **argv, int *x, t_game *game)
+{
+	if (ft_strequ(argv[*x], "-s"))
+		game->silent = true;
+	else if (ft_strequ(argv[*x], "-v"))
+		game->vis = true;
+	return (1);
+}
+
 /*
 ** Checks whether arg is a flag (-n handled on 2nd loop through)
 */
@@ -60,11 +69,8 @@ int				is_flag(char **argv, int argc, int *x, t_game *game)
 				return (1);
 			}
 		}
-		else if (ft_strequ(argv[*x], "-v"))
-		{
-			game->vis = true;
-			return (1);
-		}
+		else if (ft_strequ(argv[*x], "-v") || ft_strequ(argv[*x], "-s"))
+			return (check_v_or_silent(argv, x, game));
 		else if (argv[*x][0] == '-')
 		{
 			ft_putstr_fd("ERROR: Incorrect flag.\n\n", 2);

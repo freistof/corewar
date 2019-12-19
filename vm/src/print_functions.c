@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 17:25:21 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/16 14:55:17 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/19 13:33:03 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ void	hex_dump(unsigned char *board)
 		ft_printf("%02x \033[0m", board[x]);
 		x++;
 	}
-	NL;
+	ft_printf("\n");
 }

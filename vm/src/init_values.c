@@ -6,7 +6,7 @@
 /*   By: rcorke <rcorke@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 12:46:23 by rcorke         #+#    #+#                */
-/*   Updated: 2019/12/11 18:14:03 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/19 13:26:21 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	init_game(t_game *game)
 	game->num_players = 0;
 	game->vis = false;
 	game->delay = 50;
+	game->silent = false;
 }
 
 void	init_players(t_player **players)

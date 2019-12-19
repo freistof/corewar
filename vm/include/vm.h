@@ -6,7 +6,7 @@
 /*   By: lvan-vlo <lvan-vlo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/01 12:39:27 by lvan-vlo       #+#    #+#                */
-/*   Updated: 2019/12/18 17:21:30 by rcorke        ########   odam.nl         */
+/*   Updated: 2019/12/19 13:39:38 by rcorke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,13 @@
 # include "../../libft/libft.h"
 # include "../../libft/ft_printf/ft_printf.h"
 
-# define USAGE1 "Usage: ./corewar [-dump N -n N -v -t N] <champion1.cor> <...>"
-# define USAGE2 "\n\nFLAGS:\n-dump N:\tDumps memory after N cycles then exits"
-# define USAGE3 "\n-n N:\t\tSets player id\n"
+# define USAGE1 "Usage: ./corewar [-dump N -n N -v -t N -s] <champion1.cor> <."
+# define USAGE2 "..>\n\nFLAGS:\n-dump N:\tDumps memory after N cycles then "
+# define USAGE3 "exits\n-n N:\t\tSets player id\n"
 # define USAGE4 "-v:\t\tVisualizer\n"
 # define USAGE5 "-t N:\t\tSets delay time (ms) between cycles for visualizer "
 # define USAGE6 "if -v is activated (0 <= N < MAX_INT).\n"
+# define USAGE7 "-s:\t\tSilent mode (blocks live calls)\n"
 
 # define MAX_PLAYERS			4
 # define MEM_SIZE				(4*1024)
@@ -60,8 +61,6 @@
 
 # define MIN_LONG_STR "-9223372036854775808"
 # define MAX_LONG_STR "9223372036854775807"
-# define HERE ft_putstr("here\n")
-# define NL ft_putchar('\n')
 
 # define ARG_NOTHING 0
 # define ARG_REG 1
@@ -126,6 +125,7 @@ typedef struct		s_game
 	unsigned char	*board;
 	long			dump;
 	bool			vis;
+	bool			silent;
 	long			delay;
 	int				cycle_counter;
 	int				cycles_to_die;
