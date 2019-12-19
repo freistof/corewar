@@ -12,8 +12,6 @@
 
 #include "asm.h"
 
-#include <limits.h>
-
 void	write_direct_big(t_op *instruction, int arg, int fd, t_list **head)
 {
 	unsigned long long argument;
