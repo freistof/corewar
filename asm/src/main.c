@@ -29,7 +29,9 @@ int			main(int argc, char **argv)
 	fd = input_file_validation(argc, argv);
 	input_file = argv[argc - 1];
 	list = ft_lstnew(NULL, 0);
+	list_head(list);
 	save_data(fd, &list);
 	write_data(list, input_file);
+	free_list(list);
 	return (0);
 }

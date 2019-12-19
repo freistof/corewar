@@ -1,5 +1,7 @@
 SRCS = \
 main.c \
+list_head.c \
+free_list.c \
 reading/input.c \
 reading/save_data.c \
 reading/save_name_and_comment.c \

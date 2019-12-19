@@ -22,6 +22,7 @@ void	write_direct_big(t_op *instruction, int arg, int fd, t_list **head)
 			head, instruction->position);
 		argument = swap_bits(argument);
 		write(fd, &argument, 4);
+		free(instruction->argvalues[arg].label);
 	}
 	else
 	{
@@ -41,6 +42,7 @@ void	write_direct_small(t_op *instruction, int arg, int fd, t_list **head)
 			head, instruction->position);
 		s_arg = swap_bits_two_byte(s_arg);
 		write(fd, &s_arg, 2);
+		free(instruction->argvalues[arg].label);
 	}
 	else
 	{

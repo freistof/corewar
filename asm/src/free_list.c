@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   error.c                                            :+:    :+:            */
+/*   free_list.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: fblom <marvin@codam.nl>                      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/21 15:01:58 by fblom         #+#    #+#                 */
-/*   Updated: 2019/11/21 15:01:58 by fblom         ########   odam.nl         */
+/*   Created: 2019/12/19 14:44:27 by fblom         #+#    #+#                 */
+/*   Updated: 2019/12/19 14:44:27 by fblom         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void		error(char *error_message)
+void		free_list(t_list *list)
 {
-	free_list(list_head(NULL));
-	ft_printf("%s\n", error_message);
-	exit(1);
+	t_list	*temp;
+
+	while (list->next)
+	{
+		free(list->content);
+		temp = list;
+		list = list->next;
+		free(temp);
+	}
 }
