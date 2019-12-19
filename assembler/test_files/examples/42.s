@@ -1,10 +1,12 @@
-.name           "42"
-.comment        "Just a basic Winner Program"
+.comment      "Just a basic" 
+				.name "Winner Program"
 
 entree:	live	%42		# entree
 	ld	%0,r5
 	ld	%0,r5
 	zjmp	%:bite
+
+# .comment:
 
 tir:	sti	r1,%:tirb,%1
 	ld	%2304,r10
@@ -23,9 +25,11 @@ tirf:	live	%42
 	sti	r10,%-510,%0
 	sti	r10,%-404,%0
 	sti	r10,%-303,%0
-	sti	r10,%-202,%0
-	ld	%0,r11
+	sti	r10,%2231231231232,%0
+	hoi: ld	%0,r11
 	zjmp	%:tirf
+
+tirb:
 
 tirop:	ld	%368,r2
 	ld	%0,r3
@@ -35,13 +39,14 @@ tirb:	live	%1
 	sti	r10,%-510,r2
 	sti	r10,%-510,r3
 	add	r4,r5,r4
-	add	r3,r4,r3
+	tirb:add	r3,r4,r3
 	sub	r2,r4,r2
 	zjmp	%:tirop
 	ld	%0,r11
 	zjmp	%:tirb
 	zjmp	%:infi
 
+tirb:
 p32deb:	zjmp	%0
 	zjmp	%0
 	zjmp	%0
@@ -51,7 +56,7 @@ p32deb:	zjmp	%0
 	zjmp	%0
 	zjmp	%0
 	zjmp	%0
-	zjmp	%0
+	zjmp						%0
 
 	zjmp	%0
 	zjmp	%0
@@ -59,19 +64,28 @@ p32deb:	zjmp	%0
 	zjmp	%0
 	zjmp	%0
 	zjmp	%0
-	zjmp	%0
+	zjmp	%023123
 	zjmp	%0
 
+add:
+live: 
+sub:
 p32:	sub	r6,r4,r6
 	add	r6,r6,r11
 	ldi	%:p32deb,r6,r7
 	sti	r7,%-510,r11
 p32li:	live	%1
 	ld	%0,r10
-	sti	r7,%-250,r6
+	sti	r7,%-250           , r6
 	zjmp	%-192
 
-tirvd:	zjmp	%:tirvd2
+tirvd:
+gui:
+ahoi:
+alska:
+
+aksfad:
+	zjmp	%:tirvd2
 
 bite:	sti     r1,%:copie,%2
         ldi     %:copie,%3,r2   # met le ld a l'entree
@@ -90,11 +104,11 @@ bite:	sti     r1,%:copie,%2
 b0:	live	%1		# boucle fork
 	sub	r3,r4,r3
 	zjmp	%:tart
-	fork	%:b1
+	fork	%:b1 ;sadfad
 	st	r5,r2
 	xor	r10,r10,r10	# pour rien
 	add	r10,r10,r10	# pour rien
-	add	r6,r6,r6
+	add	r1,r9,r6
 	ld	%0,r10
 	zjmp	%:b0
 b1:	add	r2,r4,r2
@@ -103,14 +117,16 @@ b1:	add	r2,r4,r2
 	ld	%0,r10
 	zjmp	%:b0
 
+p32deb:
 
 top:	live	%42
 	ld	%9,r3
 	sti	r3,%:p32deb,%-6
 	ld	%2,r3
-	sti	r3,%:p32deb,%-16
+	sti	r3,%:p32deb,%16123912830918
 	ld	%0,r3
 	zjmp	%:topd
+
 
 
 infi:	sti	r1,%:l0,%1

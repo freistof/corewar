@@ -12,7 +12,7 @@
 
 include sources
 
-BINARY = disasm
+BINARY = ../disasm
 HEADER = -I include/ -I ../libft/ -I ../resources/
 SRC_PATH = src/
 OBJ = $(SRCS:%.c=%.o)
