@@ -30,13 +30,13 @@ clean:
 	@make -C $(PRINTFPATH) clean
 	@make -C $(ASMPATH) clean
 	@make -C $(VMPATH) clean
-	@make -C $(DISPATH)
+	@make -C $(DISPATH) clean
 
 fclean: clean
 	@make -C $(LIBPATH) fclean
 	@make -C $(PRINTFPATH) fclean
 	@make -C $(ASMPATH) fclean
 	@make -C $(VMPATH) fclean
-	@make -C $(DISPATH)
+	@make -C $(DISPATH) fclean
 
 re: fclean all
