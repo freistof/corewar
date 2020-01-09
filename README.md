@@ -2,14 +2,22 @@
 
 ## Project
 
+```
 Corewar is the final pre-internship project in my studies at Codam Coding College. The goal is to recode the 1984 programming game "Core War". In this program 'champions' battle over taking control of the virtual machine. Champions are writtenin assembly language and assembled by the assembler (making which is also part of the project)
+```
 
 ### The project has different parts:
-```- The virtual machine
+```
+- The virtual machine
 - The assembler
 - The disassembler (bonus)
 - The visualiser (bonus)
-- Champion```
+- Champion
+```
+
+### Installation
+
+Clone the repo and run ```make```
 
 ### Usage
 
