@@ -15,12 +15,12 @@ Corewar is the final pre-internship project in my studies at Codam Coding Colleg
 
 #### Assembler
 
-> ./asm <champioin.s>
+```./asm <champioin.s>```
 
 #### Disassembler
 
-> ./disasm <champioin.cor>
+```./disasm <champioin.cor>```
 
 #### Virtual Machine
 
-> ./corewar [-dump N -n N -v -t N -s] <champion1.cor> <...>
+```./corewar [-dump N -n N -v -t N -s] <champion1.cor> <...>```
