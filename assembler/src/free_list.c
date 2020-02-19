@@ -23,4 +23,6 @@ void		free_list(t_list *list)
 		list = list->next;
 		free(temp);
 	}
+	free(list->content);
+	free(list);
 }
