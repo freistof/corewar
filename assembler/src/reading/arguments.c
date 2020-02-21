@@ -103,6 +103,7 @@ int			check_arguments(t_list *item, char *content)
 	int		arg_no;
 	int		i;
 	char	**argsplit;
+	int		argcount;
 
 	arg_no = (((t_op *)(item->content))->number_of_arguments);
 	remove_comments(content);
@@ -115,7 +116,8 @@ int			check_arguments(t_list *item, char *content)
 	else
 		error(INCORRECT_ARG_COUNT);
 	i = 0;
-	while (argsplit[i])
+	argcount = ft_substring_count(content, ARG_SEPERATOR);
+	while (i < argcount)
 	{
 		free(argsplit[i]);
 		i++;
