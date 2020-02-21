@@ -12,6 +12,19 @@
 
 #include "asm.h"
 
+static void free_split(char ***argsplit, unsigned int argcount)
+{
+	unsigned int i;
+
+	i = 0;
+	while (i < argcount)
+	{
+		free((*argsplit)[i]);
+		i++;
+	}
+	free(*argsplit);
+}
+
 static void	save_argument_value(char *argument, int type, t_list *item, int i)
 {
 	char	*trimmed;
@@ -82,13 +95,13 @@ static int	valid_argument_count(char **argsplit, int arg_no)
 	return (0);
 }
 
-static char	**trim_split(char **argsplit)
+static char	**trim_split(char **argsplit, unsigned int argcount)
 {
-	int		i;
-	char	*temp;
+	unsigned int		i;
+	char				*temp;
 
 	i = 0;
-	while (argsplit[i])
+	while (i < argcount)
 	{
 		temp = ft_strtrim(argsplit[i]);
 		free(argsplit[i]);
@@ -101,27 +114,19 @@ static char	**trim_split(char **argsplit)
 int			check_arguments(t_list *item, char *content)
 {
 	int		arg_no;
-	int		i;
 	char	**argsplit;
 	int		argcount;
 
 	arg_no = (((t_op *)(item->content))->number_of_arguments);
 	remove_comments(content);
 	argsplit = ft_strsplit(content, ARG_SEPERATOR);
-	argsplit = trim_split(argsplit);
-	i = 0;
+	argcount = ft_substring_count(content, ARG_SEPERATOR);
+	argsplit = trim_split(argsplit, argcount);
 	if (valid_argument_count(argsplit, arg_no) &&\
 		valid_seperators(content, arg_no))
 		valid_argument(argsplit, item);
 	else
 		error(INCORRECT_ARG_COUNT);
-	i = 0;
-	argcount = ft_substring_count(content, ARG_SEPERATOR);
-	while (i < argcount)
-	{
-		free(argsplit[i]);
-		i++;
-	}
-	free(argsplit);
+	free_split(&argsplit, argcount);
 	return (1);
 }
